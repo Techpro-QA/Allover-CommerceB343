@@ -10,7 +10,6 @@ public class VendorRegistrationPage {
         PageFactory.initElements(Driver.getDriver(),this);
     }
 
-    //password
     @FindBy(xpath = "//a[@class='register inline-type']")
     public WebElement registerButton;
 
@@ -40,7 +39,6 @@ public class VendorRegistrationPage {
 
     @FindBy(xpath = "//div[.='Good']")
     public WebElement goodTextBox;
-
 
     @FindBy(xpath = "//div[.='Strong']")
     public WebElement strongTextBox;
