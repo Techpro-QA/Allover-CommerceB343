@@ -13,11 +13,20 @@ import utilities.ReusableMethods;
 public class StrongTest {
     @Test
     public void strongTest() {
+
         ExtentReportsListener.extentTestInfo("Allover Commerce sayfasina gidilir");
+
+        //siteye gidilir
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
+
         VendorRegistrationPage alloverCommercePage = new VendorRegistrationPage();
+
+        //register butonuna tiklanir
         alloverCommercePage.registerButton.click();
+
+        //Acilan popup formunda Signup as a vendor? a tiklanir
         alloverCommercePage.signupAsAVendorButton.click();
+
         Faker faker = new Faker();
         Actions action = new Actions(Driver.getDriver());
 
@@ -25,14 +34,25 @@ public class StrongTest {
         action.scrollToElement(alloverCommercePage.vendorRegistrationRegisterButton).perform();
 
         ExtentReportsListener.extentTestInfo("Email girisi yapilir");
+
+        //Email icin gecerli bir data girilir
         ReusableMethods.sendKeysJS(alloverCommercePage.vendorRegistrationEmailTextBox, faker.internet().emailAddress());
+
+        //RE-SEND CODE a tiklanir
         alloverCommercePage.resendCodeButton.click();
+
         ExtentReportsListener.extentTestInfo("Password girisi yapilir");
+
+        //Password icin gecerli bir data girilir
         action.sendKeys(alloverCommercePage.vendorRegistrationPasswordTextBox, "Emre57*").perform();
+
         ExtentReportsListener.extentTestInfo("Password 'Strong' uyarısı doğrulanıyor");
         Assert.assertTrue(alloverCommercePage.strongTextBox.isDisplayed());
 
+        //Confirm Password alanına, Password alanına yazılan şifrenin aynısı yazılır.
         action.sendKeys(alloverCommercePage.vendorRegistrationConfirmPasswordTextBox, "Emre57*").perform();
+
+        // Driver kapatılır
         Driver.quitDriver();
 
     }

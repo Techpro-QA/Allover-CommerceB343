@@ -15,10 +15,18 @@ public class TooShortTest {
     public void tooShortText() {
 
         ExtentReportsListener.extentTestInfo("Allover Commerce sayfasina gidilir");
+
+        // siteye gidilir
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
+
         VendorRegistrationPage alloverCommercePage = new VendorRegistrationPage();
+
+        // register butonuna tiklanir
         alloverCommercePage.registerButton.click();
+
+        // Acilan popup formunda Signup as a vendor? a tiklanir
         alloverCommercePage.signupAsAVendorButton.click();
+
         Faker faker = new Faker();
         Actions action = new Actions(Driver.getDriver());
 
@@ -26,19 +34,26 @@ public class TooShortTest {
         action.scrollToElement(alloverCommercePage.vendorRegistrationRegisterButton).perform();
 
         ExtentReportsListener.extentTestInfo("Email girisi yapilir");
+
+        // Email icin gecerli bir data girilir
         ReusableMethods.sendKeysJS(alloverCommercePage.vendorRegistrationEmailTextBox, faker.internet().emailAddress());
+
+        // RE-SEND CODE a tiklanir
         alloverCommercePage.resendCodeButton.click();
+
         ExtentReportsListener.extentTestInfo("Password girisi yapilir");
+
+        // Password icin kısa bir data girilir
         action.sendKeys(alloverCommercePage.vendorRegistrationPasswordTextBox, "Emre1").perform();
+
         ExtentReportsListener.extentTestInfo("Password 'Too short' uyarısı doğrulanıyor");
         Assert.assertTrue(alloverCommercePage.tooShortTextBox.isDisplayed());
 
+        // Confirm Password alanına, Password alanına yazılan şifrenin aynısı yazılır
         action.sendKeys(alloverCommercePage.vendorRegistrationConfirmPasswordTextBox, "Emre1").perform();
+
+        // Driver kapatılır
         Driver.quitDriver();
-
-
-        //alloverCommercePage.vendorRegistrationRegisterButton.click();
-        //siteye kayit mümkün olamadigindan dolayi hata veriyor
 
     }
 }
