@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite" >
+    <listeners>
+        <listener class-name="utilities.ExtentReportsListener"></listener>
+    </listeners>
+    <test verbose="2" preserve-order="true"
+          name="Password Strength Tests">
+        <classes>
+            <class name="Tests.US_10.TooShortTest"></class>
+            <class name="Tests.US_10.WeakTest"></class>
+            <class name="Tests.US_10.GoodTest"></class>
+            <class name="Tests.US_10.StrongTest"></class>
+        </classes>
+    </test>
+</suite>
