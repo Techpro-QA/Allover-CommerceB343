@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="AlloverCommerce_Project" parallel="methods" thread-count="4">
+    <listeners>
+        <listener class-name="utilities.ExtentReportsListener"></listener>
+    </listeners>
+    <test verbose="2" preserve-order="true"
+          name="US011_VendorLoginAndDashboardTests">
+        <classes>
+            <class name="tests_userstory_11.VendorAuthenticationTests">
+                <methods>
+                    <include name="testVendorSuccessfulLogin"/>
+                    <include name="testLogin_Validation_InvalidEmailFormat"/>
+                    <include name="testLogin_Validation_InvalidEmail"/>
+                    <include name="testLogin_Validation_InvalidPassword"/>
+                    <include name="testLogin_Validation_EmptyEmail"/>
+                    <include name="testLogin_Validation_EmptyPassword"/>
+                </methods>
+            </class>
+            <class name="tests_userstory_11.VendorDashboardNavigationTests">
+                <methods>
+                    <include name="testDashboardMenusVisibility"/>
+                    <include name="testAddressMenu"/>
+                    <include name="testStoreManagerMenu"/>
+                    <include name="testOrdersMenu"/>
+                    <include name="testDownloadsMenu"/>
+                    <include name="testAccountDetailsMenu"/>
+                    <include name="testWishlistMenu"/>
+                    <include name="testSupportTicketsMenu"/>
+                    <include name="testFollowingsMenu"/>
+                    <include name="testLogoutButton"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
