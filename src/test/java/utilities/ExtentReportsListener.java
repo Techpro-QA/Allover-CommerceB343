@@ -18,7 +18,7 @@ import java.util.Map;
 public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAnnotationTransformer {
     private static ExtentReports extentReports;
     private static ExtentHtmlReporter extentHtmlReporter;
-    private static ExtentTest extentTest;
+    public static ExtentTest extentTest;
     /**
      * onstart==> Tum testlerden once tek bir kez cagrilir
      * Böylece icine yazdigimiz kodlar sayesinde test başladığında raporlama baslatilir.

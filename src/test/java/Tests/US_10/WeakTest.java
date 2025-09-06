@@ -2,6 +2,7 @@ package Tests.US_10;
 
 import Pages.VendorRegistrationPage;
 import com.github.javafaker.Faker;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -10,9 +11,15 @@ import utilities.Driver;
 import utilities.ExtentReportsListener;
 import utilities.ReusableMethods;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class WeakTest {
     @Test
-    public void weakTest() {
+    public void weakTest() throws IOException {
 
         ExtentReportsListener.extentTestInfo("Allover Commerce sayfasina gidilir");
 
@@ -48,6 +55,14 @@ public class WeakTest {
 
         ExtentReportsListener.extentTestInfo("Password 'Weak' uyarısı doğrulanıyor");
         Assert.assertTrue(alloverCommercePage.weakTextBox.isDisplayed());
+
+        //Weak texti ekran görüntüsü reporta ekleniyor
+        Files.createDirectories(Paths.get("target/screenShots"));
+        String date = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss").format(LocalDateTime.now());
+        String path = "target/screenShots/weakTextBox_" + date + ".jpeg";
+        Files.write(Paths.get(path), alloverCommercePage.weakTextBox.getScreenshotAs(OutputType.BYTES));
+        ExtentReportsListener.extentTest.addScreenCaptureFromPath(System.getProperty("user.dir") + "/" + path);
+
 
         // Confirm Password alanına, Password alanına yazılan şifrenin aynısı yazılır
         action.sendKeys(alloverCommercePage.vendorRegistrationConfirmPasswordTextBox, "Emremm").perform();
