@@ -70,4 +70,13 @@ public class JSUtils {
         System.out.println(value);
         return value;
     }
+    /**
+     * Belirtilen input elementinin tarayıcı doğrulama mesajını döner.
+     * @param webElement Doğrulama mesajı alınacak WebElement.
+     * @return Tarayıcı tarafından gösterilen validation mesajı.
+     */
+    public static String JSgetValidationMessage(WebElement webElement) {
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+        return js.executeScript("return arguments[0].validationMessage;", webElement).toString();
+    }
 }
