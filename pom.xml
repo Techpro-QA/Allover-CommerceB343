@@ -66,16 +66,7 @@
             <version>2.0.17</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>4.25.0</version> <!-- En güncelini kontrol edin -->
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-devtools-v129</artifactId>
-            <version>4.25.0</version>
-        </dependency>
+
 
     </dependencies>
 
