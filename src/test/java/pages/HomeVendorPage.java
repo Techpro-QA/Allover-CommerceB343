@@ -6,8 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 import utilities.Driver;
 
 public class HomeVendorPage {
-    public HomeVendorPage(){
-        PageFactory.initElements(Driver.getDriver(),this);
+    public HomeVendorPage(){PageFactory.initElements(Driver.getDriver(),this);
     }
     @FindBy(id = "username")
     public WebElement username;
