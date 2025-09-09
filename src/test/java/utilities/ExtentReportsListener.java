@@ -18,7 +18,13 @@ import java.util.Map;
 public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAnnotationTransformer {
     private static ExtentReports extentReports;
     private static ExtentHtmlReporter extentHtmlReporter;
-    public static ExtentTest extentTest;
+    // private static ExtentTest extentTest;
+    private static ThreadLocal<ExtentTest> extentTest = new ThreadLocal<>();
+
+    public static ExtentTest getExtentTest() {
+        return extentTest.get();
+    }
+
     /**
      * onstart==> Tum testlerden once tek bir kez cagrilir
      * Böylece icine yazdigimiz kodlar sayesinde test başladığında raporlama baslatilir.
@@ -44,7 +50,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             // Bu HTML raporunda görmek isteyebileceğimiz diğer bilgileri aşağıdaki şekilde ekleyebiliriz
             extentReports.setSystemInfo("<span style='color:blue; font-weight:bold'><i class='fa fa-server'></i> Environment:</span>", " QA");
             extentReports.setSystemInfo("<span style='color:green; font-weight:bold'><i class='fa fa-chrome'></i> Browser:</span>", " Chrome");
-            extentReports.setSystemInfo("<span style='color:purple; font-weight:bold'><i class='fa fa-user'></i> Test Automation Engineer:</span>", " Havva B.AVCI");
+            extentReports.setSystemInfo("<span style='color:purple; font-weight:bold'><i class='fa fa-user'></i> Test Automation Engineer:</span>", " Ali Can");
         }
     }
     /**
@@ -61,14 +67,14 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         String testName = result.getMethod().getMethodName();
         String description = result.getMethod().getDescription(); // Metod açıklamasını kullanarak description alıyoruz
         try {
-            extentTest = extentReports.createTest(
+            extentTest.set(extentReports.createTest(
                     "<span style='color:blue; font-weight:bold'> " + testName + " </span>",
-                    "<span style='color:blue; font-weight:bold'> " + description + " </span>");
+                    "<span style='color:blue; font-weight:bold'> " + description + " </span>"));
         } catch (Exception e) {
             // Metod açıklamasını kullanarak description eklenmez ise nullPointer almamak icin method ismini rapora ekliyoruz
-            extentTest = extentReports.createTest(
+            extentTest.set(extentReports.createTest(
                     "<span style='color:blue; font-weight:bold'> " + testName + " </span>",
-                    "<span style='color:blue; font-weight:bold'> " + result.getName() + " </span>");
+                    "<span style='color:blue; font-weight:bold'> " + result.getName() + " </span>"));
         }
     }
 
@@ -103,7 +109,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             TakesScreenshot ts = (TakesScreenshot) Driver.getDriver();
             String date = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss").format(LocalDateTime.now());
             Files.write(Paths.get("target/screenShots/image " + date + ".jpeg"), ts.getScreenshotAs(OutputType.BYTES));
-            extentTest.addScreenCaptureFromPath(System.getProperty("user.dir") + "/target/screenShots/image " + date + ".jpeg");
+            extentTest.get().addScreenCaptureFromPath(System.getProperty("user.dir") + "/target/screenShots/image " + date + ".jpeg");
             // hata alindigi icin Açık kalan browseri WebDriver örneğini kapatıyoruz.
             Driver.quitDriver();
         } catch (IOException e) {
@@ -126,15 +132,15 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         // Skip mesajı ekleme
         String skipIsareti = "<img src='URL_TO_IMAGE' alt='skip_icon' style='width:16px;height:16px;'>";  // Simge olarak resim ekleniyor
         String message = "<span style='color:orange; font-weight:bold'> Hata nedeniyle Test atlandı! \n" + result.getName() + " testi tekrar calistirilacak</span>" + skipIsareti;
-        if (extentTest != null) {
-            extentTest.skip(message);
+        if (extentTest.get() != null) {
+            extentTest.get().skip(message);
         }
         try {
             Files.createDirectories(Paths.get("target/screenShots"));
             TakesScreenshot ts = (TakesScreenshot) Driver.getDriver();
             String date = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss").format(LocalDateTime.now());
             Files.write(Paths.get("target/screenShots/image " + date + ".jpeg"), ts.getScreenshotAs(OutputType.BYTES));
-            extentTest.addScreenCaptureFromPath(System.getProperty("user.dir") + "/target/screenShots/image " + date + ".jpeg");
+            extentTest.get().addScreenCaptureFromPath(System.getProperty("user.dir") + "/target/screenShots/image " + date + ".jpeg");
             // hata alindigi icin Açık kalan browseri WebDriver örneğini kapatıyoruz.
             Driver.quitDriver();
         } catch (IOException e) {
@@ -154,14 +160,14 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         }
     }
 
-      /**
+    /**
      * Test başarılı olduğunda çalışacak metod.
      *
      * @param message Başarılı test mesajı
      */
     public static void extentTestPass(String message) {
-        if (extentTest != null) {
-            extentTest.pass(message);
+        if (extentTest.get() != null) {
+            extentTest.get().pass(message);
         }
     }
     /**
@@ -170,8 +176,8 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
      * @param message Başarısız test mesajı
      */
     public static void extentTestFail(String message) {
-        if (extentTest != null) {
-            extentTest.fail(message);
+        if (extentTest.get() != null) {
+            extentTest.get().fail(message);
         }
     }
     /**
@@ -180,8 +186,8 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
      * @param message Test bilgi mesajı
      */
     public static void extentTestInfo(String message) {
-        if (extentTest != null) {
-            extentTest.info(message);
+        if (extentTest.get() != null) {
+            extentTest.get().info(message);
         }
     }
     /**

@@ -1,4 +1,4 @@
-package Tests.US_10;
+package Tests.US_6;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class US10ScreenUtils {
+public class US6ScreenUtils {
 
     /**
      * US_10 testi için ekran görüntüsü alır ve ExtentReport'a ekler.
@@ -27,6 +27,7 @@ public class US10ScreenUtils {
 
             // Burada getter kullanıyoruz
             ExtentReportsListener.getExtentTest().addScreenCaptureFromPath(System.getProperty("user.dir") + "/" + path);
+
 
         } catch (Exception e) {
             e.printStackTrace();
