@@ -1,17 +1,11 @@
 package utilities;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.MediaEntityBuilder;
-import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.testng.*;
 import org.testng.annotations.ITestAnnotation;
-
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -24,13 +18,7 @@ import java.util.Map;
 public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAnnotationTransformer {
     private static ExtentReports extentReports;
     private static ExtentHtmlReporter extentHtmlReporter;
-    // private static ExtentTest extentTest;
-    private static ThreadLocal<ExtentTest> extentTest = new ThreadLocal<>();
-
-    public static ExtentTest getExtentTest() {
-        return extentTest.get();
-    }
-
+    private static ExtentTest extentTest;
     /**
      * onstart==> Tum testlerden once tek bir kez cagrilir
      * Böylece icine yazdigimiz kodlar sayesinde test başladığında raporlama baslatilir.
@@ -73,14 +61,14 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         String testName = result.getMethod().getMethodName();
         String description = result.getMethod().getDescription(); // Metod açıklamasını kullanarak description alıyoruz
         try {
-            extentTest.set(extentReports.createTest(
+            extentTest = extentReports.createTest(
                     "<span style='color:blue; font-weight:bold'> " + testName + " </span>",
-                    "<span style='color:blue; font-weight:bold'> " + description + " </span>"));
+                    "<span style='color:blue; font-weight:bold'> " + description + " </span>");
         } catch (Exception e) {
             // Metod açıklamasını kullanarak description eklenmez ise nullPointer almamak icin method ismini rapora ekliyoruz
-            extentTest.set(extentReports.createTest(
+            extentTest = extentReports.createTest(
                     "<span style='color:blue; font-weight:bold'> " + testName + " </span>",
-                    "<span style='color:blue; font-weight:bold'> " + result.getName() + " </span>"));
+                    "<span style='color:blue; font-weight:bold'> " + result.getName() + " </span>");
         }
     }
 
@@ -115,7 +103,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             TakesScreenshot ts = (TakesScreenshot) Driver.getDriver();
             String date = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss").format(LocalDateTime.now());
             Files.write(Paths.get("target/screenShots/image " + date + ".jpeg"), ts.getScreenshotAs(OutputType.BYTES));
-            extentTest.get().addScreenCaptureFromPath(System.getProperty("user.dir") + "/target/screenShots/image " + date + ".jpeg");
+            extentTest.addScreenCaptureFromPath(System.getProperty("user.dir") + "/target/screenShots/image " + date + ".jpeg");
             // hata alindigi icin Açık kalan browseri WebDriver örneğini kapatıyoruz.
             Driver.quitDriver();
         } catch (IOException e) {
@@ -138,15 +126,15 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         // Skip mesajı ekleme
         String skipIsareti = "<img src='URL_TO_IMAGE' alt='skip_icon' style='width:16px;height:16px;'>";  // Simge olarak resim ekleniyor
         String message = "<span style='color:orange; font-weight:bold'> Hata nedeniyle Test atlandı! \n" + result.getName() + " testi tekrar calistirilacak</span>" + skipIsareti;
-        if (extentTest.get() != null) {
-            extentTest.get().skip(message);
+        if (extentTest != null) {
+            extentTest.skip(message);
         }
         try {
             Files.createDirectories(Paths.get("target/screenShots"));
             TakesScreenshot ts = (TakesScreenshot) Driver.getDriver();
             String date = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss").format(LocalDateTime.now());
             Files.write(Paths.get("target/screenShots/image " + date + ".jpeg"), ts.getScreenshotAs(OutputType.BYTES));
-            extentTest.get().addScreenCaptureFromPath(System.getProperty("user.dir") + "/target/screenShots/image " + date + ".jpeg");
+            extentTest.addScreenCaptureFromPath(System.getProperty("user.dir") + "/target/screenShots/image " + date + ".jpeg");
             // hata alindigi icin Açık kalan browseri WebDriver örneğini kapatıyoruz.
             Driver.quitDriver();
         } catch (IOException e) {
@@ -166,14 +154,14 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         }
     }
 
-    /**
+      /**
      * Test başarılı olduğunda çalışacak metod.
      *
      * @param message Başarılı test mesajı
      */
     public static void extentTestPass(String message) {
-        if (extentTest.get() != null) {
-            extentTest.get().pass(message);
+        if (extentTest != null) {
+            extentTest.pass(message);
         }
     }
     /**
@@ -182,8 +170,8 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
      * @param message Başarısız test mesajı
      */
     public static void extentTestFail(String message) {
-        if (extentTest.get() != null) {
-            extentTest.get().fail(message);
+        if (extentTest != null) {
+            extentTest.fail(message);
         }
     }
     /**
@@ -192,8 +180,8 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
      * @param message Test bilgi mesajı
      */
     public static void extentTestInfo(String message) {
-        if (extentTest.get() != null) {
-            extentTest.get().info(message);
+        if (extentTest != null) {
+            extentTest.info(message);
         }
     }
     /**
@@ -228,48 +216,4 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         // Her test metoduna retry analyzer ekler. Bu sayede test başarısız olursa belirlenen sayıda yeniden çalıştırılır.
         annotation.setRetryAnalyzer(ExtentReportsListener.class);
     }
-
-
-
-    /** * Testin herhangi bir noktasında ekran görüntüsü almak ve rapora eklemek için kullanılır.
-     * Bu metot statiktir ve direkt olarak `ExtentReportListener.addScreenshotToReport(...)` şeklinde çağrılabilir.
-     *
-     * @param logMessage Ekran görüntüsü altına eklenecek mesaj veya açıklama.
-     */
-    public static void addScreenshotToReport(String logMessage) {
-        if (extentTest == null) {
-            return;
-        }
-
-        try {
-            WebDriver driver = Driver.getDriver();
-            if (driver == null) {
-                return;
-            }
-            TakesScreenshot ts = (TakesScreenshot) driver;
-            File src = ts.getScreenshotAs(OutputType.FILE);
-
-            String date = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss").format(LocalDateTime.now());
-            String destDir = "target/screenshots";
-            File destDirFile = new File(destDir);
-            if (!destDirFile.exists()) {
-                FileUtils.forceMkdir(destDirFile);
-            }
-            String destPath = destDir + "/image_" + date + ".png";
-            File dest = new File(destPath);
-            FileUtils.copyFile(src, dest);
-
-            // Raporun, ekran görüntüsü dosyasını bulabilmesi için görece yolu kullan
-            String relativePath = "../screenshots/image_" + date + ".png";
-            extentTest.log(Status.INFO, logMessage, MediaEntityBuilder.createScreenCaptureFromPath(relativePath).build());
-
-        } catch (IOException | RuntimeException e) {
-            if (extentTest != null) {
-                extentTest.log(Status.ERROR, "Ekran görüntüsü alınırken bir hata oluştu: " + e.getMessage());
-            }
-        }
-    }
 }
-=======
-}
-
