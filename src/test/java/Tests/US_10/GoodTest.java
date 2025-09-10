@@ -9,10 +9,12 @@ import utilities.ConfigReader;
 import utilities.Driver;
 import utilities.ExtentReportsListener;
 import utilities.ReusableMethods;
+import java.io.IOException;
 
 public class GoodTest {
-    @Test
-    public void goodTest() {
+
+    @Test(dataProvider = "GOOD",dataProviderClass = DataProvidersUS10.class)
+    public void goodTest(String data) throws IOException {
 
         ExtentReportsListener.extentTestInfo("Allover Commerce sayfasina gidilir");
 
@@ -44,13 +46,16 @@ public class GoodTest {
         ExtentReportsListener.extentTestInfo("Password girisi yapilir");
 
         //Password icin gecerli bir data girilir
-        action.sendKeys(alloverCommercePage.vendorRegistrationPasswordTextBox, "57emre...").perform();
+        action.sendKeys(alloverCommercePage.vendorRegistrationPasswordTextBox, data).perform();
 
         ExtentReportsListener.extentTestInfo("Password 'Good' uyarısı doğrulanıyor");
         Assert.assertTrue(alloverCommercePage.goodTextBox.isDisplayed());
 
+        //Good texti ekran görüntüsü reporta ekleniyor
+        US10ScreenUtils.captureScreen("goodTextBox");
+
         //Confirm Password alanına, Password alanına yazılan şifrenin aynısı yazılır.
-        action.sendKeys(alloverCommercePage.vendorRegistrationConfirmPasswordTextBox, "57emre...").perform();
+        action.sendKeys(alloverCommercePage.vendorRegistrationConfirmPasswordTextBox, data).perform();
 
         // Driver kapatılır
         Driver.quitDriver();

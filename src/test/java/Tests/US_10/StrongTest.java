@@ -9,10 +9,12 @@ import utilities.ConfigReader;
 import utilities.Driver;
 import utilities.ExtentReportsListener;
 import utilities.ReusableMethods;
+import java.io.IOException;
 
 public class StrongTest {
-    @Test
-    public void strongTest() {
+
+    @Test(dataProvider = "STRONG",dataProviderClass = DataProvidersUS10.class)
+    public void strongTest(String data) throws IOException {
 
         ExtentReportsListener.extentTestInfo("Allover Commerce sayfasina gidilir");
 
@@ -44,16 +46,18 @@ public class StrongTest {
         ExtentReportsListener.extentTestInfo("Password girisi yapilir");
 
         //Password icin gecerli bir data girilir
-        action.sendKeys(alloverCommercePage.vendorRegistrationPasswordTextBox, "Emre57*").perform();
+        action.sendKeys(alloverCommercePage.vendorRegistrationPasswordTextBox, data).perform();
 
         ExtentReportsListener.extentTestInfo("Password 'Strong' uyarısı doğrulanıyor");
         Assert.assertTrue(alloverCommercePage.strongTextBox.isDisplayed());
 
+        //Strong texti ekran görüntüsü reporta ekleniyor
+        US10ScreenUtils.captureScreen("strongTextBox");
+
         //Confirm Password alanına, Password alanına yazılan şifrenin aynısı yazılır.
-        action.sendKeys(alloverCommercePage.vendorRegistrationConfirmPasswordTextBox, "Emre57*").perform();
+        action.sendKeys(alloverCommercePage.vendorRegistrationConfirmPasswordTextBox, data).perform();
 
         // Driver kapatılır
         Driver.quitDriver();
-
     }
 }

@@ -9,10 +9,12 @@ import utilities.ConfigReader;
 import utilities.Driver;
 import utilities.ExtentReportsListener;
 import utilities.ReusableMethods;
+import java.io.IOException;
 
 public class TooShortTest {
-    @Test
-    public void tooShortText() {
+
+    @Test(dataProvider = "TOOSHORT",dataProviderClass = DataProvidersUS10.class)
+    public void tooShortText(String data) throws IOException {
 
         ExtentReportsListener.extentTestInfo("Allover Commerce sayfasina gidilir");
 
@@ -44,13 +46,16 @@ public class TooShortTest {
         ExtentReportsListener.extentTestInfo("Password girisi yapilir");
 
         // Password icin kısa bir data girilir
-        action.sendKeys(alloverCommercePage.vendorRegistrationPasswordTextBox, "Emre1").perform();
+        action.sendKeys(alloverCommercePage.vendorRegistrationPasswordTextBox, data).perform();
 
         ExtentReportsListener.extentTestInfo("Password 'Too short' uyarısı doğrulanıyor");
         Assert.assertTrue(alloverCommercePage.tooShortTextBox.isDisplayed());
 
+        //Too short texti ekran görüntüsü reporta ekleniyor
+        US10ScreenUtils.captureScreen("tooShortTextBox");
+
         // Confirm Password alanına, Password alanına yazılan şifrenin aynısı yazılır
-        action.sendKeys(alloverCommercePage.vendorRegistrationConfirmPasswordTextBox, "Emre1").perform();
+        action.sendKeys(alloverCommercePage.vendorRegistrationConfirmPasswordTextBox, data).perform();
 
         // Driver kapatılır
         Driver.quitDriver();
