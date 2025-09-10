@@ -103,4 +103,10 @@ public class ActionsUtils {
     public static void pressTab() {
         actions.sendKeys(Keys.TAB).build().perform();
     }
+
+    public static void pressEnter() {
+        actions.sendKeys(Keys.ENTER).build().perform();
+    }
 }
+
+

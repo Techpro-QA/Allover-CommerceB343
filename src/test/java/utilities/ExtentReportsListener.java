@@ -1,4 +1,5 @@
 package utilities;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+
 public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAnnotationTransformer {
     private static ExtentReports extentReports;
     private static ExtentHtmlReporter extentHtmlReporter;
@@ -64,18 +66,18 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         //Test methodlarinin parantez icined description parametresiyle yazmis oldugumuz aciklamalari
         // dynamic olarak rapora ne testi oldugunu yansitabiliriz
         // mesela test caselerdeki test objective buraya yazilabilir
-        String testName = result.getMethod().getMethodName();
-        String description = result.getMethod().getDescription(); // Metod açıklamasını kullanarak description alıyoruz
-        try {
-            extentTest = extentReports.createTest(
-                    "<span style='color:blue; font-weight:bold'> " + testName + " </span>",
-                    "<span style='color:blue; font-weight:bold'> " + description + " </span>");
-        } catch (Exception e) {
-            // Metod açıklamasını kullanarak description eklenmez ise nullPointer almamak icin method ismini rapora ekliyoruz
-            extentTest = extentReports.createTest(
-                    "<span style='color:blue; font-weight:bold'> " + testName + " </span>",
-                    "<span style='color:blue; font-weight:bold'> " + result.getName() + " </span>");
-        }
+      String testName = result.getMethod().getMethodName();
+      String description = result.getMethod().getDescription(); // Metod açıklamasını kullanarak description alıyoruz
+      try {
+          extentTest = extentReports.createTest(
+                  "<span style='color:blue; font-weight:bold'> " + testName + " </span>",
+                  "<span style='color:blue; font-weight:bold'> " + description + " </span>");
+      } catch (Exception e) {
+          // Metod açıklamasını kullanarak description eklenmez ise nullPointer almamak icin method ismini rapora ekliyoruz
+          extentTest = extentReports.createTest(
+                  "<span style='color:blue; font-weight:bold'> " + testName + " </span>",
+                  "<span style='color:blue; font-weight:bold'> " + result.getName() + " </span>");
+      }
     }
 
     @Override
@@ -111,7 +113,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             Files.write(Paths.get("target/screenShots/image " + date + ".jpeg"), ts.getScreenshotAs(OutputType.BYTES));
             extentTest.addScreenCaptureFromPath(System.getProperty("user.dir") + "/target/screenShots/image " + date + ".jpeg");
             // hata alindigi icin Açık kalan browseri WebDriver örneğini kapatıyoruz.
-            Driver.quitDriver();
+           // Driver.quitDriver();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -142,7 +144,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             Files.write(Paths.get("target/screenShots/image " + date + ".jpeg"), ts.getScreenshotAs(OutputType.BYTES));
             extentTest.addScreenCaptureFromPath(System.getProperty("user.dir") + "/target/screenShots/image " + date + ".jpeg");
             // hata alindigi icin Açık kalan browseri WebDriver örneğini kapatıyoruz.
-            Driver.quitDriver();
+           // Driver.quitDriver();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -254,7 +256,10 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
 
             // Raporun, ekran görüntüsü dosyasını bulabilmesi için görece yolu kullan
             String relativePath = "../screenshots/image_" + date + ".png";
+
+    
             extentTest.log(Status.INFO, logMessage, MediaEntityBuilder.createScreenCaptureFromPath(relativePath).build());
+
 
         } catch (IOException | RuntimeException e) {
             if (extentTest != null) {
@@ -262,4 +267,5 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             }
         }
     }
+
 }
