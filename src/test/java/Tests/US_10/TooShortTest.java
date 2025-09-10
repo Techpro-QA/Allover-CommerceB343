@@ -44,15 +44,17 @@ public class TooShortTest {
         alloverCommercePage.resendCodeButton.click();
 
         ExtentReportsListener.extentTestInfo("Password girisi yapilir");
+        ExtentReportsListener.extentTestInfo("Girilen password ==>>  " + data);
+
 
         // Password icin kısa bir data girilir
         action.sendKeys(alloverCommercePage.vendorRegistrationPasswordTextBox, data).perform();
 
-        ExtentReportsListener.extentTestInfo("Password 'Too short' uyarısı doğrulanıyor");
+        ExtentReportsListener.extentTestInfo("Password 'Too short' uyarısı doğrulanır");
         Assert.assertTrue(alloverCommercePage.tooShortTextBox.isDisplayed());
 
         //Too short texti ekran görüntüsü reporta ekleniyor
-        US10ScreenUtils.captureScreen("tooShortTextBox");
+        US10ScreenUtils.captureScreen("tooShortTextBox görüntülenir");
 
         // Confirm Password alanına, Password alanına yazılan şifrenin aynısı yazılır
         action.sendKeys(alloverCommercePage.vendorRegistrationConfirmPasswordTextBox, data).perform();

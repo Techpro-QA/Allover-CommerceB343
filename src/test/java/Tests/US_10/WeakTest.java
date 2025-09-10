@@ -44,15 +44,17 @@ public class WeakTest {
         alloverCommercePage.resendCodeButton.click();
 
         ExtentReportsListener.extentTestInfo("Password girisi yapilir");
+        ExtentReportsListener.extentTestInfo("Girilen password ==>>  " + data);
+
 
         // Password icin gecerli bir data girilir
         action.sendKeys(alloverCommercePage.vendorRegistrationPasswordTextBox, data).perform();
 
-        ExtentReportsListener.extentTestInfo("Password 'Weak' uyarısı doğrulanıyor");
+        ExtentReportsListener.extentTestInfo("Password 'Weak' uyarısı doğrulanır");
         Assert.assertTrue(alloverCommercePage.weakTextBox.isDisplayed());
 
         //Weak texti ekran görüntüsü reporta ekleniyor
-        US10ScreenUtils.captureScreen("weakTextBox");
+        US10ScreenUtils.captureScreen("weakTextBox görüntülenir");
 
         // Confirm Password alanına, Password alanına yazılan şifrenin aynısı yazılır
         action.sendKeys(alloverCommercePage.vendorRegistrationConfirmPasswordTextBox, data).perform();

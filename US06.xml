@@ -9,7 +9,7 @@
     <test verbose="2" preserve-order="true"
           name="us6">
         <classes>
-            <class name="Tests.US_6.CustomerShoppingAbility">
+            <class name="Tests.US_06.CustomerShoppingAbility">
             </class>
         </classes>
     </test>

@@ -44,15 +44,16 @@ public class GoodTest {
         alloverCommercePage.resendCodeButton.click();
 
         ExtentReportsListener.extentTestInfo("Password girisi yapilir");
+        ExtentReportsListener.extentTestInfo("Girilen password ==>>  " + data);
 
         //Password icin gecerli bir data girilir
         action.sendKeys(alloverCommercePage.vendorRegistrationPasswordTextBox, data).perform();
 
-        ExtentReportsListener.extentTestInfo("Password 'Good' uyarısı doğrulanıyor");
+        ExtentReportsListener.extentTestInfo("Password 'Good' uyarısı doğrulanır");
         Assert.assertTrue(alloverCommercePage.goodTextBox.isDisplayed());
 
         //Good texti ekran görüntüsü reporta ekleniyor
-        US10ScreenUtils.captureScreen("goodTextBox");
+        US10ScreenUtils.captureScreen("goodTextBox görüntülenir");
 
         //Confirm Password alanına, Password alanına yazılan şifrenin aynısı yazılır.
         action.sendKeys(alloverCommercePage.vendorRegistrationConfirmPasswordTextBox, data).perform();

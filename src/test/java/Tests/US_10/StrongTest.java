@@ -44,15 +44,17 @@ public class StrongTest {
         alloverCommercePage.resendCodeButton.click();
 
         ExtentReportsListener.extentTestInfo("Password girisi yapilir");
+        ExtentReportsListener.extentTestInfo("Girilen password ==>>  " + data);
+
 
         //Password icin gecerli bir data girilir
         action.sendKeys(alloverCommercePage.vendorRegistrationPasswordTextBox, data).perform();
 
-        ExtentReportsListener.extentTestInfo("Password 'Strong' uyarısı doğrulanıyor");
+        ExtentReportsListener.extentTestInfo("Password 'Strong' uyarısı doğrulanır");
         Assert.assertTrue(alloverCommercePage.strongTextBox.isDisplayed());
 
         //Strong texti ekran görüntüsü reporta ekleniyor
-        US10ScreenUtils.captureScreen("strongTextBox");
+        US10ScreenUtils.captureScreen("strongTextBox görüntülenir");
 
         //Confirm Password alanına, Password alanına yazılan şifrenin aynısı yazılır.
         action.sendKeys(alloverCommercePage.vendorRegistrationConfirmPasswordTextBox, data).perform();
