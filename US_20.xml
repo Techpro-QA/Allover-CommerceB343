@@ -9,7 +9,7 @@
     <test verbose="2" preserve-order="true"
           name="US20 - VendorCouponTests">
         <classes>
-            <class name="Tests.US20_VendorCouponTests">
+            <class name="Tests.US_20.US20_VendorCouponTests">
                 <methods>
                     <include name="testAddProductToCart"/>
                     <include name="testCartContentsDisplay"/>

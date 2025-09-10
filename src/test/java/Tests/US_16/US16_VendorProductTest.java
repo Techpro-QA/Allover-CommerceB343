@@ -1,4 +1,4 @@
-package Tests;
+package Tests.US_16;
 
 import Pages.Home;
 import Pages.MyAccount;
