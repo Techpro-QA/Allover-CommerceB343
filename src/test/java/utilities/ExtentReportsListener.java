@@ -216,4 +216,5 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         // Her test metoduna retry analyzer ekler. Bu sayede test başarısız olursa belirlenen sayıda yeniden çalıştırılır.
         annotation.setRetryAnalyzer(ExtentReportsListener.class);
     }
+
 }
