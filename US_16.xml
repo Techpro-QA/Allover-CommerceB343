@@ -9,7 +9,7 @@
     <test verbose="2" preserve-order="true"
           name="US16 - Product Tests">
         <classes>
-            <class name="Tests.US16_VendorProductTest">
+            <class name="Tests.US_16.US16_VendorProductTest">
                 <methods>
                     <include name="TC_POS_01_addSimpleProduct"/>
                     <include name="TC_NEG_01_requiredFieldsEmpty"/>

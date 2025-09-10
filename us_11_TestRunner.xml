@@ -7,7 +7,7 @@
     <test verbose="2" preserve-order="true"
           name="US_11_Vendor Authentication And Dashboard Test">
         <classes>
-            <class name="tests_userstory_11.VendorAuthenticationTests">
+            <class name="Tests.US_11.VendorAuthenticationTests">
                 <methods>
                     <include name="testVendorSuccessfulLogin"/>
                     <include name="testLogin_Validation_InvalidEmailFormat"/>
@@ -17,7 +17,7 @@
                     <include name="testLogin_Validation_EmptyPassword"/>
                 </methods>
             </class>
-            <class name="tests_userstory_11.VendorDashboardNavigationTests">
+            <class name="Tests.US_11.VendorDashboardNavigationTests">
                 <methods>
                     <include name="testDashboardMenusVisibility"/>
                     <include name="testStoreManagerMenu"/>

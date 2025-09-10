@@ -1,4 +1,4 @@
-package Tests.us_01;
+package Tests.US_01;
 
 import Pages.Homepage;
 import com.github.javafaker.Faker;

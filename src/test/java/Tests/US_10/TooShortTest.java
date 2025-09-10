@@ -54,7 +54,7 @@ public class TooShortTest {
         Assert.assertTrue(alloverCommercePage.tooShortTextBox.isDisplayed());
 
         //Too short texti ekran görüntüsü reporta ekleniyor
-        US10ScreenUtils.captureScreen("tooShortTextBox görüntülenir");
+        Tests.US_10.US10ScreenUtils.captureScreen("tooShortTextBox görüntülenir");
 
         // Confirm Password alanına, Password alanına yazılan şifrenin aynısı yazılır
         action.sendKeys(alloverCommercePage.vendorRegistrationConfirmPasswordTextBox, data).perform();

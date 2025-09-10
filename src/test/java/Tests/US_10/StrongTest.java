@@ -54,7 +54,7 @@ public class StrongTest {
         Assert.assertTrue(alloverCommercePage.strongTextBox.isDisplayed());
 
         //Strong texti ekran görüntüsü reporta ekleniyor
-        US10ScreenUtils.captureScreen("strongTextBox görüntülenir");
+        Tests.US_10.US10ScreenUtils.captureScreen("strongTextBox görüntülenir");
 
         //Confirm Password alanına, Password alanına yazılan şifrenin aynısı yazılır.
         action.sendKeys(alloverCommercePage.vendorRegistrationConfirmPasswordTextBox, data).perform();
