@@ -1,4 +1,4 @@
-package Tests;
+package Tests.US_20;
 
 import Pages.CartPage;
 import Pages.CheckoutPage;

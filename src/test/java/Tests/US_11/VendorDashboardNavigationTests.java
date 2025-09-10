@@ -1,4 +1,4 @@
-package tests_userstory_11;
+package Tests.US_11;
 
 import pages.HomeVendorPage;
 import org.testng.Assert;

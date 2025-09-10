@@ -54,7 +54,7 @@ public class WeakTest {
         Assert.assertTrue(alloverCommercePage.weakTextBox.isDisplayed());
 
         //Weak texti ekran görüntüsü reporta ekleniyor
-        US10ScreenUtils.captureScreen("weakTextBox görüntülenir");
+        Tests.US_10.US10ScreenUtils.captureScreen("weakTextBox görüntülenir");
 
         // Confirm Password alanına, Password alanına yazılan şifrenin aynısı yazılır
         action.sendKeys(alloverCommercePage.vendorRegistrationConfirmPasswordTextBox, data).perform();
