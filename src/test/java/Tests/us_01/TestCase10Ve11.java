@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 import utilities.ConfigReader;
 import utilities.ExtentReportsListener;
 
-public class TestCase10 extends TestBase_US01 {
+public class TestCase10Ve11 extends TestBase_US01 {
 
     @Test (description = "negatif scenario")
     public void sameUserName() {
@@ -23,6 +23,7 @@ public class TestCase10 extends TestBase_US01 {
         // 8 Kayit isleminin gerceklesmedigi doğrulanir
         //  a) sayfa alt kısmında "An account is already registered with that username. Please choose another." uyarı mesajı alınır
         String warningMessage = alloverCommercePage.sameUserNameErrorMessage.getText();
+        ExtentReportsListener.extentTestInfo("Uyarı mesajı: "+warningMessage);
         ExtentReportsListener.extentTestInfo("Açılan pop up  uyarı mesajının kontrolü yapılır");
         softAssert.assertTrue(warningMessage.contains("username"));
         //  b) Kayıt yapılarak girilen sayfaya girilemediği doğrulanır
@@ -50,7 +51,8 @@ public class TestCase10 extends TestBase_US01 {
         // 8 Kayit isleminin gerceklesmedigi doğrulanir
         //  a) sayfa alt kısmında "An account is already registered with that username. Please choose another." uyarı mesajı alınır
         String warningMessage = alloverCommercePage.sameEmailErrorMessage.getText();
-        ExtentReportsListener.extentTestInfo("Açılan pop up  uyarı mesajının kontrolü yapılır");
+        ExtentReportsListener.extentTestInfo("Uyarı mesajı: "+warningMessage);
+        ExtentReportsListener.extentTestInfo("Açılan uyarı mesajının kontrolü yapılır");
         softAssert.assertTrue(warningMessage.contains("email"));
         //  b) Kayıt yapılarak girilen sayfaya girilemediği doğrulanır
         ExtentReportsListener.extentTestInfo("Uyarı mesajı çıkmasına rağmen login olarak sayfaya girilemediği doğrulanır");

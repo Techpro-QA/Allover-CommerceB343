@@ -33,7 +33,8 @@ public class TestCase08 extends TestBase_US01 {
         // 8 Kayit isleminin gerceklesmedigi doğrulanir
         // a) Açılan pencere altında "Please provide a valid email address."uyarı mesajı alınır
         String emailErrorText = alloverCommercePage.emailErrorMessage.getText();
-        ExtentReportsListener.extentTestInfo("Açılan pop up  uyarı mesajının kontrolü yapılır");
+        ExtentReportsListener.extentTestInfo("Uyarı mesajı: "+emailErrorText);
+        ExtentReportsListener.extentTestInfo("Açılan uyarı mesajının kontrolü yapılır");
         softAssert.assertTrue(emailErrorText.contains("email"));
         //  b) Kayıt yapılarak girilen sayfaya girilemediği doğrulanır
         ExtentReportsListener.extentTestInfo("Uyarı mesajı çıkmasına rağmen login olarak sayfaya girilemediği doğrulanır");

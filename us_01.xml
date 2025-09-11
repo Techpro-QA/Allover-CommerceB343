@@ -17,8 +17,8 @@
             <class name="Tests.us_01.TestCase07"></class>
             <class name="Tests.us_01.TestCase08"></class>
             <class name="Tests.us_01.TestCase09"></class>
-            <class name="Tests.us_01.TestCase10"></class>
-            <class name="Tests.us_01.TestCase11"></class>
+            <class name="Tests.us_01.TestCase10Ve11"></class>
+            <class name="Tests.us_01.TestCase12"></class>
         </classes>
     </test>
 </suite>

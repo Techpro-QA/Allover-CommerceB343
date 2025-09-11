@@ -2,6 +2,7 @@ package Tests.us_01;
 
 import Pages.Homepage;
 import com.github.javafaker.Faker;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.asserts.SoftAssert;
@@ -12,7 +13,7 @@ public class TestBase_US01 {//her class ta tekrar eden kodlar için parent class
 
         // kayıtlı email ve username ile tekrar kayıt yapılamadığından dolayı bu ikisi için faker kullanıldı
         protected Faker faker;
-        public Homepage alloverCommercePage;
+        protected Homepage alloverCommercePage;
         SoftAssert softAssert;
 
         @BeforeMethod
@@ -34,5 +35,6 @@ public class TestBase_US01 {//her class ta tekrar eden kodlar için parent class
             e.printStackTrace();
         }
     }
+
 }
 

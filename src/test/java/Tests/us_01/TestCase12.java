@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 import utilities.ConfigReader;
 import utilities.ExtentReportsListener;
 
-public class TestCase11 extends TestBase_US01 {
+public class TestCase12 extends TestBase_US01 {
 
     @Test (description = "negatif scenario")
     public void afterPointInvalidEmail() {
