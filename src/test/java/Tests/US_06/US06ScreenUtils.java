@@ -26,9 +26,9 @@ public class US06ScreenUtils {
             Files.copy(srcFile.toPath(), Paths.get(path));
 
             // Screenshot + mesaj aynı satırda rapora ekleniyor
-            ExtentReportsListener.getExtentTest()
-                    .info(message,
-                            MediaEntityBuilder.createScreenCaptureFromPath(System.getProperty("user.dir") + "/" + path).build());
+            ExtentReportsListener.getExtentTest();
+                   // .info(message,
+                            MediaEntityBuilder.createScreenCaptureFromPath(System.getProperty("user.dir") + "/" + path).build();
 
         } catch (Exception e) {
             e.printStackTrace();
