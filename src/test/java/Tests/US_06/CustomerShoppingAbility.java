@@ -24,7 +24,7 @@ public class CustomerShoppingAbility {
 
         // siteye gidilir
 
-        ExtentReportsListener.extentTestInfo("Allover Commerce sayfasina gidilir");
+        ExtentReportsListenerUS_06.extentTestInfo("Allover Commerce sayfasina gidilir");
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
 
         CustomerShoppingAbilityPage customerShoppingAbilityPage = new CustomerShoppingAbilityPage();
@@ -44,7 +44,7 @@ public class CustomerShoppingAbility {
     @Test
     public void testSuccessfulShoppingFlow() {
 
-        ExtentReportsListener.extentTestInfo("Allover Commerce sayfasina gidilir");
+        ExtentReportsListenerUS_06.extentTestInfo("Allover Commerce sayfasina gidilir");
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
         CustomerShoppingAbilityPage customerShoppingAbilityPage = new CustomerShoppingAbilityPage();
 
@@ -58,7 +58,7 @@ public class CustomerShoppingAbility {
         customerShoppingAbilityPage.searchBoxButton.click();
         customerShoppingAbilityPage.laptopElement.click();
 
-        ExtentReportsListener.extentTestInfo("Sepete istenen ürünler eklenir");
+        ExtentReportsListenerUS_06.extentTestInfo("Sepete istenen ürünler eklenir");
 
         customerShoppingAbilityPage.addCartLaptop.click();
 

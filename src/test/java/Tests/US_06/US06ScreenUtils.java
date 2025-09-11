@@ -4,7 +4,6 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import utilities.Driver;
-import utilities.ExtentReportsListener;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -26,9 +25,9 @@ public class US06ScreenUtils {
             Files.copy(srcFile.toPath(), Paths.get(path));
 
             // Screenshot + mesaj aynı satırda rapora ekleniyor
-            ExtentReportsListener.getExtentTest();
-                   // .info(message,
-                            MediaEntityBuilder.createScreenCaptureFromPath(System.getProperty("user.dir") + "/" + path).build();
+            ExtentReportsListenerUS_06.getExtentTest()
+                    .info(message,
+                            MediaEntityBuilder.createScreenCaptureFromPath(System.getProperty("user.dir") + "/" + path).build());
 
         } catch (Exception e) {
             e.printStackTrace();

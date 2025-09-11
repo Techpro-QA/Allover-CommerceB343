@@ -4,7 +4,6 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import utilities.Driver;
-import utilities.ExtentReportsListener;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -16,7 +15,6 @@ public class US10ScreenUtils {
 
     /**
      * US_10 testi için ekran görüntüsü alır ve ExtentReport'a ekler.
-     * @param //testType "tooShortTextBox", "goodTextBox", "strongTextBox" gibi test tipi
      */
     public static void captureScreen(String message) {
         try {
@@ -27,9 +25,9 @@ public class US10ScreenUtils {
             Files.copy(srcFile.toPath(), Paths.get(path));
 
             // Screenshot + mesaj aynı satırda rapora ekleniyor
-            ExtentReportsListener.getExtentTest();
-                   // .info(message,
-                           // MediaEntityBuilder.createScreenCaptureFromPath(System.getProperty("user.dir") + "/" + path).build());
+             ExtentReportsListenerUS_10.getExtentTest()
+                    .info(message,
+                            MediaEntityBuilder.createScreenCaptureFromPath(System.getProperty("user.dir") + "/" + path).build());
 
         } catch (Exception e) {
             e.printStackTrace();
