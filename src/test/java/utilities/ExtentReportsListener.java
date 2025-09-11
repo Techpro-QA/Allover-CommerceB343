@@ -1,11 +1,17 @@
 package utilities;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.testng.*;
 import org.testng.annotations.ITestAnnotation;
+
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -19,6 +25,10 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
     private static ExtentReports extentReports;
     private static ExtentHtmlReporter extentHtmlReporter;
     private static ExtentTest extentTest;
+
+    public static void getExtentTest() {
+    }
+
     /**
      * onstart==> Tum testlerden once tek bir kez cagrilir
      * Böylece icine yazdigimiz kodlar sayesinde test başladığında raporlama baslatilir.
@@ -147,20 +157,20 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
     /** * Testin herhangi bir noktasında ekran görüntüsü almak ve rapora eklemek için kullanılır.
      * Bu metot statiktir ve direkt olarak `ExtentReportListener.addScreenshotToReport(...)` şeklinde çağrılabilir.
      *
-     * @param //logMessage Ekran görüntüsü altına eklenecek mesaj veya açıklama.
+     * @param logMessage Ekran görüntüsü altına eklenecek mesaj veya açıklama.
      */
-    /*public static void addScreenshotToReport(String logMessage) {
+    public static void addScreenshotToReport(String logMessage) {
         if (extentTest == null) {
             return;
         }
 
         try {
-            //WebDriver driver = Driver.getDriver();
-            //if (driver == null) {
+            WebDriver driver = Driver.getDriver();
+            if (driver == null) {
                 return;
             }
             TakesScreenshot ts = (TakesScreenshot) driver;
-            //File src = ts.getScreenshotAs(OutputType.FILE);
+            File src = ts.getScreenshotAs(OutputType.FILE);
 
             String date = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss").format(LocalDateTime.now());
             String destDir = "target/screenshots";

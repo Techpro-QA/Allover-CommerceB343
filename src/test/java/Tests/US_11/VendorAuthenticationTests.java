@@ -2,7 +2,7 @@ package Tests.US_11;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import pages.HomeVendorPage;
+import Pages.HomeVendorPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utilities.*;
@@ -11,7 +11,7 @@ public class VendorAuthenticationTests {
     private HomeVendorPage homeVendorPage;
     @BeforeMethod
     public void setup() {
-        Driver.getDriver().get(ConfigReader.getProperty("allowerceUrl"));
+        Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
         homeVendorPage = new HomeVendorPage();
     }
 
@@ -42,6 +42,7 @@ public class VendorAuthenticationTests {
         ExtentReportsListener.extentTestInfo("Gecerli password girilir");
         homeVendorPage.password.sendKeys(ConfigReader.getProperty("vendorPassword"));
         homeVendorPage.signInButton.click();
+        WaitUtils.waitFor(2);
         ExtentReportsListener.extentTestInfo("Giris butonuna bastiktan sonra basarisiz giris mesajinin yuklenmesini bekliyoruz");
         WaitUtils.waitForVisibility(homeVendorPage.errorMessage,3);
         ExtentReportsListener.addScreenshotToReport("Iyilestirme onerisi: Burada email formatinin hatali oldugu belirtilerek hatanin detaylari yazilabilirdi");

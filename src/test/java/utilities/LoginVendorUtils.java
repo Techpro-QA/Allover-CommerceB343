@@ -1,6 +1,6 @@
 package utilities;
 
-import pages.HomeVendorPage;
+import Pages.HomeVendorPage;
 
 public class LoginVendorUtils {
 

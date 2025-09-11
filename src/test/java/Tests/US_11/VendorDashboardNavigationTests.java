@@ -2,7 +2,7 @@ package Tests.US_11;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import pages.HomeVendorPage;
+import Pages.HomeVendorPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -13,7 +13,7 @@ public class VendorDashboardNavigationTests {
 
     @BeforeMethod
     public void setup() {
-        Driver.getDriver().get(ConfigReader.getProperty("allowerceUrl"));
+        Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
         homeVendorPage = new HomeVendorPage();
         LoginVendorUtils.loginAndNavigateToMyAccount(homeVendorPage, ConfigReader.getProperty("vendorUsername"), ConfigReader.getProperty("vendorPassword"));
         WaitUtils.waitForPageToLoad(1);
