@@ -43,14 +43,15 @@ public class Compare_US07_TC03 {
         }
     }
     @Test
-    public void compareTest03_openComparePage() {
-
-        //Seçtiği ürünleri karşılaştırabilme testi
+    public void compareTest03_openComparePage() { //Seçtiği ürünleri karşılaştırabilme testi
 
         search("Bag");
-        addProductsToCompare(4, 4);  // 4 ürün ekle
-        compareUs07Page.startCompareButton.click();
 
+        // 4 ürün ekle
+        addProductsToCompare(4, 4);
+
+        // Karsılastır ve dogrula
+        compareUs07Page.startCompareButton.click();
         Assert.assertTrue(compareUs07Page.comparePage.isDisplayed());
     }
 }

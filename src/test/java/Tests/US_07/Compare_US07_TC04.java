@@ -48,26 +48,24 @@ public class Compare_US07_TC04 {
   }
 
 
-
-
     @Test
     public void compareTest04_removeFromComparePage() {  //Karşılatırma ekranından ürünleri silebilme testi
 
         search("Bag");
+
+        // 3 urun ekle ve karsılastırma ekranında 3 urun oldugunu dogrula
         addProductsToCompare(3,4);
         compareUs07Page.startCompareButton.click();
         Assert.assertEquals(compareUs07Page.removeFromComparePage.size(), 3);
 
         WaitUtils.waitFor(2);
 
+        // 1 urun sil
         compareUs07Page.removeFromComparePage.get(1).click();
         WaitUtils.waitFor(3);
-       //List<WebElement> updatedButtons =
-       //        Driver.getDriver().findElements(By.xpath("//a[contains(@class,'remove_from_compare')]"));
 
+        //  karsılastırma ekranında 2 urun kaldıgını dogrula
         Assert.assertEquals(compareUs07Page.removeFromComparePage.size(), 2);
-
-        WaitUtils.waitFor(2);
 
     }
 }

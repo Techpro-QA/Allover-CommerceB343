@@ -44,9 +44,7 @@ public class Compare_US07_TC01 {
     }
 
     @Test
-    public void compareTest01_max4Products() {
-
-        //Kullanıcının en fazla 4 ürünü karşılaştırmak için seçebilme testi
+    public void compareTest01_max4Products() { //Kullanıcının en fazla 4 ürünü karşılaştırmak için seçebilme testi
 
         search("Bag");
         addProductsToCompare(5, 4);  // 5 ürün eklemeye çalış

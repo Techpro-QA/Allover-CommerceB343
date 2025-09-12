@@ -53,12 +53,12 @@ public class Compare_US07_TC02 {
         }
     }
     @Test
-    public void compareTest02_removeAndAddAgain() {
-
-        //Karşılaştıracağı ürünleri silip yeni ürünleri ekleyebilme testi
+    public void compareTest02_removeAndAddAgain() { //Karşılaştıracağı ürünleri silip yeni ürünleri ekleyebilme testi
 
         search("Bag");
-        addProductsToCompare(4, 4);  // 4 ürün ekle
+
+        // 4 ürün ekle
+        addProductsToCompare(4, 4);
         Assert.assertTrue(compareUs07Page.assertionCount4.getText().contains("4"));
 
         // 2 ürünü sil
