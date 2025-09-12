@@ -13,7 +13,7 @@ public class Compare_US07_TC02 {
 
     @BeforeMethod
     public void setUp() {
-        Driver.getDriver().get(ConfigReader.getProperty("allowerceUrl"));
+        Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
         comparePage =  new ComparePage();
     }
 
