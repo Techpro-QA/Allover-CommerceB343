@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="sifree" parallel="classes" thread-count="4">
+<suite name="US_10Parallel" parallel="classes" thread-count="4">
     <listeners>
         <listener class-name="Tests.US_10.ExtentReportsListenerUS_10"></listener>
     </listeners>
