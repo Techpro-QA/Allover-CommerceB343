@@ -50,7 +50,9 @@ public class Compare_US07_TC01 {
         addProductsToCompare(5, 4);  // 5 ürün eklemeye çalış
         // 4 üncü indeksten baslama sebebeim sitede 2.3 4 ürünün aynı olması
 
-        ExtentReportsListener.addScreenshotToReport("4. ürün eklendikten sonra 5. ürün eklenince 1. ürün siliniyor ve sonuç olarak en fazla 4 ürün karşılaştırılabiliyor.");
+        ExtentReportsListener.addScreenshotToReport(
+                "4. ürün eklendikten sonra 5. ürün eklenince 1. ürün siliniyor ve sonuç olarak en fazla 4 ürün karşılaştırılabiliyor."
+        );
 
         Assert.assertTrue(comparePage.assertionCount4.getText().contains("4"));
     }
