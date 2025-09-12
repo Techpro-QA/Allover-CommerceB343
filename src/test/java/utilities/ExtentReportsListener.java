@@ -1,11 +1,17 @@
 package utilities;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.testng.*;
 import org.testng.annotations.ITestAnnotation;
+
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -19,6 +25,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
     private static ExtentReports extentReports;
     private static ExtentHtmlReporter extentHtmlReporter;
     private static ExtentTest extentTest;
+
     /**
      * onstart==> Tum testlerden once tek bir kez cagrilir
      * Böylece icine yazdigimiz kodlar sayesinde test başladığında raporlama baslatilir.
@@ -47,6 +54,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             extentReports.setSystemInfo("<span style='color:purple; font-weight:bold'><i class='fa fa-user'></i> Test Automation Engineer:</span>", " Ali Can");
         }
     }
+
     /**
      * onTestStart==> her bir @Test methodundan once bir kez cagrilir
      * Böylece Test methoduna başlandığında, testName ve description verileri alınarak rapora eklenir.
@@ -82,6 +90,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         String passIsareti = "&#9989";
         extentTestPass("<span style='color:green; font-weight:bold'>" + result.getName() + " Testi başarıyla tamamlandı. </span>" + passIsareti);
     }
+
     /**
      * onTestFailure==> sadece fail olan testlerden sonra bir kez cagrilir
      * Test başarısız olduğunda, ekran görüntüsü alınır ve raporlama oluşturulur.
@@ -110,6 +119,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             throw new RuntimeException(e);
         }
     }
+
     /**
      * onTestSkipped==> sadece skip olan (atlanan) testlerden sonra bir kez cagrilir.
      * Test atlandığında, bu durum rapora kaydedilir ve raporda belirtilir.
@@ -141,6 +151,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             throw new RuntimeException(e);
         }
     }
+
     /**
      * onfinish==> Tum testlerden sonra tek bir kez cagrilir
      * Böylece tüm testler bittiğinde raporlama kapatılır.
@@ -154,7 +165,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         }
     }
 
-      /**
+    /**
      * Test başarılı olduğunda çalışacak metod.
      *
      * @param message Başarılı test mesajı
@@ -164,6 +175,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             extentTest.pass(message);
         }
     }
+
     /**
      * Test başarısız olduğunda çalışacak metod.
      *
@@ -174,6 +186,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             extentTest.fail(message);
         }
     }
+
     /**
      * Test hakkında bilgi ekler.
      *
@@ -184,6 +197,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             extentTest.info(message);
         }
     }
+
     /**
      * onTestSuccess==> sadece pass olan testlerden sonra bir kez cagrilir
      * Test başarılı olduğunda, başarılı mesajı eklenir.
@@ -196,6 +210,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
     private static Map<String, Integer> retryCounts = new HashMap<>();
     // Test yeniden çalıştırma (retry) işlemi için kullanılır. Eğer test başarısız olursa, burada belirtilen sayı kadar yeniden çalıştırılır.
     private static final int maxRetryCount = 1;
+
     @Override
     public boolean retry(ITestResult result) {
         String testMethodName = result.getMethod().getMethodName();  // Test metodu ismini alır.
@@ -210,6 +225,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         }
         return false;  // Test yeniden çalıştırılmayacak.
     }
+
     // Bu metod, TestNG'nin her test metodu için retry mekanizmasını eklemesi için kullanılır.
     @Override
     public void transform(ITestAnnotation annotation, Class testClass, Constructor testConstructor, Method testMethod) {
@@ -235,3 +251,25 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             }
             TakesScreenshot ts = (TakesScreenshot) driver;
             File src = ts.getScreenshotAs(OutputType.FILE);
+
+            String date = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss").format(LocalDateTime.now());
+            String destDir = "target/screenshots";
+            File destDirFile = new File(destDir);
+            if (!destDirFile.exists()) {
+                FileUtils.forceMkdir(destDirFile);
+            }
+            String destPath = destDir + "/image_" + date + ".png";
+            File dest = new File(destPath);
+            FileUtils.copyFile(src, dest);
+
+            // Raporun, ekran görüntüsü dosyasını bulabilmesi için görece yolu kullan
+            String relativePath = "../screenshots/image_" + date + ".png";
+            extentTest.log(Status.INFO, logMessage, MediaEntityBuilder.createScreenCaptureFromPath(relativePath).build());
+
+        } catch (IOException | RuntimeException e) {
+            if (extentTest != null) {
+                extentTest.log(Status.ERROR, "Ekran görüntüsü alınırken bir hata oluştu: " + e.getMessage());
+            }
+        }
+    }
+}
