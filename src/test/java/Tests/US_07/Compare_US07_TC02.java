@@ -1,30 +1,20 @@
 package Tests.US_07;
 
 
-import Pages.Compare_US_07_Page;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import Pages.ComparePage;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utilities.*;
 
-import java.time.Duration;
-import java.util.List;
-import java.util.Random;
-
 public class Compare_US07_TC02 {
-    Compare_US_07_Page compareUs07Page ;
+    ComparePage comparePage;
 
     @BeforeMethod
     public void setUp() {
         Driver.getDriver().get(ConfigReader.getProperty("allowerceUrl"));
-        compareUs07Page =  new Compare_US_07_Page();
+        comparePage =  new ComparePage();
     }
 
     @AfterMethod
@@ -36,19 +26,19 @@ public class Compare_US07_TC02 {
 
     private void search(String keyword) {
         WaitUtils.waitFor(2);
-        compareUs07Page.searchBox.clear();
-        compareUs07Page.searchBox.sendKeys(keyword);
-        compareUs07Page.searchClickButton.click();
+        comparePage.searchBox.clear();
+        comparePage.searchBox.sendKeys(keyword);
+        comparePage.searchClickButton.click();
     }
 
     private void addProductsToCompare(int count, int startIndex) {
         for (int i = 0; i < count; i++) {
-            ActionsUtils.hoverOver(compareUs07Page.compareButtons.get(startIndex + i));
-            ReusableMethods.click(compareUs07Page.compareButtons.get(startIndex + i));
+            ActionsUtils.hoverOver(comparePage.compareButtons.get(startIndex + i));
+            ReusableMethods.click(comparePage.compareButtons.get(startIndex + i));
             WaitUtils.waitFor(1);
             try {
-                ReusableMethods.visibleWait(compareUs07Page.popUparea, 1);
-                compareUs07Page.popUparea.click();
+                ReusableMethods.visibleWait(comparePage.popUparea, 1);
+                comparePage.popUparea.click();
             } catch (Exception ignored) {}
         }
     }
@@ -59,16 +49,16 @@ public class Compare_US07_TC02 {
 
         // 4 ürün ekle
         addProductsToCompare(4, 4);
-        Assert.assertTrue(compareUs07Page.assertionCount4.getText().contains("4"));
+        Assert.assertTrue(comparePage.assertionCount4.getText().contains("4"));
 
         // 2 ürünü sil
-        compareUs07Page.removeButton1.click();
-        compareUs07Page.removeButton2.click();
-        Assert.assertTrue(compareUs07Page.assertionCount2.getText().contains("2"));
+        comparePage.removeButton1.click();
+        comparePage.removeButton2.click();
+        Assert.assertTrue(comparePage.assertionCount2.getText().contains("2"));
 
         // Tekrar 2 ürün ekle
         addProductsToCompare(2, 0);
-        Assert.assertTrue(compareUs07Page.assertionCount4.getText().contains("4"));
+        Assert.assertTrue(comparePage.assertionCount4.getText().contains("4"));
     }
     }
 

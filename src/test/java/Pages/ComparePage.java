@@ -8,9 +8,9 @@ import utilities.Driver;
 
 import java.util.List;
 
-public class Compare_US_07_Page {
+public class ComparePage {
 
-    public Compare_US_07_Page() {
+    public ComparePage() {
         PageFactory.initElements(Driver.getDriver(),this);
     }
 
