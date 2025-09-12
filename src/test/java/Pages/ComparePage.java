@@ -8,9 +8,9 @@ import utilities.Driver;
 
 import java.util.List;
 
-public class Compare_US_07_Page {
+public class ComparePage {
 
-    public Compare_US_07_Page() {
+    public ComparePage() {
         PageFactory.initElements(Driver.getDriver(),this);
     }
 
@@ -25,7 +25,6 @@ public class Compare_US_07_Page {
 
    @FindBy(xpath = "//a[contains(@class,'compare') and contains(@class,'btn-product-icon')]")
    public List<WebElement> compareButtons;
-
 
    @FindBy(xpath = "//a[.='Start Compare !']")
    public WebElement startCompareButton;
@@ -45,8 +44,12 @@ public class Compare_US_07_Page {
    @FindBy(tagName = "h2")
    public WebElement comparePage;
 
-   @FindBy(xpath = "(//a[@class='compare-action remove_from_compare'])[1]")
-   public WebElement removeFromCompareButton;
+   @FindBy(xpath = "//a[@class='compare-action remove_from_compare']")
+   public List<WebElement> removeFromComparePage;
+
+
+
+
 
 
 
