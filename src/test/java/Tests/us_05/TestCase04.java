@@ -62,25 +62,25 @@ public class TestCase04 {
         accountDetailsPage.passwordConfirmAccountDetails.sendKeys(ConfigReader.getProperty("tenCharacterConfirmPasswordAccountDetails"));
         JSUtils.JSscrollIntoView(accountDetailsPage.saveChangesAccountDetails);
         WaitUtils.waitFor(2);
-        ExtentReportsListener.extentTestInfo("Değişiklikleri kaydedin butonu aktifleşir ve tıklanır");
+        ExtentReportsListener.extentTestInfo("Değişiklikleri kaydedin butonu aktifleşti ve tıklandı");
         accountDetailsPage.saveChangesAccountDetails.click();
         String message = accountDetailsPage.alertAccountDetails.getText();
         ExtentReportsListener.extentTestInfo(message+ "       mesajı alınır");
-        ExtentReportsListener.extentTestInfo("Şifre değişikliği üst kısımda çıkan allert mesajı ile doğrulanır");
+        ExtentReportsListener.extentTestInfo("Şifre değişikliği üst kısımda çıkan allert mesajı ile doğrulandı");
         Assert.assertTrue(message.contains("changed successfully"));
         //ExtentReportsListener.extentTestInfo("Bir önceki testte en az 12 karakter uzunluğunda şifre gereklidir uyarısına rağmen 10 karakterli bir şifre ile test geçmiştir");
-        ExtentReportsListener.extentTestPass("Şifre değişikliği testi Bug ile birlikte geçmiştir");
+        ExtentReportsListener.extentTestPass("Şifre değişikliği testi geçti");
 
     }
 
 
-    @Test(description = "negatif scenario")
+    @Test(description = "negatif scenario, tek karakterli  şifre değişikliği kabul edilmemeli" )
     public void passwordChangeWithSingleChar() {
         faker = new Faker();
         accountDetailsPage = new Homepage();
         softAssert = new SoftAssert();
         ExtentReportsListener.extentTestInfo("8 karakterli eski şifreyi (12345Aa*), tek karakterli yeni şifreye (1) değiştirme testi ");
-        ExtentReportsListener.extentTestInfo("Siteye yeni kullanıcı tanımlanarak giriş yapılır");
+        ExtentReportsListener.extentTestInfo("Siteye yeni kullanıcı tanımlanarak giriş yapıldı");
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
         accountDetailsPage.registerButton.click();
         accountDetailsPage.userName.sendKeys(faker.name().username());
@@ -113,14 +113,14 @@ public class TestCase04 {
         JSUtils.JSscrollIntoView(accountDetailsPage.saveChangesAccountDetails);
         WaitUtils.waitFor(2);
         ExtentReportsListener.addScreenshotToReport("tek karakter ile şifre güncelleme");
-        ExtentReportsListener.extentTestInfo("Aktifleşmemesi gereken değişiklikleri kaydedin butonu aktifleşir ve tıklanır");
+        ExtentReportsListener.extentTestInfo("Aktifleşmemesi gereken değişiklikleri kaydedin butonu aktifleşti ve tıklandı");
         softAssert.assertFalse(accountDetailsPage.saveChangesAccountDetails.isEnabled());
         accountDetailsPage.saveChangesAccountDetails.click();
         String message = accountDetailsPage.alertAccountDetails.getText();
-        ExtentReportsListener.extentTestInfo(message+ "       mesajı alınır");
-        ExtentReportsListener.extentTestInfo("Yapılamaması gereken şifre değişikliğinin gerçekleştiği üst kısımda çıkan allert mesajı ile doğrulanır");
+        ExtentReportsListener.extentTestInfo("Alınan  mesaj:  " +message);
+        ExtentReportsListener.extentTestInfo("Yapılamaması gereken şifre değişikliğinin gerçekleştiği doğrulanır");
         softAssert.assertFalse(message.contains("changed successfully"));;
-        ExtentReportsListener.extentTestFail("Tek karakterli şifre kabul edilmiş test başarısız olmuştur");
+        ExtentReportsListener.extentTestFail("Tek karakterli şifre kabul edilmiş, test başarısız olmuştur");
         softAssert.assertAll();
 
     }

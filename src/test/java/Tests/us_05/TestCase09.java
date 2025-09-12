@@ -23,11 +23,11 @@ public class TestCase09 extends TestBase_US05 {
         accountDetailsPage.lastNameAccountDetails.clear();
         ExtentReportsListener.extentTestInfo("Last name boş bırakıldı, diğer alanlara değişiklik yapılmadı ");
         JSUtils.JSclickWithTimeout(accountDetailsPage.saveChangesAccountDetails);
-        ExtentReportsListener.extentTestInfo("Last name boş olduğuna ait aşağıdaki  uyarı mesajı alınır");
+        ExtentReportsListener.extentTestInfo("Last name boş olduğuna ait aşağıdaki  uyarı mesajı alındı");
         WaitUtils.waitForVisibility(accountDetailsPage.lastNameMissingMessagesAccountDetails, 10);
         String message = accountDetailsPage.lastNameMissingMessagesAccountDetails.getText();
-        ExtentReportsListener.extentTestInfo(message);
+        ExtentReportsListener.extentTestInfo("Uyarı mesajı:  " + message);
         Assert.assertEquals(message, "LAST NAME is a required field.");
-        ExtentReportsListener.extentTestPass("Last name olmadan update in başarısız olduğu uyarı mesajı ile doğrulandı ve test geçti");
+        ExtentReportsListener.extentTestPass("Last name olmadan update in başarısız olduğu  doğrulandı ve test geçti");
     }
 }

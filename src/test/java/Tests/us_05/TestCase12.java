@@ -24,16 +24,16 @@ public class TestCase12 extends TestBase_US05 {
         //Account Details' sayfasına gidilir
         accountDetailsPage.emailAccountDetails.clear();
         accountDetailsPage.emailAccountDetails.sendKeys(ConfigReader.getProperty("emailWithOut@"));
-        ExtentReportsListener.extentTestInfo("Email @ işareti olmadan değiştirilir ");
+        ExtentReportsListener.extentTestInfo("Email @ işareti olmadan değiştirildi ");
         JSUtils.JSscrollIntoView(accountDetailsPage.saveChangesAccountDetails);
         WaitUtils.waitFor(1);
         accountDetailsPage.saveChangesAccountDetails.click();
-        ExtentReportsListener.extentTestInfo("'@' eksik olduğuna ait aşağıdaki  uyarı mesajı alınır");
+        ExtentReportsListener.extentTestInfo("'@' eksik olduğuna ait uyarı mesajı beklendi");
         WaitUtils.waitFor(2);
         ExtentReportsListener.addScreenshotToReport("Uyarı mesajı alınmadı");
-        ExtentReportsListener.extentTestInfo("Değişikliklerin başarılı olduğunu gösteren mesajın alınmadığı doğrulanır");
+        ExtentReportsListener.extentTestInfo("Değişiklikliğin neden olmadığını belirten mesajın alınmadığı doğrulandı");
         Assert.assertTrue(accountDetailsPage.alertListAccountDetails.isEmpty());
-        ExtentReportsListener.extentTestPass("'@' olmadan update in olmadığı değişiklikler başarılı mesajının alınmaması ile doğrulandı" +
+        ExtentReportsListener.extentTestPass("'@' olmadan update in olmadığı  doğrulandı" +
                 " ama hatanın nerede yapıldığına ait kullanıcıya uyarı mesajı verilmedi, test geçti ama iyileştirme yapılmalı");
     }
 }

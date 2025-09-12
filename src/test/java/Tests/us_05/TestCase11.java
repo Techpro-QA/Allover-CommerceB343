@@ -24,12 +24,12 @@ public class TestCase11 extends TestBase_US05 {
         accountDetailsPage.emailAccountDetails.clear();
         ExtentReportsListener.extentTestInfo("Email boş bırakıldı, diğer alanlara değişiklik yapılmadı ");
         JSUtils.JSclickWithTimeout(accountDetailsPage.saveChangesAccountDetails);
-        ExtentReportsListener.extentTestInfo("Email boş olduğuna ait aşağıdaki  uyarı mesajı alınır");
+        ExtentReportsListener.extentTestInfo("Email boş olduğuna ait aşağıdaki  uyarı mesajı alındı");
         WaitUtils.waitForVisibility(accountDetailsPage.emailMissingMessagesAccountDetails,10);
         String message = accountDetailsPage.emailMissingMessagesAccountDetails.getText();
-        ExtentReportsListener.extentTestInfo(message);
+        ExtentReportsListener.extentTestInfo("Uyarı mesajı:  " + message);
         Assert.assertEquals(message,"EMAIL ADDRESS is a required field.");
-        ExtentReportsListener.extentTestPass("Email olmadan update in başarısız olduğu uyarı mesajı ile doğrulandı ve test geçti");
+        ExtentReportsListener.extentTestPass("Email olmadan update in başarısız olduğu  doğrulandı ve test geçti");
     }
 
 }

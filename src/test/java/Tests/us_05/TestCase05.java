@@ -32,15 +32,15 @@ public class TestCase05 extends TestBase_US05 {
         accountDetailsPage.passwordConfirmAccountDetails.sendKeys(ConfigReader.getProperty("tenCharacterConfirmPasswordAccountDetails"));
         JSUtils.JSscrollIntoView(accountDetailsPage.saveChangesAccountDetails);
         WaitUtils.waitFor(2);
-        ExtentReportsListener.extentTestInfo("Current password boş bırakılır , new ve confirm password kısımları 10 karakterli password ile doldurulur" +
-                " ve değişiklikleri kaydedin butonuna basılır");
+        ExtentReportsListener.extentTestInfo("Current password boş bırakıldı , new ve confirm password kısımlarına uygun password girildi" +
+                " ve değişiklikleri kaydedin butonuna basıldı");
         //SAVE CHANGES' butonuna tıklanır
         accountDetailsPage.saveChangesAccountDetails.click();
         WaitUtils.waitForVisibility(accountDetailsPage.passwordMissingMessagesAccountDetails, 3);
         //alınan uyarı locate edilir
         String text = accountDetailsPage.passwordMissingMessagesAccountDetails.getText();
-        ExtentReportsListener.extentTestInfo("Current password boş olduğuna ait aşağıdaki uyarı mesajı alınır");
-        ExtentReportsListener.extentTestInfo(text);
+        ExtentReportsListener.extentTestInfo("Current password boş olduğuna ait aşağıdaki uyarı mesajı alındı");
+        ExtentReportsListener.extentTestInfo("Uyarı mesaj:  " + text);
         Assert.assertEquals(text, "Please enter your current password.");
         ExtentReportsListener.extentTestPass("Password değişikliğinin başarısız olduğu uyarı mesajı ile doğrulandı ve test geçti ");
 

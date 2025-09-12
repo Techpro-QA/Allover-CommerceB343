@@ -28,7 +28,7 @@ public class TestCase02 extends TestBase_US05 {
                 " Account Details'a tıklanıp hesap bilgilerin olduğu sayfaya gidildi");
 
         ExtentReportsListener.extentTestInfo("Hesap bilgileri görüntülenir");
-        ExtentReportsListener.extentTestInfo("First, Last, Display name ve email adresi değiştirilir");
+        ExtentReportsListener.extentTestInfo("First, Last, Display name ve email adresi değiştirildi");
         accountDetailsPage.firstNameAccountDetails.clear();
         accountDetailsPage.firstNameAccountDetails.sendKeys(ConfigReader.getProperty("firstNameAccountDetails"));
         accountDetailsPage.lastNameAccountDetails.clear();
@@ -39,11 +39,11 @@ public class TestCase02 extends TestBase_US05 {
         accountDetailsPage.emailAccountDetails.sendKeys(ConfigReader.getProperty("email"));
         //save changes buttonuna tıklanır
         JSUtils.JSclickWithTimeout(accountDetailsPage.saveChangesAccountDetails);
-        ExtentReportsListener.extentTestInfo("Değişikliklerin başarılı olduğunu gösteren aşağıdaki mesaj locate edilir");
+        ExtentReportsListener.extentTestInfo("Değişikliklerin başarılı olduğunu gösteren aşağıdaki mesaj locate edildi");
         WaitUtils.waitForVisibility(accountDetailsPage.alertAccountDetails,10);
         String message = accountDetailsPage.alertAccountDetails.getText();
         ExtentReportsListener.extentTestInfo(message);
         Assert.assertTrue(message.contains("changed successfully"));
-        ExtentReportsListener.extentTestPass("Doğrulama mesajı kontrolü ile testin başarılı olduğu doğrulanır");
+        ExtentReportsListener.extentTestPass("Testin başarılı olduğu doğrulandı");
     }
 }

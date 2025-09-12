@@ -25,12 +25,12 @@ public class TestCase13 extends TestBase_US05 {
         accountDetailsPage.emailAccountDetails.sendKeys(ConfigReader.getProperty("invalidUserEmail"));
         ExtentReportsListener.extentTestInfo("Email 'example343@gmail' olarak girildi, diğer alanlara değişiklik yapılmadı ");
         JSUtils.JSclickWithTimeout(accountDetailsPage.saveChangesAccountDetails);
-        ExtentReportsListener.extentTestInfo("Email '.com'  olmadan girildiğinde ait aşağıdaki  uyarı mesajı alınır");
+        ExtentReportsListener.extentTestInfo("Email '.com'  olmadan girildiğinde  aşağıdaki  uyarı mesajı alındı");
         WaitUtils.waitForVisibility(accountDetailsPage.passwordMissingMessagesAccountDetails, 10);
         String message = accountDetailsPage.passwordMissingMessagesAccountDetails.getText();
-        ExtentReportsListener.extentTestInfo(message);
+        ExtentReportsListener.extentTestInfo("Uyarı mesajı:  " + message);
         Assert.assertEquals(message, "Please provide a valid email address.");
-        ExtentReportsListener.extentTestPass(".com olmadan update in başarısız olduğu uyarı mesajı ile doğrulandı ve test geçti");
+        ExtentReportsListener.extentTestPass(".com olmadan update in başarısız olduğu doğrulandı ve test geçti");
     }
 
 

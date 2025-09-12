@@ -31,14 +31,14 @@ public class TestCase07 extends TestBase_US05 {
         accountDetailsPage.passwordCurrentAccountDetails.sendKeys(ConfigReader.getProperty("password"));
         accountDetailsPage.passwordNewAccountDetails.sendKeys(ConfigReader.getProperty("tenCharacterConfirmPasswordAccountDetails"));
         JSUtils.JSclickWithTimeout(accountDetailsPage.saveChangesAccountDetails);
-        ExtentReportsListener.extentTestInfo("Confirm password boş bırakılır, current ve new password kısımları uygun passwordler ile doldurulur" +
-                " ve değişiklikleri kaydedin butonuna basılır");
+        ExtentReportsListener.extentTestInfo("Confirm password boş bırakılır, current ve new password kısımları uygun passwordler ile dolduruldu" +
+                " ve değişiklikleri kaydedin butonuna basıldı");
         WaitUtils.waitForVisibility(accountDetailsPage.passwordMissingMessagesAccountDetails, 3);
         String text = accountDetailsPage.passwordMissingMessagesAccountDetails.getText();
-        ExtentReportsListener.extentTestInfo("Confirm password boş olduğuna ait aşağıdaki  uyarı mesajı alınır");
-        ExtentReportsListener.extentTestInfo(text);
+        ExtentReportsListener.extentTestInfo("Confirm password boş olduğuna ait aşağıdaki  uyarı mesajı alındı");
+        ExtentReportsListener.extentTestInfo("Uyarı mesajı:  " +  text);
         Assert.assertEquals(text, "Please re-enter your password.");
-        ExtentReportsListener.extentTestPass("Password değişikliğinin başarısız olduğu uyarı mesajı ile doğrulandı ve test geçti ");
+        ExtentReportsListener.extentTestPass("Password değişikliğinin başarısız olduğu  doğrulandı ve test geçti ");
 
     }
 }

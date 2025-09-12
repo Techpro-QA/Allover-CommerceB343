@@ -32,8 +32,8 @@ public class TestCase06 extends TestBase_US05 {
         accountDetailsPage.passwordConfirmAccountDetails.sendKeys(ConfigReader.getProperty("tenCharacterConfirmPasswordAccountDetails"));
         JSUtils.JSscrollIntoView(accountDetailsPage.saveChangesAccountDetails);
         WaitUtils.waitFor(2);
-        ExtentReportsListener.extentTestInfo("New password boş bırakılır, current ve confirm password kısımları uygun passwordler ile doldurulur" +
-                " ve değişiklikleri kaydedin butonuna basılır");
+        ExtentReportsListener.extentTestInfo("New password boş bırakıldı, current ve confirm password kısımları uygun passwordler ile dolduruldu" +
+                " ve değişiklikleri kaydedin butonuna basıldı");
         accountDetailsPage.saveChangesAccountDetails.click();
         //SAVE CHANGES' butonuna tıklanır
         WaitUtils.waitForVisibility(accountDetailsPage.passwordMissingMessagesAccountDetails, 3);

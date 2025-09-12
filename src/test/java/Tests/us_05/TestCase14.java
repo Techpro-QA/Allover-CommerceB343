@@ -23,9 +23,9 @@ public class TestCase14 extends TestBase_US05 {
         ExtentReportsListener.addScreenshotToReport("geçersiz email");
         ExtentReportsListener.extentTestInfo("Email 'example343@gmail.1234567' olarak girildi, diğer alanlara değişiklik yapılmadı ");
         JSUtils.JSclickWithTimeout(accountDetailsPage.saveChangesAccountDetails);
-        ExtentReportsListener.extentTestInfo("Email geçersiz girildiğinde ait sayfada uyarı mesajı alınır");
+        ExtentReportsListener.extentTestInfo("Geçersiz email girildiğine ait sayfada uyarı mesajı beklendi");
         ExtentReportsListener.addScreenshotToReport("Uyarı mesajı alınmadı");
-        ExtentReportsListener.extentTestInfo("Değişikliklerin başarılı olduğunu gösteren mesajın alınmadığı kontrol edilir");
+        ExtentReportsListener.extentTestInfo("Değişikliklerin başarılı olduğunu gösteren mesajın alınıp alınmadığı kontrol edildi");
         WaitUtils.waitForVisibility(accountDetailsPage.alertAccountDetails, 10);
         String message = accountDetailsPage.alertAccountDetails.getText();
         ExtentReportsListener.extentTestInfo("Değişikliğin başarılı olduğuna ait mesaj:  "+ message);

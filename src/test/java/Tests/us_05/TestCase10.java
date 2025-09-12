@@ -25,13 +25,12 @@ public class TestCase10 extends TestBase_US05 {
         accountDetailsPage.displayNameAccountDetails.clear();
         ExtentReportsListener.extentTestInfo("Display name boş bırakıldı, diğer alanlara değişiklik yapılmadı ");
         JSUtils.JSclickWithTimeout(accountDetailsPage.saveChangesAccountDetails);
-        ExtentReportsListener.extentTestInfo("Display name boş olduğuna ait aşağıdaki  uyarı mesajı alınır");
+        ExtentReportsListener.extentTestInfo("Display name boş olduğuna ait aşağıdaki  uyarı mesajı alındı");
         WaitUtils.waitForVisibility(accountDetailsPage.displayNameMissingMessagesAccountDetails, 10);
         String message = accountDetailsPage.displayNameMissingMessagesAccountDetails.getText();
-        System.out.println(message);
-        ExtentReportsListener.extentTestInfo(message);
+        ExtentReportsListener.extentTestInfo("Uyarı mesajı:  " + message);
         Assert.assertEquals(message, "DISPLAY NAME is a required field.");
-        ExtentReportsListener.extentTestPass("Display name olmadan update in başarısız olduğu uyarı mesajı ile doğrulandı ve test geçti");
+        ExtentReportsListener.extentTestPass("Display name olmadan update in başarısız olduğu  doğrulandı ve test geçti");
     }
 
 

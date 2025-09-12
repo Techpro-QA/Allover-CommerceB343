@@ -22,13 +22,13 @@ public class TestCase08 extends TestBase_US05 {
                 " Account Details'a tıklanıp hesap bilgilerin olduğu sayfaya gidildi");
         //Account Details' sayfasına gidilir
         accountDetailsPage.firstNameAccountDetails.clear();
-        ExtentReportsListener.extentTestInfo("First name boş bırakılır, diğer alanlara değişiklik yapılmaz ");
+        ExtentReportsListener.extentTestInfo("First name boş bırakıldı, diğer alanlara değişiklik yapılmadı ");
         JSUtils.JSclickWithTimeout(accountDetailsPage.saveChangesAccountDetails);
-        ExtentReportsListener.extentTestInfo("First name boş olduğuna ait aşağıdaki  uyarı mesajı alınır");
+        ExtentReportsListener.extentTestInfo("First name boş olduğuna ait aşağıdaki  uyarı mesajı alındı");
         WaitUtils.waitForVisibility(accountDetailsPage.firstNameMissingMessagesAccountDetails, 10);
         String message = accountDetailsPage.firstNameMissingMessagesAccountDetails.getText();
-        ExtentReportsListener.extentTestInfo(message);
+        ExtentReportsListener.extentTestInfo("Uyarı mesajı:  " + message);
         Assert.assertEquals(message, "FIRST NAME is a required field.");
-        ExtentReportsListener.extentTestPass("First name olmadan güncellemenin başarısız olduğu uyarı mesajı ile doğrulandı ve test geçti");
+        ExtentReportsListener.extentTestPass("First name olmadan güncellemenin başarısız olduğu  doğrulandı ve test geçti");
     }
 }

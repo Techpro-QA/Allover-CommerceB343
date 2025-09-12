@@ -31,7 +31,7 @@ public class TestCase03 extends TestBase_US05 {
         Driver.getDriver().switchTo().frame("user_description_ifr");
         JSUtils.JSscrollIntoView(accountDetailsPage.biographyAccountDetails);
         accountDetailsPage.biographyAccountDetails.clear();
-        ExtentReportsListener.extentTestInfo("Biograpy alanına text girilir");
+        ExtentReportsListener.extentTestInfo("Biograpy alanına text girildi");
         String expectedText = ConfigReader.getProperty("expectedText");
         accountDetailsPage.biographyAccountDetails.sendKeys(expectedText);
         //iframe den çıkılır ve save changes buttonuna tıklanıp sonrasında çıkan uyarı yazısı kapatılır
@@ -41,9 +41,9 @@ public class TestCase03 extends TestBase_US05 {
         //girilen text doğrulama için alınır, bunun için tekrar iframe girilir
         Driver.getDriver().switchTo().frame("user_description_ifr");
         JSUtils.JSscrollIntoView(accountDetailsPage.biographyAccountDetails);
-        ExtentReportsListener.extentTestInfo("Girilen text doğrulama testi içn alınır");
+        ExtentReportsListener.extentTestInfo("Girilen text doğrulama testi için alındı");
         String text = accountDetailsPage.biographyAccountDetails.getDomProperty("innerText");
-        ExtentReportsListener.extentTestInfo("Girilen text ve alının text karşılaştırılıp doğrulanır");
+        ExtentReportsListener.extentTestInfo("Girilen text ve alının text karşılaştırıldı");
         Assert.assertEquals(text,expectedText);
         Driver.getDriver().switchTo().defaultContent();
         ExtentReportsListener.extentTestPass("doğrulama başarılı oldu test geçti");
