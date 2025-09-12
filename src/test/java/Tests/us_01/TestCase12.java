@@ -1,14 +1,14 @@
-package Tests.US_01;
+package Tests.us_01;
 
 import org.testng.annotations.Test;
 import utilities.ConfigReader;
 import utilities.ExtentReportsListener;
 
-public class TestCase11 extends TestBase_US01 {
+public class TestCase12 extends TestBase_US01 {
 
     @Test (description = "negatif scenario")
     public void afterPointInvalidEmail() {
-        ExtentReportsListener.extentTestInfo("email e noktadan sonra .123456 ile kayıt yapılmaya çalışılır ve  login olunamaması beklenir");
+        ExtentReportsListener.extentTestInfo("email e noktadan sonra .123456 ile kayıt yapılmaya çalışılır ve login olunamaz");
         // (1 ve 2 extends TestBase ile yapılır)
         // 3 Acilan pencerede Username icin gecerli bir data girilir
         alloverCommercePage.userName.sendKeys(faker.name().username());
@@ -23,13 +23,14 @@ public class TestCase11 extends TestBase_US01 {
         alloverCommercePage.singUpButton.click();
         // 8 Kayit isleminin gerceklesmedigi doğrulanir
         // a) Açılan pencere altında uyarı mesajı alınır
-        ExtentReportsListener.extentTestInfo("Açılan pop up  uyarı mesajının kontrolü yapılır");
+        ExtentReportsListener.extentTestInfo("Uyarı mesajının olup olmadığı kontrol edilir");
         softAssert.assertFalse(alloverCommercePage.bugEmailErrorMessage.isEmpty());
         //  b) Kayıt yapılarak girilen sayfaya girilemediği doğrulanır
-        ExtentReportsListener.extentTestInfo("Uyarı mesajı çıkmasına rağmen login olarak sayfaya girilemediği doğrulanır");
+        ExtentReportsListener.extentTestInfo("Uyarı mesajı çıkmadı, login olarak sayfaya girilemediği doğrulanır");
         softAssert.assertTrue(alloverCommercePage.singOutButton.isEmpty());
-        ExtentReportsListener.extentTestFail("Email de noktadan sonra hiçbir mailde kullanılmayan '123456' girilmiş " +
-                "geçersiz email e ait uyarı mesajı alınmamış ve sayfaya girilememesi gerekirken login olarak girilmiştir.");
+        ExtentReportsListener.extentTestFail("Email e noktadan sonra geçersiz '123456' rakamları girildi " +
+                "geçersiz email e ait uyarı mesajı alınmadı ve sayfaya girilememesi gerekirken login olarak girildi." +
+                "Test başarısız oldu");
         softAssert.assertAll();
     }
 

@@ -1,4 +1,4 @@
-package Tests.US_01;
+package Tests.us_01;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -22,7 +22,7 @@ public class TestCase01Ve06 extends TestBase_US01 {
         //(1 ve 2 extends TestBase ile yapılır)
         //  3 Acilan pencerede Username icin gecerli bir data girilir
         //  (Küçük harf, büyük harf, rakam ve özel karakter içerebilmeli)
-        ExtentReportsListener.extentTestInfo("username e isimden sonra 'Aa1.' concat edilerek testcase06 kontrolüde burada yapılır ");
+        ExtentReportsListener.extentTestInfo("username e isimden sonra 'Aa1.' concat edilerek testcase06 kontrolü burada yapılır ");
         alloverCommercePage.userName.sendKeys(faker.name().username()+"Aa1.");
         // 4 Your Email address icin gecerli bir data girilir
         alloverCommercePage.email.sendKeys(faker.internet().emailAddress());
@@ -32,12 +32,10 @@ public class TestCase01Ve06 extends TestBase_US01 {
         if (!alloverCommercePage.checkBox.isSelected()) {alloverCommercePage.checkBox.click();}
         // 7 Sign Up butonuna tiklanir
         alloverCommercePage.singUpButton.click();
-        // 8
+
         ExtentReportsListener.extentTestInfo("Kayit isleminin basarili bir sekilde gerceklestigi doğrulanir");
         Assert.assertTrue(!alloverCommercePage.singOutButton.isEmpty());
         ExtentReportsListener.extentTestPass("Uygun datalar girilerek sayfaya login olarak başarılı bir şekilde girilmiştir.");
-
-
 
     }
 }

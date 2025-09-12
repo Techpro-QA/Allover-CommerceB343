@@ -11,7 +11,7 @@ public class JSUtils {
      */
     public static void JSscrollIntoView(WebElement element) {
         JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
-        js.executeScript("arguments[0].scrollIntoView(true);", element);
+        js.executeScript("arguments[0].scrollIntoView(false);", element);
     }
 
     /**

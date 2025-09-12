@@ -1,4 +1,4 @@
-package Tests.US_01;
+package Tests.us_01;
 
 import org.testng.annotations.Test;
 import utilities.ExtentReportsListener;
@@ -32,6 +32,7 @@ public class TestCase04 extends TestBase_US01 {
         //  a) Password üzerinde açılan pop up "Lütfen bu alanı doldurun." uyarı mesajı alınır
         // mesaj içeriği developerlar tarafından ileride değiştirilebileceği için NotNull testi yapıldı
         String validationMessage = alloverCommercePage.password.getAttribute("validationMessage");
+        ExtentReportsListener.extentTestInfo("pop up uyarı mesajı: "+validationMessage);
         ExtentReportsListener.extentTestInfo("Açılan pop up  uyarı mesajının kontrolü yapılır");
         softAssert.assertTrue(validationMessage.contains("Lütfen"));
         //  b) Kayıt yapılarak girilen sayfaya girilemediği doğrulanır

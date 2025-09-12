@@ -1,4 +1,4 @@
-package Tests.US_01;
+package Tests.us_01;
 
 import org.testng.annotations.Test;
 import utilities.ConfigReader;
@@ -17,7 +17,7 @@ public class TestCase09 extends TestBase_US01 {
 
     @Test (description = "negatif scenario")
     public void missedCharecterPassword() {
-        ExtentReportsListener.extentTestInfo("passworda '1' girilir ve  login olunamaması beklenir");
+        ExtentReportsListener.extentTestInfo("passworda '1' girilir ve login olunamaz");
         //(1 ve 2 extends TestBase ile yapılır)
         // 3 Acilan pencerede Username icin gecerli bir data girilir
         alloverCommercePage.userName.sendKeys(faker.name().username());
@@ -29,12 +29,14 @@ public class TestCase09 extends TestBase_US01 {
         if (!alloverCommercePage.checkBox.isSelected()) {alloverCommercePage.checkBox.click();}
         // 7 Sign Up butonuna tiklanir
         alloverCommercePage.singUpButton.click();
-        ExtentReportsListener.extentTestInfo("Login olarak sayfaya girilemediği doğrulanır");
+        ExtentReportsListener.extentTestInfo("Login olarak sayfaya girilmediği doğrulanır");
         // 8 Kayit isleminin gerceklesmedigi doğrulanir
         softAssert.assertTrue(alloverCommercePage.singOutButton.isEmpty());
-        ExtentReportsListener.extentTestFail("US1 e göre 'Parola en az 8 karakter uzunluğunda olmalıdır. " +
+        ExtentReportsListener.extentTestInfo("US1 e göre 'Parola en az 8 karakter uzunluğunda olmalıdır. " +
                 "Daha güçlü hale getirmek için büyük ve küçük harfler, sayılar ve ! ? $ % ^ & kullanılmalıdır.'" +
-                "kuralına uygun olmayan '1' tek karakterlik parola ile siteye login olarak giriş yapılmıştır");
+                "kuralına uygun olmayan tek karakterli parola (1) kabul adildi" +
+                " Doğrulama başarısız oldu");
+        ExtentReportsListener.extentTestFail("Login olarak giriş yapıldı test başarısız oldu");
         softAssert.assertAll();
 
 

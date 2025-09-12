@@ -1,4 +1,4 @@
-package Tests.US_01;
+package Tests.us_01;
 
 import Pages.Homepage;
 import com.github.javafaker.Faker;
@@ -12,7 +12,7 @@ public class TestBase_US01 {//her class ta tekrar eden kodlar için parent class
 
         // kayıtlı email ve username ile tekrar kayıt yapılamadığından dolayı bu ikisi için faker kullanıldı
         protected Faker faker;
-        public Homepage alloverCommercePage;
+        protected Homepage alloverCommercePage;
         SoftAssert softAssert;
 
         @BeforeMethod
