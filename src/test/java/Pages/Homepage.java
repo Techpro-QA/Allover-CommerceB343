@@ -67,7 +67,6 @@ public class Homepage {
     public WebElement registerFailMessage;
 
 
-
     @FindBy(css = "[title='Close (Esc)']")
     public WebElement signInCloseButton;
 

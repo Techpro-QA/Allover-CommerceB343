@@ -1,6 +1,7 @@
 package Tests.US_18;
 
-import Pages.HomePage;
+
+import Pages.Homepage;
 import Pages.MyAccount;
 import Pages.StoreManager;
 import org.testng.Assert;
@@ -10,20 +11,22 @@ import utilities.*;
 public class TC03_DuplicateCouponTest {
 
     @BeforeClass
-    public void beforeClass() {
+    public void setUp() {
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
-        HomePage homePage = new HomePage();
+
+        Homepage homePage = new Homepage();
         MyAccount myAccount = new MyAccount();
 
         //Log in as a vendor
-        homePage.homeSignIn.click();
-        homePage.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("vendorEmail"));
-        homePage.passwordTextBox.sendKeys(ConfigReader.getProperty("vendorPassword"));
         homePage.signInButton.click();
+        homePage.userNameOrEmail.sendKeys(ConfigReader.getProperty("vendorEmail"));
+        homePage.passwordOnSingIn.sendKeys(ConfigReader.getProperty("vendorPassword"));
+        homePage.signInButton2.click();
 
-        ExtentReportsListener.extentTestInfo("Store Manager sayfasına gidilir");
-        homePage.homeSignOut.click();
+        ExtentReportsListener.extentTestPass("Store Manager sayfasına gidilir");
+        homePage.singOutButtonClickable.click();
         myAccount.storeManager.click();
+
     }
 
     @Test

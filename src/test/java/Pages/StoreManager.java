@@ -56,7 +56,7 @@ public class StoreManager {
     @FindBy(xpath = "(//tr[2]/td)[1]")
     public WebElement secondRowFirstColumn;
 
-    @FindBy(xpath = "(//*[contains(text(),'Coupon Successfully Published')")
+    @FindBy(xpath = "//*[contains(text(),'Coupon Successfully Published')]")
     public WebElement successMessage;
 
     @FindBy(xpath = "(//*[contains(text(),'Coupon code already exists')]")
