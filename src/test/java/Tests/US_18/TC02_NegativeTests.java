@@ -1,9 +1,8 @@
-package Tests.userstory18;
+package Tests.US_18;
 
 import Pages.HomePage;
 import Pages.MyAccount;
 import Pages.StoreManager;
-import org.testng.Assert;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 import utilities.*;

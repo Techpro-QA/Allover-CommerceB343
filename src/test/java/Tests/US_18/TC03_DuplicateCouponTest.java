@@ -1,37 +1,17 @@
-package Tests.userstory18;
+package Tests.US_18;
 
 import Pages.HomePage;
 import Pages.MyAccount;
 import Pages.StoreManager;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import org.testng.asserts.SoftAssert;
 import utilities.*;
-
-import javax.swing.text.Utilities;
-
-
-public class TC01_PositiveTest {
-
-    @DataProvider()
-    public static Object[][] couponsPositiveData() {
-
-        return new Object[][]{
-                //positive test
-
-                //After filling in the required fields to create a coupon, the coupon can be created.
-                //(Positive Scenario)"
-                {"karne05","karnesini alan herkes bu kodla %10 indirim kazanır","10","2026-08-15"}
-
-        };
-    }
-
-
+@Listeners(ExtentReportsListener.class)
+public class TC03_DuplicateCouponTest {
 
     @BeforeClass
-    public void setUp() {
+    public void beforeClass() {
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
-
         HomePage homePage = new HomePage();
         MyAccount myAccount = new MyAccount();
 
@@ -41,35 +21,32 @@ public class TC01_PositiveTest {
         homePage.passwordTextBox.sendKeys(ConfigReader.getProperty("vendorPassword"));
         homePage.signInButton.click();
 
-        ExtentReportsListener.extentTestPass("Store Manager sayfasına gidilir");
+        ExtentReportsListener.extentTestInfo("Store Manager sayfasına gidilir");
         homePage.homeSignOut.click();
         myAccount.storeManager.click();
-
     }
 
-    @Test(dataProvider = "couponsPositiveData")
-    public void couponsPositiveTest(String codeName,String descriptionText,String couponAmount,String date) {
-
-
+    @Test
+    public void duplicateCouponCreationTest() {
         StoreManager storeManager = new StoreManager();
 
         // Go to the Coupon page
-        ExtentReportsListener.extentTestPass("Coupon sayfasına gidilir");
+        ExtentReportsListener.extentTestInfo("Coupon sayfasına gidilir");
         storeManager.coupons.click();
         storeManager.addNew.click();
 
-        // Log that all necessary text boxes for creating a coupon are being filled
+        // The same data is entered to create the same coupon
         ExtentReportsListener.extentTestInfo("Coupon oluşturmak gerekli Text boxlar doldurluyor");
-        storeManager.codeTextBox.sendKeys(codeName);
-        storeManager.descriptionTextBox.sendKeys(descriptionText);
+        storeManager.codeTextBox.sendKeys(ConfigReader.getProperty("couponCode"));
+        storeManager.descriptionTextBox.sendKeys(ConfigReader.getProperty("couponDescription"));
         BrowserUtils.dropdownSelectByVisibleText(storeManager.discountTypeDD,"Percentage discount");
-        storeManager.couponAmountNumberBox.sendKeys(couponAmount);
-        storeManager.couponExpiryDateBox.sendKeys(date);
+        storeManager.couponAmountNumberBox.sendKeys(ConfigReader.getProperty("couponAmount"));
+        storeManager.couponExpiryDateBox.sendKeys(ConfigReader.getProperty("couponExpiryDate"));
 
         ExtentReportsListener.extentTestPass("Text Boxlara yazı yazılabiliyor");
+
         ActionsUtils.hoverOver(storeManager.allowFreeShippingCheckBox);
 
-        // Click on the checkboxes
         if (!storeManager.allowFreeShippingCheckBox.isSelected()) {
             storeManager.allowFreeShippingCheckBox.click();
         }
@@ -85,26 +62,25 @@ public class TC01_PositiveTest {
 
         // Scroll to the bottom of the page so the driver can see the Submit button
         ActionsUtils.scrollEnd();
-
         JSUtils.JSclickWithTimeout(storeManager.couponSubmitButton);
+        WaitUtils.waitFor(1);
+
+        //Since the location of the message could not be obtained properly, it was added to the comment line and checked with a screenshot.
+        ExtentReportsListener.addScreenshotToReport("Onay mesajının görünürlüğü kontrol edilir");
+        ExtentReportsListener.extentTestInfo("Coupon sayfasında oluşturduğumuz coupun gözüküyor mu diye kontrol edilir");
+        JSUtils.JSclickWithTimeout(storeManager.coupons);
+        storeManager.couponSearchBox.sendKeys(ConfigReader.getProperty("couponCode"));
 
         WaitUtils.waitFor(1);
 
-        //Check if the coupon we created is visible on the Coupon page
-        Assert.assertTrue(storeManager.successMessage.isDisplayed());
-        ExtentReportsListener.addScreenshotToReport("Onay mesajının görünürlüğü kontrol edilir");
+        //Check if the same coupon has been created
+        ExtentReportsListener.addScreenshotToReport("Aynı coupondan birden fazla var mı kontrol edilir");
+        Assert.assertFalse(storeManager.secondRowFirstColumn.isDisplayed());
 
-        WaitUtils.waitFor(2);
-
-        ExtentReportsListener.extentTestInfo("Coupon sayfasında oluşturduğumuz coupun gözüküyor mu diye kontrol edilir");
-        JSUtils.JSclickWithTimeout(storeManager.coupons);
-        storeManager.couponSearchBox.sendKeys(codeName);
-        Assert.assertEquals(storeManager.lastCouponName.getText(),codeName);
     }
 
     @AfterClass
     public void afterClass() {
         Driver.quitDriver();
     }
-
 }

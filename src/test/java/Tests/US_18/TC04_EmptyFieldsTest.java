@@ -1,4 +1,4 @@
-package Tests.userstory18;
+package Tests.US_18;
 
 import Pages.HomePage;
 import Pages.MyAccount;
@@ -7,7 +7,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import utilities.*;
 
 public class TC04_EmptyFieldsTest {

@@ -1,8 +1,6 @@
-package Tests.userstory02;
+package Tests.US_02;
 
 import Pages.HomePage;
-import Pages.MyAccount;
-import Pages.StoreManager;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
