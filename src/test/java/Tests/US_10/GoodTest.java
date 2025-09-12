@@ -7,7 +7,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import utilities.ConfigReader;
 import utilities.Driver;
-import utilities.ExtentReportsListener;
 import utilities.ReusableMethods;
 import java.io.IOException;
 
@@ -16,7 +15,7 @@ public class GoodTest {
     @Test(dataProvider = "GOOD",dataProviderClass = DataProvidersUS10.class)
     public void goodTest(String data) throws IOException {
 
-        ExtentReportsListener.extentTestInfo("Allover Commerce sayfasina gidilir");
+        ExtentReportsListenerUS_10.extentTestInfo("Allover Commerce sayfasina gidilir");
 
         //siteye gidilir
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
@@ -32,10 +31,10 @@ public class GoodTest {
         Faker faker = new Faker();
         Actions action = new Actions(Driver.getDriver());
 
-        ExtentReportsListener.extentTestInfo("Driverin locateleri tam görebilmesi icin sayfa scroll edilir");
+        ExtentReportsListenerUS_10.extentTestInfo("Driverin locateleri tam görebilmesi icin sayfa scroll edilir");
         action.scrollToElement(alloverCommercePage.vendorRegistrationRegisterButton).perform();
 
-        ExtentReportsListener.extentTestInfo("Email girisi yapilir");
+        ExtentReportsListenerUS_10.extentTestInfo("Email girisi yapilir");
 
         //Email icin gecerli bir data girilir
         ReusableMethods.sendKeysJS(alloverCommercePage.vendorRegistrationEmailTextBox, faker.internet().emailAddress());
@@ -43,16 +42,17 @@ public class GoodTest {
         //RE-SEND CODE a tiklanir
         alloverCommercePage.resendCodeButton.click();
 
-        ExtentReportsListener.extentTestInfo("Password girisi yapilir");
+        ExtentReportsListenerUS_10.extentTestInfo("Password girisi yapilir");
+        ExtentReportsListenerUS_10.extentTestInfo("Girilen password ==>>  " + data);
 
         //Password icin gecerli bir data girilir
         action.sendKeys(alloverCommercePage.vendorRegistrationPasswordTextBox, data).perform();
 
-        ExtentReportsListener.extentTestInfo("Password 'Good' uyarısı doğrulanıyor");
+        ExtentReportsListenerUS_10.extentTestInfo("Password 'Good' uyarısı doğrulanır");
         Assert.assertTrue(alloverCommercePage.goodTextBox.isDisplayed());
 
         //Good texti ekran görüntüsü reporta ekleniyor
-        US10ScreenUtils.captureScreen("goodTextBox");
+        Tests.US_10.US10ScreenUtils.captureScreen("goodTextBox görüntülenir");
 
         //Confirm Password alanına, Password alanına yazılan şifrenin aynısı yazılır.
         action.sendKeys(alloverCommercePage.vendorRegistrationConfirmPasswordTextBox, data).perform();

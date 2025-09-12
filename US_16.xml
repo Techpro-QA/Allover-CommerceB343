@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="AlloverCommerceTests">
+
+    <listeners>
+        <listener class-name="utilities.ExtentReportsListener"></listener>
+    </listeners>
+
+    <test verbose="2" preserve-order="true"
+          name="US16 - Product Tests">
+        <classes>
+            <class name="Tests.US_16.US16_VendorProductTest">
+                <methods>
+                    <include name="TC_POS_01_addSimpleProduct"/>
+                    <include name="TC_NEG_01_requiredFieldsEmpty"/>
+                    <include name="TC_NEG_02_invalidPriceFail"/>
+                    <include name="TC_NEG_03_noCategoryFail"/>
+                    <include name="TC_NEG_04_salePriceFail"/>
+              </methods>
+          </class>
+      </classes>
+  </test>
+</suite>

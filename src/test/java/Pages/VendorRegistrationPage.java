@@ -6,6 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 import utilities.Driver;
 
 public class VendorRegistrationPage {
+
     public VendorRegistrationPage() {
         PageFactory.initElements(Driver.getDriver(),this);
     }
@@ -42,8 +43,5 @@ public class VendorRegistrationPage {
 
     @FindBy(xpath = "//div[.='Strong']")
     public WebElement strongTextBox;
-
-
-
 
 }

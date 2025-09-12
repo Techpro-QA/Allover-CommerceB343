@@ -1,4 +1,4 @@
-package Tests.us_01;
+package Tests.US_01;
 
 import org.testng.annotations.Test;
 import utilities.ConfigReader;
