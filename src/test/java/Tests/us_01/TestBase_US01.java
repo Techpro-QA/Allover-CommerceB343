@@ -2,7 +2,6 @@ package Tests.us_01;
 
 import Pages.Homepage;
 import com.github.javafaker.Faker;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.asserts.SoftAssert;
