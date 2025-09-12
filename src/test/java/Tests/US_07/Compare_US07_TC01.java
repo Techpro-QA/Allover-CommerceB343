@@ -13,48 +13,40 @@ public class Compare_US07_TC01 {
 
     @BeforeMethod
     public void setUp() {
-        Driver.getDriver().get(ConfigReader.getProperty("allowerceUrl"));
+        Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
         comparePage =  new ComparePage();
     }
 
-    @AfterMethod
-    public void tearDown() {
-        Driver.quitDriver();
-    }
+  @AfterMethod
+  public void tearDown() {
+      Driver.quitDriver();
+  }
 
-    // ---------- YARDIMCI METHODLAR ----------
-
-    private void search(String keyword) {
-        WaitUtils.waitFor(2);
-        comparePage.searchBox.clear();
-        comparePage.searchBox.sendKeys(keyword);
-        comparePage.searchClickButton.click();
-    }
-
-    private void addProductsToCompare(int count, int startIndex) {
-        for (int i = 0; i < count; i++) {
-            ActionsUtils.hoverOver(comparePage.compareButtons.get(startIndex + i));
-            ReusableMethods.click(comparePage.compareButtons.get(startIndex + i));
-            WaitUtils.waitFor(1);
-            try {
-                ReusableMethods.visibleWait(comparePage.popUparea, 1);
-                comparePage.popUparea.click();
-            } catch (Exception ignored) {}
-        }
-    }
 
     @Test
-    public void compareTest01_max4Products() { //Kullanıcının en fazla 4 ürünü karşılaştırmak için seçebilme testi
+    public void compareTest01_max4Products() {
 
-        search("Bag");
-        addProductsToCompare(5, 4);  // 5 ürün eklemeye çalış
-        // 4 üncü indeksten baslama sebebeim sitede 2.3 4 ürünün aynı olması
+        CompareHelperUS_07 compareHelperUS_07 = new CompareHelperUS_07();
 
-        ExtentReportsListener.addScreenshotToReport(
-                "4. ürün eklendikten sonra 5. ürün eklenince 1. ürün siliniyor ve sonuç olarak en fazla 4 ürün karşılaştırılabiliyor."
-        );
+        // Kullanıcının en fazla 4 ürünü karşılaştırmaya ekleyebilmesi testi
+        compareHelperUS_07.search("Bag");
 
-        Assert.assertTrue(comparePage.assertionCount4.getText().contains("4"));
+        // Önce 4 ürün ekle
+        compareHelperUS_07.addProductsToCompare(4, 4);
+        Assert.assertEquals(comparePage.assertionCount4.getText(),"(4 Products)");
+
+
+        // Ekran görüntüsü (4. ürün eklendiğinde)
+        ExtentReportsListener.addScreenshotToReport("4 ürün eklendikten sonra ekran görüntüsü");
+
+        // 5. ürünü eklemeye çalış
+        compareHelperUS_07.addProductsToCompare(1, 8);
+
+        // Hâlâ 4 ürün olduğundan emin ol
+        Assert.assertEquals(comparePage.assertionCount4.getText(),"(4 Products)");
+
+        // Ekran görüntüsü (5. ürün eklenmeye çalışıldıktan sonra)
+        ExtentReportsListener.addScreenshotToReport("5. ürün eklenmeye çalışıldıktan sonra ekran görüntüsü");
     }
 
 }
