@@ -13,7 +13,7 @@ public class Compare_US07_TC03 {
 
     @BeforeMethod
     public void setUp() {
-        Driver.getDriver().get(ConfigReader.getProperty("allowerCommerceUrl"));
+        Driver.getDriver().get(ConfigReader.getProperty("allowerceUrl"));
         compareUs07Page =  new Compare_US_07_Page();
     }
 
@@ -23,6 +23,7 @@ public class Compare_US07_TC03 {
     }
 
     // ---------- YARDIMCI METHODLAR ----------
+
     private void search(String keyword) {
         WaitUtils.waitFor(2);
         compareUs07Page.searchBox.clear();
@@ -44,7 +45,7 @@ public class Compare_US07_TC03 {
     @Test
     public void compareTest03_openComparePage() {
 
-        //Seçtiği ürünleri karşılaştırabilmeli
+        //Seçtiği ürünleri karşılaştırabilme testi
 
         search("Bag");
         addProductsToCompare(4, 4);  // 4 ürün ekle

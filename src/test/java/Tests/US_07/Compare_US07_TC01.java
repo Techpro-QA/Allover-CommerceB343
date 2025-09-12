@@ -9,11 +9,11 @@ import org.testng.annotations.Test;
 import utilities.*;
 
 public class Compare_US07_TC01 {
-   Compare_US_07_Page compareUs07Page ;
+    Compare_US_07_Page compareUs07Page ;
 
     @BeforeMethod
     public void setUp() {
-        Driver.getDriver().get(ConfigReader.getProperty("allowerCommerceUrl"));
+        Driver.getDriver().get(ConfigReader.getProperty("allowerceUrl"));
         compareUs07Page =  new Compare_US_07_Page();
     }
 
@@ -23,6 +23,7 @@ public class Compare_US07_TC01 {
     }
 
     // ---------- YARDIMCI METHODLAR ----------
+
     private void search(String keyword) {
         WaitUtils.waitFor(2);
         compareUs07Page.searchBox.clear();
@@ -42,11 +43,10 @@ public class Compare_US07_TC01 {
         }
     }
 
-    // ---------- TESTS ----------
     @Test
     public void compareTest01_max4Products() {
 
-        //Kullanıcı en fazla 4 ürünü karşılaştırmak için seçebilmeli
+        //Kullanıcının en fazla 4 ürünü karşılaştırmak için seçebilme testi
 
         search("Bag");
         addProductsToCompare(5, 4);  // 5 ürün eklemeye çalış

@@ -26,7 +26,7 @@ public class US6ScreenUtils {
             Files.copy(srcFile.toPath(), Paths.get(path));
 
             // Burada getter kullanıyoruz
-            ExtentReportsListener.getExtentTest().addScreenCaptureFromPath(System.getProperty("user.dir") + "/" + path);
+           // ExtentReportsListener.getExtentTest().addScreenCaptureFromPath(System.getProperty("user.dir") + "/" + path);
 
 
         } catch (Exception e) {

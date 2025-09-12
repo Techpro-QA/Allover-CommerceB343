@@ -2,18 +2,28 @@ package Tests.US_07;
 
 
 import Pages.Compare_US_07_Page;
+import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utilities.*;
 
+import java.time.Duration;
+import java.util.List;
+import java.util.Random;
+
 public class Compare_US07_TC02 {
     Compare_US_07_Page compareUs07Page ;
 
     @BeforeMethod
     public void setUp() {
-        Driver.getDriver().get(ConfigReader.getProperty("allowerCommerceUrl"));
+        Driver.getDriver().get(ConfigReader.getProperty("allowerceUrl"));
         compareUs07Page =  new Compare_US_07_Page();
     }
 
@@ -23,6 +33,7 @@ public class Compare_US07_TC02 {
     }
 
     // ---------- YARDIMCI METHODLAR ----------
+
     private void search(String keyword) {
         WaitUtils.waitFor(2);
         compareUs07Page.searchBox.clear();
@@ -44,7 +55,7 @@ public class Compare_US07_TC02 {
     @Test
     public void compareTest02_removeAndAddAgain() {
 
-        //Karşılaştıracağı ürünleri silip yeni ürünleri ekleyebilmeli
+        //Karşılaştıracağı ürünleri silip yeni ürünleri ekleyebilme testi
 
         search("Bag");
         addProductsToCompare(4, 4);  // 4 ürün ekle
@@ -59,5 +70,6 @@ public class Compare_US07_TC02 {
         addProductsToCompare(2, 0);
         Assert.assertTrue(compareUs07Page.assertionCount4.getText().contains("4"));
     }
+    }
 
-}
+
