@@ -11,7 +11,7 @@ public class JSUtils {
      */
     public static void JSscrollIntoView(WebElement element) {
         JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
-        js.executeScript("arguments[0].scrollIntoView(true);", element);
+        js.executeScript("arguments[0].scrollIntoView(false);", element);
     }
 
     /**
@@ -69,5 +69,14 @@ public class JSUtils {
         String value = js.executeScript("return document.getElementById('" + idOfElement + "').value").toString();
         System.out.println(value);
         return value;
+    }
+    /**
+     * Belirtilen input elementinin tarayıcı doğrulama mesajını döner.
+     * @param webElement Doğrulama mesajı alınacak WebElement.
+     * @return Tarayıcı tarafından gösterilen validation mesajı.
+     */
+    public static String JSgetValidationMessage(WebElement webElement) {
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+        return js.executeScript("return arguments[0].validationMessage;", webElement).toString();
     }
 }

@@ -5,6 +5,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
 
@@ -101,5 +102,29 @@ public class WaitUtils {
     public static WebElement waitForClickablility(By locator, int timeout) {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+    /** Belirtilen WebElement'in beklenen metni içerdiğini kontrol eder ve bekleme süresi tanır.
+            *
+            * @param element     Uzerinde islem yapilacak WebElement.
+     * @param expectedText Beklenen metin.
+     * @param timeout     Maksimum bekleme suresi (saniye).
+            */
+    public static void waitForText(WebElement element, String expectedText, int timeout) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
+        // Doğru parametre sırası: element, expectedText
+        wait.until(ExpectedConditions.textToBePresentInElement(element, expectedText));
+    }
+
+    /**
+     * Belirtilen By locator ile elementin beklenen metni içerdiğini kontrol eder ve bekleme süresi tanır.
+     *
+     * @param locator     Elementin By locatori.
+     * @param expectedText Beklenen metin.
+     * @param timeout     Maksimum bekleme suresi (saniye).
+     */
+    public static void waitForText(By locator, String expectedText, int timeout) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
+        // Doğru parametre sırası: locator, expectedText
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(locator, expectedText));
     }
 }

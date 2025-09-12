@@ -3,6 +3,10 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
 public class ReusableMethods {
     //HARD WAIT METHOD
     public static void waitForSecond(int saniye) {
@@ -168,4 +173,65 @@ public class ReusableMethods {
             throw new RuntimeException(e);
         }
     }
+
+    //----------------------------------------------
+    //File Upload Robot Class
+    public static void uploadFilePath(String dosyaYolu) {
+        try {
+            waitForSecond(3); // 3 saniye bekletir. Bu, kodun başka işlemler için hazır olmasını sağlar.
+            StringSelection stringSelection = new StringSelection(dosyaYolu);
+            //Verilen Dosya yolunu bir StringSelection objectine dönüştürürüz
+            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+            //verilen stringSelection'i (bu durumda dosya yolu), daha sonra başka bir yere yapıştırmak üzere sistem panosuna kopyalamaktır.
+            Robot robot = new Robot();
+            // Robot sınıfından bir object olustururuz, Bu class javadan gelir ve klavye ve mouse etkileşimlerini simüle eder.
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_V);
+            // CTRL+V tuslarina basar dolayisiyla panodaki veriyi yapıştırır.
+            robot.keyRelease(KeyEvent.VK_CONTROL);
+            robot.keyRelease(KeyEvent.VK_V);
+            // CTRL ve V tuşlarından elini kaldirir
+            robot.delay(3000);
+            // 3 saniye bekler, bu süre içerisinde yapıştırılan verinin işlenmesini sağlar.
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+            // ENTER tuşuna basarak yapıştırma işlemini onaylar veya diyalog penceresini kapatır.
+            robot.delay(3000);
+            // Sonraki işlemler için ek 3 saniye bekler.
+        } catch (Exception ignored) {
+            // Herhangi bir hata oluşursa, bu hata yoksayılır.
+        }
+    }
+
+    /**
+     * Menüden verilen menü adına tıklar
+     */
+    public static void navigateToMenu(String menuName) {
+        WebElement menu = Driver.getDriver().findElement(By.xpath(menuName));
+        JSUtils.JSclickWithTimeout(menu);
+        WaitUtils.waitFor(2);
+    }
+
+    /**
+     * XPath ile herhangi bir elemente tıklar
+     */
+    public static void clickAnyElement(String xpath) {
+        WebElement element = Driver.getDriver().findElement(By.xpath(xpath));
+        JSUtils.JSclickWithTimeout(element);
+    }
+
+
+    /**
+     * XPath ile verilen element görünüyorsa true döner
+     */
+    public static boolean isElementDisplayed(String xpath) {
+        try {
+            return Driver.getDriver().findElement(By.xpath(xpath)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+
+
 }
