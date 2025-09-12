@@ -1,6 +1,6 @@
 package Tests.US_02;
 
-import Pages.HomePage;
+import Pages.Homepage;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -27,7 +27,7 @@ public class UserStory02 {
     @Test(dataProvider = "LoginData")
     public void cannotRegisterWithExistingData (String username, String email, String password) {
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
-        HomePage homePage = new HomePage();
+        Homepage homePage = new Homepage();
 
 
         homePage.registerButton.click();
@@ -41,7 +41,7 @@ public class UserStory02 {
 
         homePage.singUpButton.click();
 
-        Assert.assertTrue(homePage.loginErrorMessage.isDisplayed());
+        Assert.assertTrue(homePage.registerFailMessage.isDisplayed());
 
         Driver.quitDriver();
 

@@ -63,6 +63,11 @@ public class Homepage {
     @FindBy(css = "[name='login']")
     public WebElement signInButton2;
 
+    @FindBy(xpath = "//p[.='An account is already registered with your email address. Please log in.']")
+    public WebElement registerFailMessage;
+
+
+
     @FindBy(css = "[title='Close (Esc)']")
     public WebElement signInCloseButton;
 
