@@ -1,0 +1,66 @@
+package Tests.userstory18;
+
+import Pages.HomePage;
+import Pages.MyAccount;
+import Pages.StoreManager;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+import utilities.*;
+
+public class TC04_EmptyFieldsTest {
+
+
+    @BeforeClass
+    public void beforeClass() {
+        Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
+
+        HomePage homePage = new HomePage();
+        MyAccount myAccount = new MyAccount();
+
+        //Log in as a vendor
+        homePage.homeSignIn.click();
+        homePage.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("vendorEmail"));
+        homePage.passwordTextBox.sendKeys(ConfigReader.getProperty("vendorPassword"));
+        homePage.signInButton.click();
+
+        ExtentReportsListener.extentTestInfo("Store Manager sayfasına gidilir");
+        homePage.homeSignOut.click();
+        myAccount.storeManager.click();
+    }
+
+    @Test(dataProvider = "couponsNegativeData")
+    public void createCouponWithEmptyFieldsTest() {
+
+        StoreManager storeManager = new StoreManager();
+        // Go to the Coupon page
+        ExtentReportsListener.extentTestInfo("Coupon sayfasına gidilir");
+        storeManager.coupons.click();
+        storeManager.addNew.click();
+
+        ActionsUtils.hoverOver(storeManager.allowFreeShippingCheckBox);
+
+        //Check that all text boxes are empty and check boxes are unchecked.
+        ExtentReportsListener.addScreenshotToReport("Tüm text Boxların boş olduğu ve check boxların işaretlenmemiş olduğu kontrol edilir");
+        WaitUtils.waitFor(1);
+
+        ActionsUtils.scrollEnd();
+        // Scroll to the bottom of the page so the driver can see the Submit button
+        JSUtils.JSclickWithTimeout(storeManager.couponSubmitButton);
+
+        WaitUtils.waitFor(1);
+
+        //Check if the message "Please insert atleast Coupon Title before submit." is displayed.
+        ExtentReportsListener.addScreenshotToReport("Coupon oluşturulamadı mesajının görünürlüğü kontrol edilir");
+
+        Assert.assertTrue(storeManager.couponNameCannotBeLeftBlankMessage.isDisplayed());
+
+    }
+
+    @AfterClass
+    public void afterClass() {
+        Driver.quitDriver();
+    }
+}
