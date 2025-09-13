@@ -113,7 +113,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             Files.write(Paths.get("target/screenShots/image " + date + ".jpeg"), ts.getScreenshotAs(OutputType.BYTES));
             extentTest.addScreenCaptureFromPath(System.getProperty("user.dir") + "/target/screenShots/image " + date + ".jpeg");
             // hata alindigi icin Açık kalan browseri WebDriver örneğini kapatıyoruz.
-           // Driver.quitDriver();
+            Driver.quitDriver();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -144,7 +144,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             Files.write(Paths.get("target/screenShots/image " + date + ".jpeg"), ts.getScreenshotAs(OutputType.BYTES));
             extentTest.addScreenCaptureFromPath(System.getProperty("user.dir") + "/target/screenShots/image " + date + ".jpeg");
             // hata alindigi icin Açık kalan browseri WebDriver örneğini kapatıyoruz.
-           // Driver.quitDriver();
+            Driver.quitDriver();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -256,7 +256,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
 
             // Raporun, ekran görüntüsü dosyasını bulabilmesi için görece yolu kullan
             String relativePath = "../screenshots/image_" + date + ".png";
-            extentTest.log(Status.FAIL, logMessage, MediaEntityBuilder.createScreenCaptureFromPath(relativePath).build());
+            extentTest.log(Status.INFO, logMessage, MediaEntityBuilder.createScreenCaptureFromPath(relativePath).build());
 
         } catch (IOException | RuntimeException e) {
             if (extentTest != null) {
