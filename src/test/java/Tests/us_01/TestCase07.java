@@ -35,6 +35,7 @@ public class TestCase07 extends TestBase_US01 {
         // a) Email üzerinde açılan pop up
         // "Lütfen e-posta adresine bir "@" işareti ekleyin. "example343gmail.com" adresinde "@" eksik."uyarı mesajı alınır
         String validationMessage = alloverCommercePage.email.getAttribute("validationMessage");
+        ExtentReportsListener.extentTestInfo("pop up uyarı mesajı: "+validationMessage);
         ExtentReportsListener.extentTestInfo("Açılan pop up  uyarı mesajının kontrolü yapılır");
         softAssert.assertTrue(validationMessage.contains("@"));
         //  b) Kayıt yapılarak girilen sayfaya girilemediği doğrulanır

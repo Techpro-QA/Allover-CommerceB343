@@ -1,6 +1,6 @@
 package Tests.US_07;
 
-import Pages.Compare_US_07_Page;
+import Pages.ComparePage;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -9,12 +9,12 @@ import org.testng.annotations.Test;
 import utilities.*;
 
 public class Compare_US07_TC03 {
-    Compare_US_07_Page compareUs07Page ;
+    ComparePage comparePage;
 
     @BeforeMethod
     public void setUp() {
-        Driver.getDriver().get(ConfigReader.getProperty("allowerCommerceUrl"));
-        compareUs07Page =  new Compare_US_07_Page();
+        Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
+        comparePage =  new ComparePage();
     }
 
     @AfterMethod
@@ -22,34 +22,26 @@ public class Compare_US07_TC03 {
         Driver.quitDriver();
     }
 
-    // ---------- YARDIMCI METHODLAR ----------
-    private void search(String keyword) {
-        WaitUtils.waitFor(2);
-        compareUs07Page.searchBox.clear();
-        compareUs07Page.searchBox.sendKeys(keyword);
-        compareUs07Page.searchClickButton.click();
-    }
 
-    private void addProductsToCompare(int count, int startIndex) {
-        for (int i = 0; i < count; i++) {
-            ActionsUtils.hoverOver(compareUs07Page.compareButtons.get(startIndex + i));
-            ReusableMethods.click(compareUs07Page.compareButtons.get(startIndex + i));
-            WaitUtils.waitFor(1);
-            try {
-                ReusableMethods.visibleWait(compareUs07Page.popUparea, 1);
-                compareUs07Page.popUparea.click();
-            } catch (Exception ignored) {}
-        }
-    }
     @Test
-    public void compareTest03_openComparePage() {
+    public void compareTest03_openComparePage() { //Seçtiği ürünleri karşılaştırabilme testi
 
-        //Seçtiği ürünleri karşılaştırabilmeli
+        // Test: Verify that the user can open the Compare page
+        // and view the products selected for comparison.
 
-        search("Bag");
-        addProductsToCompare(4, 4);  // 4 ürün ekle
-        compareUs07Page.startCompareButton.click();
+        // Initialize the helper
+        CompareHelperUS_07 compareHelperUS_07 = new CompareHelperUS_07();
 
-        Assert.assertTrue(compareUs07Page.comparePage.isDisplayed());
+        // Search for a product with the keyword "Bag"
+        compareHelperUS_07.search("Bag");
+
+        // Add 4 products to the comparison list
+        compareHelperUS_07.addProductsToCompare(4, 4);
+
+        // Click the "Start Compare" button
+        comparePage.startCompareButton.click();
+
+        // Verify that the Compare page is displayed
+        Assert.assertTrue(comparePage.comparePage.isDisplayed());
     }
 }

@@ -32,6 +32,7 @@ public class TestCase02 extends TestBase_US01 {
         // 8 Kayit isleminin gerceklesmedigi doğrulanir
         //  a) Username üzerinde açılan pop up "Lütfen bu alanı doldurun." uyarı mesajı alınır
         String validationMessage = alloverCommercePage.userName.getAttribute("validationMessage");
+        ExtentReportsListener.extentTestInfo("pop up uyarı mesajı: "+validationMessage);
         ExtentReportsListener.extentTestInfo("Açılan pop up  uyarı mesajının kontrolü yapılır");
         softAssert.assertTrue(validationMessage.contains("Lütfen"));
         //  b) Kayıt yapılarak girilen sayfaya girilemediği doğrulanır

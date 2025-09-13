@@ -1,7 +1,7 @@
 package Tests.US_07;
 
 
-import Pages.Compare_US_07_Page;
+import Pages.ComparePage;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -9,54 +9,51 @@ import org.testng.annotations.Test;
 import utilities.*;
 
 public class Compare_US07_TC01 {
-   Compare_US_07_Page compareUs07Page ;
+
+    // Verify that a user can add a maximum of 4 products to the comparison list.
+
+    ComparePage comparePage;
 
     @BeforeMethod
     public void setUp() {
-        Driver.getDriver().get(ConfigReader.getProperty("allowerCommerceUrl"));
-        compareUs07Page =  new Compare_US_07_Page();
+        // Open the application
+        // Launch the browser and navigate to the Allover Commerce URL
+        Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
+        comparePage = new ComparePage();
     }
 
     @AfterMethod
     public void tearDown() {
+        // Close the browser and clean up the test session
         Driver.quitDriver();
     }
 
-    // ---------- YARDIMCI METHODLAR ----------
-    private void search(String keyword) {
-        WaitUtils.waitFor(2);
-        compareUs07Page.searchBox.clear();
-        compareUs07Page.searchBox.sendKeys(keyword);
-        compareUs07Page.searchClickButton.click();
-    }
 
-    private void addProductsToCompare(int count, int startIndex) {
-        for (int i = 0; i < count; i++) {
-            ActionsUtils.hoverOver(compareUs07Page.compareButtons.get(startIndex + i));
-            ReusableMethods.click(compareUs07Page.compareButtons.get(startIndex + i));
-            WaitUtils.waitFor(1);
-            try {
-                ReusableMethods.visibleWait(compareUs07Page.popUparea, 1);
-                compareUs07Page.popUparea.click();
-            } catch (Exception ignored) {}
-        }
-    }
-
-    // ---------- TESTS ----------
     @Test
     public void compareTest01_max4Products() {
 
-        //Kullanıcı en fazla 4 ürünü karşılaştırmak için seçebilmeli
+        // Initialize the helper
+        CompareHelperUS_07 compareHelperUS_07 = new CompareHelperUS_07();
 
-        search("Bag");
-        addProductsToCompare(5, 4);  // 5 ürün eklemeye çalış
-        // 4 üncü indeksten baslama sebebeim sitede 2.3 4 ürünün aynı olması
+        // Search for a product with keyword "Bag"
+        compareHelperUS_07.search("Bag");
 
-        ExtentReportsListener.addScreenshotToReport(
-                "4. ürün eklendikten sonra 5. ürün eklenince 1. ürün siliniyor ve sonuç olarak en fazla 4 ürün karşılaştırılabiliyor."
-        );
+        // Add 4 products to the comparison list
+        // Verify that the counter displays "(4 Products)"
+        compareHelperUS_07.addProductsToCompare(4, 4);
+        Assert.assertEquals(comparePage.assertionCount4.getText(), "(4 Products)");
 
-        Assert.assertTrue(compareUs07Page.assertionCount4.getText().contains("4"));
+        // Capture a screenshot after adding 4 products
+        ExtentReportsListener.addScreenshotToReport("4 ürün eklendikten sonra ekran görüntüsü");
+
+        // Attempt to add a 5th product
+        compareHelperUS_07.addProductsToCompare(1, 8);
+
+        // Verify that only 4 products remain in the comparison list
+        Assert.assertEquals(comparePage.assertionCount4.getText(), "(4 Products)");
+
+        // Capture a screenshot after attempting to add the 5th product
+        ExtentReportsListener.addScreenshotToReport("5. ürün eklenmeye çalışıldıktan sonra ekran görüntüsü");
     }
 
 }
