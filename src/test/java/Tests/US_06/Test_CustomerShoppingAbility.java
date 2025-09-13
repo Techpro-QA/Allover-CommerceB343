@@ -8,7 +8,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import utilities.*;
 
-public class CustomerShoppingAbility {
+public class Test_CustomerShoppingAbility {
 
     // Farklı ürünler için dataProvider kullanılıyor
     // Different products provided by DataProvider
