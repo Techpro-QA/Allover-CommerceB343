@@ -256,7 +256,10 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
 
             // Raporun, ekran görüntüsü dosyasını bulabilmesi için görece yolu kullan
             String relativePath = "../screenshots/image_" + date + ".png";
+
+    
             extentTest.log(Status.INFO, logMessage, MediaEntityBuilder.createScreenCaptureFromPath(relativePath).build());
+
 
         } catch (IOException | RuntimeException e) {
             if (extentTest != null) {
