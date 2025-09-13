@@ -12,53 +12,67 @@ import java.io.IOException;
 
 public class StrongTest {
 
-    @Test(dataProvider = "STRONG",dataProviderClass = DataProvidersUS10.class)
+    @Test(dataProvider = "STRONG", dataProviderClass = DataProvidersUS10.class)
     public void strongTest(String data) throws IOException {
 
         ExtentReportsListenerUS_10.extentTestInfo("Allover Commerce sayfasina gidilir");
 
-        //siteye gidilir
+        // Siteye gidilir
+        // Navigate to the site
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
 
         VendorRegistrationPage alloverCommercePage = new VendorRegistrationPage();
 
-        //register butonuna tiklanir
+        // Register butonuna tıklanır
+        // Click register button
         alloverCommercePage.registerButton.click();
 
-        //Acilan popup formunda Signup as a vendor? a tiklanir
+        // Açılan popup formunda "Signup as a vendor?" a tıklanır
+        // In the popup, click on "Signup as a vendor?"
         alloverCommercePage.signupAsAVendorButton.click();
 
         Faker faker = new Faker();
         Actions action = new Actions(Driver.getDriver());
 
-        ExtentReportsListenerUS_10.extentTestInfo("Driverin locateleri tam görebilmesi icin sayfa scroll edilir");
+        ExtentReportsListenerUS_10.extentTestInfo("Driverin locateleri tam görebilmesi için sayfa scroll edilir");
+
+        // Sayfa scroll edilir
+        // Scroll page to make locators visible
         action.scrollToElement(alloverCommercePage.vendorRegistrationRegisterButton).perform();
 
-        ExtentReportsListenerUS_10.extentTestInfo("Email girisi yapilir");
+        ExtentReportsListenerUS_10.extentTestInfo("Email girişi yapılır");
 
-        //Email icin gecerli bir data girilir
+        // Email için geçerli bir data girilir
+        // Enter a valid email
         ReusableMethods.sendKeysJS(alloverCommercePage.vendorRegistrationEmailTextBox, faker.internet().emailAddress());
 
-        //RE-SEND CODE a tiklanir
+        // "RE-SEND CODE" a tıklanır
+        // Click on "RE-SEND CODE"
         alloverCommercePage.resendCodeButton.click();
 
-        ExtentReportsListenerUS_10.extentTestInfo("Password girisi yapilir");
+        ExtentReportsListenerUS_10.extentTestInfo("Password girişi yapılır");
         ExtentReportsListenerUS_10.extentTestInfo("Girilen password ==>>  " + data);
 
-
-        //Password icin gecerli bir data girilir
+        // Password için geçerli bir data girilir
+        // Enter a valid password
         action.sendKeys(alloverCommercePage.vendorRegistrationPasswordTextBox, data).perform();
 
         ExtentReportsListenerUS_10.extentTestInfo("Password 'Strong' uyarısı doğrulanır");
+
+        // "Strong" textinin görüntülendiği doğrulanır
+        // Verify that "Strong" text is displayed
         Assert.assertTrue(alloverCommercePage.strongTextBox.isDisplayed());
 
-        //Strong texti ekran görüntüsü reporta ekleniyor
+        // "Strong" texti ekran görüntüsü rapora ekleniyor
+        // Capture screenshot of "Strong" text and add to report
         Tests.US_10.US10ScreenUtils.captureScreen("strongTextBox görüntülenir");
 
-        //Confirm Password alanına, Password alanına yazılan şifrenin aynısı yazılır.
+        // Confirm Password alanına, Password alanına yazılan şifrenin aynısı yazılır
+        // Enter the same password again into Confirm Password field
         action.sendKeys(alloverCommercePage.vendorRegistrationConfirmPasswordTextBox, data).perform();
 
         // Driver kapatılır
+        // Close the driver
         Driver.quitDriver();
     }
 }
