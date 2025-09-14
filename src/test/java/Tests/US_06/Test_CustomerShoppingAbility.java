@@ -29,7 +29,7 @@ public class Test_CustomerShoppingAbility {
         ExtentReportsListenerUS_06.extentTestInfo("Allover Commerce sayfasina gidilir");
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
 
-        // Page objesi oluşturulur
+        // Page objesi olusturulur
         // Page object is created
         CustomerShoppingAbilityPage customerShoppingAbilityPage = new CustomerShoppingAbilityPage();
 
