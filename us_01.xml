@@ -9,11 +9,12 @@
     <test verbose="2" preserve-order="true"
           name="US_01">
         <classes>
-            <class name="Tests.us_01.TestCase01Ve06"></class>
+            <class name="Tests.us_01.TestCase01"></class>
             <class name="Tests.us_01.TestCase02"></class>
             <class name="Tests.us_01.TestCase03"></class>
             <class name="Tests.us_01.TestCase04"></class>
             <class name="Tests.us_01.TestCase05"></class>
+            <class name="Tests.us_01.TestCase06"></class>
             <class name="Tests.us_01.TestCase07"></class>
             <class name="Tests.us_01.TestCase08"></class>
             <class name="Tests.us_01.TestCase09"></class>

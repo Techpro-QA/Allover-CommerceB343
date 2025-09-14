@@ -1,6 +1,6 @@
 package Tests.us_05;
 
-import Pages.Homepage;
+import Pages.Homee;
 import com.github.javafaker.Faker;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -22,13 +22,13 @@ public class TestCase04 {
 
 
     Faker faker;
-    Homepage accountDetailsPage;
+    Homee accountDetailsPage;
     SoftAssert softAssert;
 
     @Test
     public void passwordChangeWith10Char() {
         faker = new Faker();
-        accountDetailsPage = new Homepage();
+        accountDetailsPage = new Homee();
         ExtentReportsListener.extentTestInfo("8 karakterli eski şifreyi (12345Aa*), 10 karakterli yeni şifreye (12346Bb*12)  değiştirme testi ");
         ExtentReportsListener.extentTestInfo("Siteye yeni kullanıcı tanımlanarak giriş yapılır");
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
@@ -77,7 +77,7 @@ public class TestCase04 {
     @Test(description = "negatif scenario, tek karakterli  şifre değişikliği kabul edilmemeli" )
     public void passwordChangeWithSingleChar() {
         faker = new Faker();
-        accountDetailsPage = new Homepage();
+        accountDetailsPage = new Homee();
         softAssert = new SoftAssert();
         ExtentReportsListener.extentTestInfo("8 karakterli eski şifreyi (12345Aa*), tek karakterli yeni şifreye (1) değiştirme testi ");
         ExtentReportsListener.extentTestInfo("Siteye yeni kullanıcı tanımlanarak giriş yapıldı");

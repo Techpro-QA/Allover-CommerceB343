@@ -1,28 +1,25 @@
 package Tests.us_05;
 
-import Pages.Homepage;
-import com.aventstack.extentreports.ExtentReports;
+import Pages.Homee;
 import com.github.javafaker.Faker;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.asserts.SoftAssert;
 import utilities.ConfigReader;
 import utilities.Driver;
-import utilities.ExtentReportsListener;
 import utilities.JSUtils;
 
 
 public class TestBase_US05 {//her class ta tekrar eden kodlar için parent class oluşturuldu
 
         protected Faker faker;
-        protected Homepage accountDetailsPage;
+        protected Homee accountDetailsPage;
         SoftAssert softAssert;
 
         @BeforeMethod
         public void setUp() {
             faker = new Faker();
-            accountDetailsPage = new Homepage();
+            accountDetailsPage = new Homee();
             softAssert = new SoftAssert();
 //            1	Siteye gidilir ve sing in butonuna basılarak pencere açılır,
 //            2	Açılan pencerede kayıtlı bir kullanıcı e posta adresi ve password ile login sayfasına girilir

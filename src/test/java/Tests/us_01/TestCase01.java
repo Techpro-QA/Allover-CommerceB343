@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import utilities.ConfigReader;
 import utilities.ExtentReportsListener;
 
-public class TestCase01Ve06 extends TestBase_US01 {
+public class TestCase01 extends TestBase_US01 {
 //    1	Sayfaya gidilir
 //    2	Register a tiklanir
 //    3	Acilan pencerede Username icin gecerli bir data girilir
@@ -22,7 +22,7 @@ public class TestCase01Ve06 extends TestBase_US01 {
         //(1 ve 2 extends TestBase ile yapılır)
         //  3 Acilan pencerede Username icin gecerli bir data girilir
         //  (Küçük harf, büyük harf, rakam ve özel karakter içerebilmeli)
-        ExtentReportsListener.extentTestInfo("username e isimden sonra 'Aa1.' concat edilerek testcase06 kontrolü burada yapılır ");
+        ExtentReportsListener.extentTestInfo("username e isimden sonra 'Aa1.' concat edilir ");
         alloverCommercePage.userName.sendKeys(faker.name().username()+"Aa1.");
         // 4 Your Email address icin gecerli bir data girilir
         alloverCommercePage.email.sendKeys(faker.internet().emailAddress());
