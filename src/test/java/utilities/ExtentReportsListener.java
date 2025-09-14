@@ -160,7 +160,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         }
     }
 
-      /**
+    /**
      * Test başarılı olduğunda çalışacak metod.
      *
      * @param message Başarılı test mesajı
@@ -260,5 +260,6 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         // Her test metoduna retry analyzer ekler. Bu sayede test başarısız olursa belirlenen sayıda yeniden çalıştırılır.
         annotation.setRetryAnalyzer(ExtentReportsListener.class);
     }
+
 
 }
