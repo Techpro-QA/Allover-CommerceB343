@@ -1,11 +1,17 @@
 package utilities;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.testng.*;
 import org.testng.annotations.ITestAnnotation;
+
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -18,7 +24,7 @@ import java.util.Map;
 public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAnnotationTransformer {
     private static ExtentReports extentReports;
     private static ExtentHtmlReporter extentHtmlReporter;
-    private static ExtentTest extentTest;
+    public static ExtentTest extentTest;
     /**
      * onstart==> Tum testlerden once tek bir kez cagrilir
      * Böylece icine yazdigimiz kodlar sayesinde test başladığında raporlama baslatilir.
@@ -44,7 +50,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             // Bu HTML raporunda görmek isteyebileceğimiz diğer bilgileri aşağıdaki şekilde ekleyebiliriz
             extentReports.setSystemInfo("<span style='color:blue; font-weight:bold'><i class='fa fa-server'></i> Environment:</span>", " QA");
             extentReports.setSystemInfo("<span style='color:green; font-weight:bold'><i class='fa fa-chrome'></i> Browser:</span>", " Chrome");
-            extentReports.setSystemInfo("<span style='color:purple; font-weight:bold'><i class='fa fa-user'></i> Test Automation Engineer:</span>", " Ali Can");
+            extentReports.setSystemInfo("<span style='color:purple; font-weight:bold'><i class='fa fa-user'></i> Test Automation Engineer:</span>", " Havva B.AVCI");
         }
     }
     /**
@@ -154,7 +160,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         }
     }
 
-      /**
+    /**
      * Test başarılı olduğunda çalışacak metod.
      *
      * @param message Başarılı test mesajı
@@ -182,6 +188,44 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
     public static void extentTestInfo(String message) {
         if (extentTest != null) {
             extentTest.info(message);
+        }
+    }
+    /** * Testin herhangi bir noktasında ekran görüntüsü almak ve rapora eklemek için kullanılır.
+     * Bu metot statiktir ve direkt olarak `ExtentReportListener.addScreenshotToReport(...)` şeklinde çağrılabilir.
+     *
+     * @param logMessage Ekran görüntüsü altına eklenecek mesaj veya açıklama.
+     */
+    public static void addScreenshotToReport(String logMessage) {
+        if (extentTest == null) {
+            return;
+        }
+
+        try {
+            WebDriver driver = Driver.getDriver();
+            if (driver == null) {
+                return;
+            }
+            TakesScreenshot ts = (TakesScreenshot) driver;
+            File src = ts.getScreenshotAs(OutputType.FILE);
+
+            String date = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss").format(LocalDateTime.now());
+            String destDir = "target/screenshots";
+            File destDirFile = new File(destDir);
+            if (!destDirFile.exists()) {
+                FileUtils.forceMkdir(destDirFile);
+            }
+            String destPath = destDir + "/image_" + date + ".png";
+            File dest = new File(destPath);
+            FileUtils.copyFile(src, dest);
+
+            // Raporun, ekran görüntüsü dosyasını bulabilmesi için görece yolu kullan
+            String relativePath = "../screenshots/image_" + date + ".png";
+            extentTest.log(Status.INFO, logMessage, MediaEntityBuilder.createScreenCaptureFromPath(relativePath).build());
+
+        } catch (IOException | RuntimeException e) {
+            if (extentTest != null) {
+                extentTest.log(Status.ERROR, "Ekran görüntüsü alınırken bir hata oluştu: " + e.getMessage());
+            }
         }
     }
     /**
@@ -216,4 +260,6 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         // Her test metoduna retry analyzer ekler. Bu sayede test başarısız olursa belirlenen sayıda yeniden çalıştırılır.
         annotation.setRetryAnalyzer(ExtentReportsListener.class);
     }
+
+
 }
