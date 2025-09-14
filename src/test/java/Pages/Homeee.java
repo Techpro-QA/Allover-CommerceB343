@@ -8,8 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class Homepage {
-    public Homepage() {
+public class Homeee {
+    public Homeee() {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 

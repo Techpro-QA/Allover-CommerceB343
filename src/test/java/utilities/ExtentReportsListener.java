@@ -24,8 +24,7 @@ import java.util.Map;
 public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAnnotationTransformer {
     private static ExtentReports extentReports;
     private static ExtentHtmlReporter extentHtmlReporter;
-    private static ExtentTest extentTest;
-
+    public static ExtentTest extentTest;
     /**
      * onstart==> Tum testlerden once tek bir kez cagrilir
      * Böylece icine yazdigimiz kodlar sayesinde test başladığında raporlama baslatilir.
@@ -51,10 +50,9 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             // Bu HTML raporunda görmek isteyebileceğimiz diğer bilgileri aşağıdaki şekilde ekleyebiliriz
             extentReports.setSystemInfo("<span style='color:blue; font-weight:bold'><i class='fa fa-server'></i> Environment:</span>", " QA");
             extentReports.setSystemInfo("<span style='color:green; font-weight:bold'><i class='fa fa-chrome'></i> Browser:</span>", " Chrome");
-            extentReports.setSystemInfo("<span style='color:purple; font-weight:bold'><i class='fa fa-user'></i> Test Automation Engineer:</span>", " Ali Can");
+            extentReports.setSystemInfo("<span style='color:purple; font-weight:bold'><i class='fa fa-user'></i> Test Automation Engineer:</span>", " Havva B.AVCI");
         }
     }
-
     /**
      * onTestStart==> her bir @Test methodundan once bir kez cagrilir
      * Böylece Test methoduna başlandığında, testName ve description verileri alınarak rapora eklenir.
@@ -90,7 +88,6 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         String passIsareti = "&#9989";
         extentTestPass("<span style='color:green; font-weight:bold'>" + result.getName() + " Testi başarıyla tamamlandı. </span>" + passIsareti);
     }
-
     /**
      * onTestFailure==> sadece fail olan testlerden sonra bir kez cagrilir
      * Test başarısız olduğunda, ekran görüntüsü alınır ve raporlama oluşturulur.
@@ -114,12 +111,11 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             Files.write(Paths.get("target/screenShots/image " + date + ".jpeg"), ts.getScreenshotAs(OutputType.BYTES));
             extentTest.addScreenCaptureFromPath(System.getProperty("user.dir") + "/target/screenShots/image " + date + ".jpeg");
             // hata alindigi icin Açık kalan browseri WebDriver örneğini kapatıyoruz.
-            //Driver.quitDriver();
+            Driver.quitDriver();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
     /**
      * onTestSkipped==> sadece skip olan (atlanan) testlerden sonra bir kez cagrilir.
      * Test atlandığında, bu durum rapora kaydedilir ve raporda belirtilir.
@@ -146,12 +142,11 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             Files.write(Paths.get("target/screenShots/image " + date + ".jpeg"), ts.getScreenshotAs(OutputType.BYTES));
             extentTest.addScreenCaptureFromPath(System.getProperty("user.dir") + "/target/screenShots/image " + date + ".jpeg");
             // hata alindigi icin Açık kalan browseri WebDriver örneğini kapatıyoruz.
-            //Driver.quitDriver();
+            Driver.quitDriver();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
     /**
      * onfinish==> Tum testlerden sonra tek bir kez cagrilir
      * Böylece tüm testler bittiğinde raporlama kapatılır.
@@ -165,7 +160,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         }
     }
 
-    /**
+      /**
      * Test başarılı olduğunda çalışacak metod.
      *
      * @param message Başarılı test mesajı
@@ -175,7 +170,6 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             extentTest.pass(message);
         }
     }
-
     /**
      * Test başarısız olduğunda çalışacak metod.
      *
@@ -186,7 +180,6 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             extentTest.fail(message);
         }
     }
-
     /**
      * Test hakkında bilgi ekler.
      *
@@ -197,43 +190,6 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             extentTest.info(message);
         }
     }
-
-    /**
-     * onTestSuccess==> sadece pass olan testlerden sonra bir kez cagrilir
-     * Test başarılı olduğunda, başarılı mesajı eklenir.
-     *
-     * @param result Test sonucu nesnesi
-     */
-
-
-    // Her test için deneme (retry) sayısını takip eden bir Map. Test metodu ismiyle sayıyı eşleştiriyoruz.
-    private static Map<String, Integer> retryCounts = new HashMap<>();
-    // Test yeniden çalıştırma (retry) işlemi için kullanılır. Eğer test başarısız olursa, burada belirtilen sayı kadar yeniden çalıştırılır.
-    private static final int maxRetryCount = 1;
-
-    @Override
-    public boolean retry(ITestResult result) {
-        String testMethodName = result.getMethod().getMethodName();  // Test metodu ismini alır.
-        // Eğer bu metod için daha önce bir deneme yapılmamışsa, 0 olarak başlatır.
-        retryCounts.putIfAbsent(testMethodName, 0);
-        int retryCount = retryCounts.get(testMethodName);  // Şu anki deneme sayısını alır.
-        // Eğer deneme sayısı maksimumdan küçükse, yeniden çalıştırır.
-        if (retryCount < maxRetryCount) {
-            retryCount++;  // Deneme sayısını artırır.
-            retryCounts.put(testMethodName, retryCount);  // Günceller.
-            return true;  // Testi yeniden çalıştır.
-        }
-        return false;  // Test yeniden çalıştırılmayacak.
-    }
-
-    // Bu metod, TestNG'nin her test metodu için retry mekanizmasını eklemesi için kullanılır.
-    @Override
-    public void transform(ITestAnnotation annotation, Class testClass, Constructor testConstructor, Method testMethod) {
-        // Her test metoduna retry analyzer ekler. Bu sayede test başarısız olursa belirlenen sayıda yeniden çalıştırılır.
-        annotation.setRetryAnalyzer(ExtentReportsListener.class);
-    }
-
-
     /** * Testin herhangi bir noktasında ekran görüntüsü almak ve rapora eklemek için kullanılır.
      * Bu metot statiktir ve direkt olarak `ExtentReportListener.addScreenshotToReport(...)` şeklinde çağrılabilir.
      *
@@ -272,4 +228,38 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             }
         }
     }
+    /**
+     * onTestSuccess==> sadece pass olan testlerden sonra bir kez cagrilir
+     * Test başarılı olduğunda, başarılı mesajı eklenir.
+     *
+     * @param result Test sonucu nesnesi
+     */
+
+
+    // Her test için deneme (retry) sayısını takip eden bir Map. Test metodu ismiyle sayıyı eşleştiriyoruz.
+    private static Map<String, Integer> retryCounts = new HashMap<>();
+    // Test yeniden çalıştırma (retry) işlemi için kullanılır. Eğer test başarısız olursa, burada belirtilen sayı kadar yeniden çalıştırılır.
+    private static final int maxRetryCount = 1;
+    @Override
+    public boolean retry(ITestResult result) {
+        String testMethodName = result.getMethod().getMethodName();  // Test metodu ismini alır.
+        // Eğer bu metod için daha önce bir deneme yapılmamışsa, 0 olarak başlatır.
+        retryCounts.putIfAbsent(testMethodName, 0);
+        int retryCount = retryCounts.get(testMethodName);  // Şu anki deneme sayısını alır.
+        // Eğer deneme sayısı maksimumdan küçükse, yeniden çalıştırır.
+        if (retryCount < maxRetryCount) {
+            retryCount++;  // Deneme sayısını artırır.
+            retryCounts.put(testMethodName, retryCount);  // Günceller.
+            return true;  // Testi yeniden çalıştır.
+        }
+        return false;  // Test yeniden çalıştırılmayacak.
+    }
+    // Bu metod, TestNG'nin her test metodu için retry mekanizmasını eklemesi için kullanılır.
+    @Override
+    public void transform(ITestAnnotation annotation, Class testClass, Constructor testConstructor, Method testMethod) {
+        // Her test metoduna retry analyzer ekler. Bu sayede test başarısız olursa belirlenen sayıda yeniden çalıştırılır.
+        annotation.setRetryAnalyzer(ExtentReportsListener.class);
+    }
+
+
 }
