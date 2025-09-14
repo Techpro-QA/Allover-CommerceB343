@@ -114,7 +114,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             Files.write(Paths.get("target/screenShots/image " + date + ".jpeg"), ts.getScreenshotAs(OutputType.BYTES));
             extentTest.addScreenCaptureFromPath(System.getProperty("user.dir") + "/target/screenShots/image " + date + ".jpeg");
             // hata alindigi icin Açık kalan browseri WebDriver örneğini kapatıyoruz.
-            Driver.quitDriver();
+            //Driver.quitDriver();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -146,7 +146,7 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             Files.write(Paths.get("target/screenShots/image " + date + ".jpeg"), ts.getScreenshotAs(OutputType.BYTES));
             extentTest.addScreenCaptureFromPath(System.getProperty("user.dir") + "/target/screenShots/image " + date + ".jpeg");
             // hata alindigi icin Açık kalan browseri WebDriver örneğini kapatıyoruz.
-            Driver.quitDriver();
+            //Driver.quitDriver();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

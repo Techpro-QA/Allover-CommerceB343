@@ -3,9 +3,14 @@
 <suite name="Batch 343">
     <listeners><listener class-name="utilities.ExtentReportsListener"></listener></listeners>
     <test verbose="2" preserve-order="true"
-          name="US_18 TC01">
+          name="Addresses Editing Tests">
         <classes>
-            <class name="Tests.userstory13.UserStory13Negative">
+            <class name="Tests.US_13.AddressesEditingNegativeTest">
+                <methods>
+                    <include name="fillShippingAddress"/>
+                </methods>
+            </class>
+            <class name="Tests.US_13.AddressesEditingPositiveTest">
                 <methods>
                     <include name="fillShippingAddress"/>
                 </methods>

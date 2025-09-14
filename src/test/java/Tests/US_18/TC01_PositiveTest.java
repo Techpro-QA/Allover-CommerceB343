@@ -29,7 +29,6 @@ public class TC01_PositiveTest {
     @BeforeClass
     public void setUp() {
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
-
         Homepage homePage = new Homepage();
         MyAccount myAccount = new MyAccount();
 
@@ -42,7 +41,6 @@ public class TC01_PositiveTest {
         ExtentReportsListener.extentTestPass("Store Manager sayfasına gidilir");
         homePage.singOutButtonClickable.click();
         myAccount.storeManager.click();
-
     }
 
     @Test(dataProvider = "couponsPositiveData")
@@ -63,7 +61,6 @@ public class TC01_PositiveTest {
         BrowserUtils.dropdownSelectByVisibleText(storeManager.discountTypeDD,"Percentage discount");
         storeManager.couponAmountNumberBox.sendKeys(couponAmount);
         storeManager.couponExpiryDateBox.sendKeys(date);
-
         ExtentReportsListener.extentTestPass("Text Boxlara yazı yazılabiliyor");
         ActionsUtils.hoverOver(storeManager.allowFreeShippingCheckBox);
 

@@ -49,7 +49,6 @@ public class TC02_NegativeTests {
         ExtentReportsListener.extentTestPass("Store Manager sayfasına gidilir");
         homePage.singOutButtonClickable.click();
         myAccount.storeManager.click();
-
     }
 
     @Test(dataProvider = "couponsNegativeData")
