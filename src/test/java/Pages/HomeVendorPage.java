@@ -6,7 +6,8 @@ import org.openqa.selenium.support.PageFactory;
 import utilities.Driver;
 
 public class HomeVendorPage {
-    public HomeVendorPage(){PageFactory.initElements(Driver.getDriver(),this);
+    public HomeVendorPage(){
+        PageFactory.initElements(Driver.getDriver(),this);
     }
     @FindBy(id = "username")
     public WebElement username;
@@ -76,9 +77,6 @@ public class HomeVendorPage {
 
     @FindBy(xpath = "//h2[text()='Wishlist']")
     public WebElement wishlistTitle;
-
-    @FindBy(css = "p.submit-status")
-    public WebElement errorMessage;
 
 
 
