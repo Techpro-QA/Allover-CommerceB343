@@ -9,7 +9,7 @@ import utilities.WaitUtils;
 
 
 public class TC_02 extends TestBase_US05 {
-    //        1	My Account' sayfasına gidilir
+    //    1	My Account' sayfasına gidilir
 //        2	Account Details'a tıklanır
 //        3	Hesap bilgileri görülür
 //        4	First name alanı doldurulur

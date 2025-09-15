@@ -17,6 +17,7 @@ public class HomePage {
     @FindBy(xpath = "//span[.='Sign In']")
     public WebElement homeSignIn;
 
+
     @FindBy(xpath = "//span[.='Sign Out']")
     public WebElement homeSignOut;
 
@@ -94,5 +95,6 @@ public class HomePage {
 
     @FindBy(xpath = "//a[text()='My Account']")
     public WebElement accountvendorLink;
+
 
 }
