@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="All Test Suite"><test verbose="2" preserve-order="true" name="C:/Users/ibrah/IdeaProjects/AlloverCommerceB343QA/src/test/java/Tests/US_07/Compare_US07_TC01.java"><classes><class name="Tests.US_07.Compare_US07_TC01"><methods><include name="compareTest01_max4Products"/></methods></class></classes></test></suite>
