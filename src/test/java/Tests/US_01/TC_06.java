@@ -35,10 +35,10 @@ public class TC_06 extends TestBase_US01 {
         alloverCommercePage.registerSingUpButton.click();
 
         ExtentReportsListener.extentTestInfo("Kayit isleminin basarili bir sekilde gerceklestigi doğrulanir");
-        Assert.assertTrue(!alloverCommercePage.singOutButton.isEmpty());
         ExtentReportsListener.extentTestFail("Doğrulama başarısız oldu. " +
                 "TestCase01 de username e concat edilen 'Aa1.' 'Aa1*' ile değiştirilmiş," +
                 "nokta TestCase01 de geçerken '*' kabul edilmemiş ve test başarısız olmuştur");
+        Assert.assertTrue(!alloverCommercePage.singOutButton.isEmpty());
 
     }
 }
