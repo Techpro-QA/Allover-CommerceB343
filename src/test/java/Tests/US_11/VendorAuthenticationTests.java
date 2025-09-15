@@ -27,7 +27,7 @@ public class VendorAuthenticationTests {
     public void testVendorSuccessfulLogin() {
         ExtentReportsListener.extentTestInfo("Allover Commerce anasayfasına gidilir");
         ExtentReportsListener.extentTestInfo("Vendor olarak giriş yapılıyor...");
-        LoginVendorUtils.loginAndNavigateToMyAccount(ConfigReader.getProperty("vendorUsername"),ConfigReader.getProperty("vendorPassword"));
+        LoginVendorUtils.loginAndNavigateToMyAccount(ConfigReader.getProperty("vendorEmail"),ConfigReader.getProperty("vendorPassword"));
         WaitUtils.waitFor(3);
         ExtentReportsListener.extentTestInfo("My account a giris yapildigi dogrulanir");
         WaitUtils.waitForVisibility(myAccountPage.myAccountTitle,2);
@@ -77,7 +77,7 @@ public class VendorAuthenticationTests {
         homePage.homeSignIn.click();
         ExtentReportsListener.extentTestInfo(" Giris yapabilmek icin Sign in butonuna tiklanir");
         ExtentReportsListener.extentTestInfo("Username alanina gecerli/kayitli vendor username  bilgiler girilir");
-        homePage.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("vendorUsername"));
+        homePage.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("vendorEmail"));
         ExtentReportsListener.extentTestInfo("Gecersiz password girilir");
         homePage.passwordTextBox.sendKeys(ConfigReader.getProperty("invalidPassword"));
         ExtentReportsListener.addScreenshotToReport("Iyilestirme onerisi:Burada girilen passwordu gorme secenegi olabilirdi");
