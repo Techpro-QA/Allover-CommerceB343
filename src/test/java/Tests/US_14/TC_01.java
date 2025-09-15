@@ -1,6 +1,7 @@
 package Tests.US_14;
 
-import Pages.HomeVendorPage;
+import Pages.HomePage;
+import Pages.MyAccountPage;
 import Pages.StoreManagerPage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -9,25 +10,25 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import utilities.*;
 
-import java.awt.geom.RectangularShape;
 import java.util.List;
 
 public class TC_01 {
 
     @BeforeClass
     public void setUp() {
-        LoginUtils.loginAndNavigateToMyAccount(ConfigReader.getProperty("vendorUsername"), ConfigReader.getProperty("vendorPassword"));
+        LoginVendorUtils.loginAndNavigateToMyAccount(ConfigReader.getProperty("vendorEmail"), ConfigReader.getProperty("vendorPassword"));
     }
 
     @Test(description = "US14 - TC01 Urun turu seceneklerini dogrulama")
-    public void test01() throws InterruptedException {
+    public void test01(){
 
-        HomeVendorPage homeVendorPage = new HomeVendorPage();
+
+        MyAccountPage myAccountPage = new MyAccountPage();
         StoreManagerPage storeManagerPage = new StoreManagerPage();
 
         ExtentReportsListener.extentTestInfo("Add Product a ulasıldigini dogrulama");
-        homeVendorPage.storeManagerMenu.click();
-        Assert.assertTrue(homeVendorPage.storeManagerTitle.isDisplayed());
+        myAccountPage.storeManagerMenu.click();
+        Assert.assertTrue(myAccountPage.storeManagerTitle.isDisplayed());
 
         storeManagerPage.products.click();
         Assert.assertTrue(storeManagerPage.productsMenu.isDisplayed());

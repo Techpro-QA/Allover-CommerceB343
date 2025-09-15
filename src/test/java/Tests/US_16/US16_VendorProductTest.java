@@ -1,7 +1,7 @@
 package Tests.US_16;
 
-import Pages.Home;
-import Pages.MyAccount;
+import Pages.HomePage;
+import Pages.MyAccountPage;
 import Pages.ProductPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -18,14 +18,14 @@ public class US16_VendorProductTest {
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
 
         // Vendor login işlemi
-        Home home = new Home();
-        MyAccount myAccount = new MyAccount();
-        home.homeSignIn.click();
-        home.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("vendorEmail"));
-        home.passwordTextBox.sendKeys(ConfigReader.getProperty("vendorPassword"));
-        home.signInButton.click();
-        home.homeSignOut.click();
-        myAccount.storeManager.click();
+        HomePage homePage = new HomePage();
+        MyAccountPage myAccountPage = new MyAccountPage();
+        homePage.homeSignIn.click();
+        homePage.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("vendorEmail"));
+        homePage.passwordTextBox.sendKeys(ConfigReader.getProperty("vendorPassword"));
+        homePage.signInButton.click();
+        homePage.homeSignOut.click();
+        myAccountPage.storeManagerMenu.click();
     }
 
     @BeforeMethod

@@ -36,6 +36,9 @@ public WebElement uploadFile;
 @FindBy(id = "menu-item-upload")
 public WebElement uploadFiles;
 
+    @FindBy(id = "menu-item-browse")
+    public WebElement mediaLibraryTab;
+
 @FindBy(id = "__wp-uploader-id-1")
 public WebElement selectFilesButton;
 
@@ -53,5 +56,99 @@ public WebElement submitButton;
 
 @FindBy(xpath = "//div[.='Product Successfully Published.']")
 public WebElement successMessage;
+
+ @FindBy(xpath = "//h2[.='Add Product']")
+ public WebElement addProductText;
+
+ @FindBy(id = "pro_title")
+ public WebElement productTitle;
+
+ @FindBy(xpath = "//select[@class=\"attachment-filters\"]")
+ public WebElement filterMediaOptions;
+
+ @FindBy(xpath = "//li[@data-id=\"708101\"]")
+ public WebElement emoji;
+
+ @FindBy(xpath = "(//button[@class='media-modal-close'])[2]")
+ public WebElement mediaClose;
+
+ @FindBy(xpath = "//input[@data-super_parent='510']")
+ public WebElement educationCheckBox;
+
+ @FindBy(xpath = "//input[@data-super_parent='350']")
+ public WebElement giftIdeasCheckBox;
+
+//add new
+
+    @FindBy(xpath = "//div[@id=\"wcfm_products_manage_form_inventory_head\"]")
+    public WebElement inventoryMenu;
+
+
+    @FindBy(xpath = "//div[@id=\"wcfm_products_manage_form_shipping_head\"]")
+    public WebElement shippingMenu;
+
+    @FindBy(xpath = "//input[@id=\"sku\"]")
+    public WebElement numberOfSKU;
+
+
+    @FindBy(xpath = "//input[@id=\"manage_stock\"]")
+    public WebElement manageStockCheckBox;
+
+    @FindBy(xpath = "//input[@id=\"stock_qty\"]")
+    public WebElement stockQty;
+
+    @FindBy(xpath = "//select[@id=\"backorders\"]")
+    public WebElement allowBackorders;
+
+    @FindBy(xpath = "//input[@id=\"sold_individually\"]")
+    public WebElement soldIndividuallyCheckBox;
+
+
+    // ================== SHIPPING SECTION ==================
+
+    @FindBy(xpath = "//input[@id=\"weight\"]")
+    public WebElement weight;
+
+    @FindBy(xpath = "//input[@id=\"length\"]")
+    public WebElement length;
+
+    @FindBy(xpath = "//input[@id=\"width\"]")
+    public WebElement width;
+
+    @FindBy(xpath = "//input[@id=\"height\"]")
+    public WebElement height;
+
+    @FindBy(xpath = "//select[@id=\"_wcfmmp_processing_time\"]")
+    public WebElement processingTime;
+
+    // ================== ATTRIBUTES SECTION ==================
+
+    @FindBy(xpath = "//div[@id=\"wcfm_products_manage_form_attribute_head\"]")
+    public WebElement attributeMenu;
+
+    @FindBy(xpath = "//input[@id=\"attributes_is_active_1\"]")
+    public WebElement color;
+
+    @FindBy(xpath = "//button[@class=\"button wcfm_add_attribute_term wcfm_select_all_attributes\"]")
+    public WebElement colorOptions;
+
+    @FindBy(xpath = "//input[@id=\"attributes_is_visible_1\"]")
+    public WebElement visiblePageCheckBox;
+
+    @FindBy(xpath = "//input[@id=\"attributes_is_active_2\"]")
+    public WebElement sizeCheckBox;
+
+    @FindBy(xpath = "//button[@class=\"button wcfm_add_attribute_term wcfm_select_all_attributes\"]")
+    public WebElement sizeOptions;
+
+    @FindBy(xpath = "(//span[@title=\"Toggle Block\"])[2]")
+    public WebElement backArrow1;
+
+
+    @FindBy(xpath = "(//span[@title=\"Toggle Block\"])[3]")
+    public WebElement backArrow2;
+
+    @FindBy(xpath = "//*[contains(text(),'Product SKU must be unique.')]")
+    public WebElement skuUniqueMessage;
 
 }

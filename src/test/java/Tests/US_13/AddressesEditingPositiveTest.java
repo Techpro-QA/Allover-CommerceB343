@@ -1,13 +1,10 @@
 package Tests.US_13;
 import Pages.AddressesPage;
 
-import Pages.HomePageNazlı;
-import Pages.MyAccount;
-import Pages.StoreManager;
+import Pages.HomePage;
+import Pages.MyAccountPage;
+import Pages.StoreManagerPage;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import utilities.*;
@@ -29,7 +26,7 @@ public class AddressesEditingPositiveTest{
         // Navigate to the application URL
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
 
-        HomePageNazlı homePage = new HomePageNazlı();
+        HomePage homePage = new HomePage();
 
         // Login process
         homePage.homeSignIn.click();
@@ -47,11 +44,11 @@ public class AddressesEditingPositiveTest{
     @Test(dataProvider = "AddressData")
     public void fillShippingAddress(String firstName, String lastName, String company,String country,String street1, String street2, String postCode, String city,String province) {
 
-        StoreManager storeManager = new StoreManager();
+        MyAccountPage myAccountPage = new MyAccountPage();
         AddressesPage addressesPage = new AddressesPage();
 
         // Navigate to the "Addresses" section
-        storeManager.addressButton.click();
+        myAccountPage.addressesMenu.click();
 
         // Click on "Edit Your Shipping Address"
         addressesPage.editYourShippingAddress.click();

@@ -10,6 +10,17 @@ public class StoreManagerPage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
+    @FindBy(xpath = "//a[span[@class='text' and normalize-space()='Coupons']]")
+    public WebElement coupons;
+
+    @FindBy(xpath = "//span[.='Add New']")
+    public WebElement addNew;
+
+    @FindBy(xpath = "(//input[@type='search'])[2]")
+    public WebElement couponSearchBox;
+
+    @FindBy(linkText = "Addresses")
+    public WebElement addressButton;
 
     @FindBy(xpath = "//a[@href='https://allovercommerce.com/store-manager/products/']")
     public WebElement products;

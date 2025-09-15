@@ -2,7 +2,7 @@ package Tests.US_20;
 
 import Pages.CartPage;
 import Pages.CheckoutPage;
-import Pages.Home;
+import Pages.HomePage;
 import Pages.OrdersPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -19,19 +19,19 @@ public class US20_VendorCouponTests {
     CartPage cartPage;
     CheckoutPage checkoutPage;
     OrdersPage ordersPage;
-    Home home;
+    HomePage homePage;
 
     @BeforeMethod
     public void setup() {
         cartPage = new CartPage();
         checkoutPage = new CheckoutPage();
         ordersPage = new OrdersPage();
-        home = new Home();
+        homePage = new HomePage();
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
-        home.homeSignIn.click();
-        home.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("vendorEmail"));
-        home.passwordTextBox.sendKeys(ConfigReader.getProperty("vendorPassword"));
-        home.signInButton.click();
+        homePage.homeSignIn.click();
+        homePage.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("vendorEmail"));
+        homePage.passwordTextBox.sendKeys(ConfigReader.getProperty("vendorPassword"));
+        homePage.signInButton.click();
         ReusableMethods.navigateToMenu("//section[@data-id='8d64cda']");
         WaitUtils.waitForVisibility(By.xpath("//button[contains(text(),'Add to cart')][1]"), 10);
         ReusableMethods.clickAnyElement("//button[contains(text(),'Add to cart')][1]");
@@ -246,7 +246,7 @@ public class US20_VendorCouponTests {
     @Test(description = "TC_08_POS: Sipariş geçmişi ve detayları görüntülenmeli- BUG: Kupon bilgisi sipariş detaylarında görünmüyor.")
     public void testOrderHistoryAndDetails() {
         ExtentReportsListener.extentTestInfo("Vendor hesabıyla sisteme giriş yapılmış");
-        JSUtils.JSclickWithTimeout(home.homeSignOut);
+        JSUtils.JSclickWithTimeout(homePage.homeSignOut);
         ExtentReportsListener.extentTestInfo("Kullanıcı üst menüden “My Account” > “Orders” sekmesine tıklar");
         ordersPage.ordersTab.click();
         ordersPage.firstOrderViewButton.click();

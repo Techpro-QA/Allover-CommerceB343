@@ -1,6 +1,6 @@
 package Tests.US_14;
 
-import Pages.HomeVendorPage;
+import Pages.MyAccountPage;
 import Pages.StoreManagerPage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -10,17 +10,18 @@ import utilities.*;
 public class TC_03 {
     @BeforeClass
     public void setUp() {
-        LoginUtils.loginAndNavigateToMyAccount(ConfigReader.getProperty("vendorUsername"), ConfigReader.getProperty("vendorPassword"));
+        LoginVendorUtils.loginAndNavigateToMyAccount(ConfigReader.getProperty("vendorEmail"), ConfigReader.getProperty("vendorPassword"));
     }
 
     @Test(description = "US14 - TC03 Urun baslik ve aciklamalarinin girilebildigini dogrulama")
-    public void test01() throws InterruptedException {
-        HomeVendorPage homeVendorPage = new HomeVendorPage();
+    public void test01(){
+
+        MyAccountPage myAccountPage = new MyAccountPage();
         StoreManagerPage storeManagerPage = new StoreManagerPage();
 
-        homeVendorPage.storeManagerMenu.click();
+        myAccountPage.storeManagerMenu.click();
         ActionsUtils.scrollDown();
-        Assert.assertTrue(homeVendorPage.storeManagerTitle.isDisplayed());
+        Assert.assertTrue(myAccountPage.storeManagerTitle.isDisplayed());
 
         ActionsUtils.scrollDown();
         ReusableMethods.scroll(storeManagerPage.products);
@@ -38,7 +39,6 @@ public class TC_03 {
         ReusableMethods.waitForSecond(3);
         ReusableMethods.click(storeManagerPage.selectButton);
 
-
         storeManagerPage.miniProductImage.click();
         ReusableMethods.waitForSecond(2);
         ActionsUtils.pressTab();
@@ -52,13 +52,12 @@ public class TC_03 {
         ReusableMethods.click(storeManagerPage.addToGalleryButton);
         WaitUtils.waitFor(2);
 
-
         BrowserUtils.frameSwitchTo(0);
         storeManagerPage.shortDescriptionBox.sendKeys("TC_03 deneme shortDescriptionBox");
-        BrowserUtils.switchToDefault();
+        Driver.getDriver().switchTo().defaultContent();
         BrowserUtils.frameSwitchTo(1);
         storeManagerPage.descriptionBox.sendKeys("TC_03 deneme descriptionBox");
-        BrowserUtils.switchToDefault();
+        Driver.getDriver().switchTo().defaultContent();
         ExtentReportsListener.addScreenshotToReport("ShortDescription ve Description ");
 
         ReusableMethods.visibleWait(storeManagerPage.categoriesCheckBox,2);

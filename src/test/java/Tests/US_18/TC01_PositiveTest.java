@@ -1,78 +1,62 @@
 package Tests.US_18;
 
 
-import Pages.Homepage;
-import Pages.MyAccount;
-import Pages.StoreManager;
+import Pages.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import utilities.*;
 
 
-public class TC01_PositiveTest {
-
-    @DataProvider()
-    public static Object[][] couponsPositiveData() {
-
-        return new Object[][]{
-                //positive test
-
-                //After filling in the required fields to create a coupon, the coupon can be created.
-                //(Positive Scenario)"
-                {"karne05","karnesini alan herkes bu kodla %10 indirim kazanır","10","2026-08-15"}
-
-        };
-    }
-
-
+public class TC01_PositiveTest extends DataProviders {
 
     @BeforeClass
     public void setUp() {
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
-        Homepage homePage = new Homepage();
-        MyAccount myAccount = new MyAccount();
+        HomePage homePage = new HomePage();
+        MyAccountPage myAccountPage = new MyAccountPage();
 
         //Log in as a vendor
         homePage.signInButton.click();
-        homePage.userNameOrEmail.sendKeys(ConfigReader.getProperty("vendorEmail"));
-        homePage.passwordOnSingIn.sendKeys(ConfigReader.getProperty("vendorPassword"));
-        homePage.signInButton2.click();
+        homePage.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("vendorEmail"));
+        homePage.homeSignIn.sendKeys(ConfigReader.getProperty("vendorPassword"));
+        homePage.signInButton.click();
 
         ExtentReportsListener.extentTestPass("Store Manager sayfasına gidilir");
-        homePage.singOutButtonClickable.click();
-        myAccount.storeManager.click();
+        homePage.homeSignOut.click();
+        myAccountPage.storeManagerMenu.click();
     }
 
     @Test(dataProvider = "couponsPositiveData")
     public void couponsPositiveTest(String codeName,String descriptionText,String couponAmount,String date) {
 
 
-        StoreManager storeManager = new StoreManager();
+        CouponsPage couponsPage = new CouponsPage();
+        StoreManagerPage storeManagerPage = new StoreManagerPage();
 
         // Go to the Coupon page
         ExtentReportsListener.extentTestPass("Coupon sayfasına gidilir");
-        storeManager.coupons.click();
-        storeManager.addNew.click();
+        storeManagerPage.coupons.click();
+        storeManagerPage.addNew.click();
 
         // Log that all necessary text boxes for creating a coupon are being filled
         ExtentReportsListener.extentTestInfo("Coupon oluşturmak gerekli Text boxlar doldurluyor");
-        storeManager.codeTextBox.sendKeys(codeName);
-        storeManager.descriptionTextBox.sendKeys(descriptionText);
-        BrowserUtils.dropdownSelectByVisibleText(storeManager.discountTypeDD,"Percentage discount");
-        storeManager.couponAmountNumberBox.sendKeys(couponAmount);
-        storeManager.couponExpiryDateBox.sendKeys(date);
+        couponsPage.codeTextBox.sendKeys(codeName);
+        couponsPage.descriptionTextBox.sendKeys(descriptionText);
+        BrowserUtils.dropdownSelectByVisibleText(couponsPage.discountTypeDD,"Percentage discount");
+        couponsPage.couponAmountNumberBox.sendKeys(couponAmount);
+        couponsPage.couponExpiryDateBox.sendKeys(date);
         ExtentReportsListener.extentTestPass("Text Boxlara yazı yazılabiliyor");
-        ActionsUtils.hoverOver(storeManager.allowFreeShippingCheckBox);
+        ActionsUtils.hoverOver(couponsPage.allowFreeShippingCheckBox);
 
         // Click on the checkboxes
-        if (!storeManager.allowFreeShippingCheckBox.isSelected()) {
-            storeManager.allowFreeShippingCheckBox.click();
+        if (!couponsPage.allowFreeShippingCheckBox.isSelected()) {
+            couponsPage.allowFreeShippingCheckBox.click();
         }
 
-        ActionsUtils.hoverOver(storeManager.showOnStoreCheckBox);
+        ActionsUtils.hoverOver(couponsPage.showOnStoreCheckBox);
 
-        if (!storeManager.showOnStoreCheckBox.isSelected()) {
-            storeManager.showOnStoreCheckBox.click();
+        if (!couponsPage.showOnStoreCheckBox.isSelected()) {
+            couponsPage.showOnStoreCheckBox.click();
         }
 
         ExtentReportsListener.addScreenshotToReport("Tüm text Boxların dolu olduğu ve check boxların işaretlenmiş olduğu kontrol edilir");
@@ -81,20 +65,20 @@ public class TC01_PositiveTest {
         // Scroll to the bottom of the page so the driver can see the Submit button
         ActionsUtils.scrollEnd();
 
-        JSUtils.JSclickWithTimeout(storeManager.couponSubmitButton);
+        JSUtils.JSclickWithTimeout(couponsPage.couponSubmitButton);
 
         WaitUtils.waitFor(1);
 
         //Check if the coupon we created is visible on the Coupon page
-        Assert.assertTrue(storeManager.successMessage.isDisplayed());
+        Assert.assertTrue(couponsPage.successMessage.isDisplayed());
         ExtentReportsListener.addScreenshotToReport("Onay mesajının görünürlüğü kontrol edilir");
 
         WaitUtils.waitFor(2);
 
         ExtentReportsListener.extentTestInfo("Coupon sayfasında oluşturduğumuz coupun gözüküyor mu diye kontrol edilir");
-        JSUtils.JSclickWithTimeout(storeManager.coupons);
-        storeManager.couponSearchBox.sendKeys(codeName);
-        Assert.assertEquals(storeManager.lastCouponName.getText(),codeName);
+        JSUtils.JSclickWithTimeout(storeManagerPage.coupons);
+        storeManagerPage.couponSearchBox.sendKeys(codeName);
+        Assert.assertEquals(couponsPage.lastCouponName.getText(),codeName);
     }
 
     @AfterClass

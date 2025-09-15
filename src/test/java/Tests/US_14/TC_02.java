@@ -1,6 +1,7 @@
 package Tests.US_14;
 
-import Pages.HomeVendorPage;
+import Pages.HomePage;
+import Pages.MyAccountPage;
 import Pages.StoreManagerPage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -11,17 +12,17 @@ public class TC_02 {
 
     @BeforeClass
     public void setUp() {
-        LoginUtils.loginAndNavigateToMyAccount(ConfigReader.getProperty("vendorUsername"), ConfigReader.getProperty("vendorPassword"));
+        LoginVendorUtils.loginAndNavigateToMyAccount(ConfigReader.getProperty("vendorEmail"), ConfigReader.getProperty("vendorPassword"));
     }
 
     @Test(description = "US14 - TC02 Sisteme basarili bir sekilde urun fotografi yuklenebildigini dogrulama")
-    public void test01() throws InterruptedException {
+    public void test01(){
 
         StoreManagerPage storeManagerPage = new StoreManagerPage();
-        HomeVendorPage homeVendorPage = new HomeVendorPage();
+        MyAccountPage myAccountPage = new MyAccountPage();
 
-        homeVendorPage.storeManagerMenu.click();
-        Assert.assertTrue(homeVendorPage.storeManagerTitle.isDisplayed());
+        myAccountPage.storeManagerMenu.click();
+        Assert.assertTrue(myAccountPage.storeManagerTitle.isDisplayed());
 
         ReusableMethods.scroll(storeManagerPage.products);
         storeManagerPage.products.click();
