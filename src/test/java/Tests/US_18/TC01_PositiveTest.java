@@ -7,7 +7,20 @@ import org.testng.annotations.*;
 import utilities.*;
 
 
-public class TC01_PositiveTest extends DataProviders {
+public class TC01_PositiveTest {
+
+    @DataProvider()
+    public static Object[][] couponsPositiveData() {
+
+        return new Object[][]{
+                //positive test
+
+                //After filling in the required fields to create a coupon, the coupon can be created.
+                //(Positive Scenario)"
+                {"karne05","karnesini alan herkes bu kodla %10 indirim kazanır","10","2026-08-15"}
+
+        };
+    }
 
     @BeforeClass
     public void setUp() {
@@ -16,14 +29,15 @@ public class TC01_PositiveTest extends DataProviders {
         MyAccountPage myAccountPage = new MyAccountPage();
 
         //Log in as a vendor
-        homePage.signInButton.click();
+        homePage.homeSignIn.click();
         homePage.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("vendorEmail"));
-        homePage.homeSignIn.sendKeys(ConfigReader.getProperty("vendorPassword"));
+        homePage.passwordTextBox.sendKeys(ConfigReader.getProperty("vendorPassword"));
         homePage.signInButton.click();
 
         ExtentReportsListener.extentTestPass("Store Manager sayfasına gidilir");
         homePage.homeSignOut.click();
         myAccountPage.storeManagerMenu.click();
+
     }
 
     @Test(dataProvider = "couponsPositiveData")

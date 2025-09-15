@@ -19,9 +19,9 @@ public class TC04_EmptyFieldsTest{
         MyAccountPage myAccountPage = new MyAccountPage();
 
         //Log in as a vendor
-        homePage.signInButton.click();
+        homePage.homeSignIn.click();
         homePage.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("vendorEmail"));
-        homePage.homeSignIn.sendKeys(ConfigReader.getProperty("vendorPassword"));
+        homePage.passwordTextBox.sendKeys(ConfigReader.getProperty("vendorPassword"));
         homePage.signInButton.click();
 
         ExtentReportsListener.extentTestPass("Store Manager sayfasına gidilir");

@@ -7,8 +7,31 @@ import org.testng.asserts.SoftAssert;
 import utilities.*;
 
 
-public class TC02_NegativeTests extends DataProviders {
+public class TC02_NegativeTests{
 
+
+    @DataProvider()
+    public static Object[][] couponsNegativeData() {
+        return new Object[][]{
+                //Negative test
+
+                //"Coupon cannot be created by entering a past date.(Negative Scenario)"
+                {"kartanesi","kış indirimi","200","1925-04-09"}
+
+                //"If the Code TextBox is left blank, no coupon should be created.(Negative Scenario)"
+                ,{"","kış indirimi","1000","2026-08-09"}
+
+                //"If the Coupon Amount Textbox is left blank, the coupon should not be created.(Negative Scenario)"
+                ,{"ilkbahar","ilkbahar indirimi","","2026-08-09"}
+
+                //"If the Coupon expiry date textbox is left blank, the coupon should not be created.(Negative Scenario)"
+                ,{"sonbahar00","sonbahar indirimi","5",""}
+
+                //"Coupon cannot be created when numbers that do not specify a date are entered in the Coupon expiry date textbox.(Negative Scenario)"
+                ,{"kutulu30","kutu oyunu indirimi indirimi","25","1234567"}
+
+        };
+    }
 
     @BeforeClass
     public void setUp() {
@@ -17,14 +40,15 @@ public class TC02_NegativeTests extends DataProviders {
         MyAccountPage myAccountPage = new MyAccountPage();
 
         //Log in as a vendor
-        homePage.signInButton.click();
+        homePage.homeSignIn.click();
         homePage.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("vendorEmail"));
-        homePage.homeSignIn.sendKeys(ConfigReader.getProperty("vendorPassword"));
+        homePage.passwordTextBox.sendKeys(ConfigReader.getProperty("vendorPassword"));
         homePage.signInButton.click();
 
         ExtentReportsListener.extentTestPass("Store Manager sayfasına gidilir");
         homePage.homeSignOut.click();
         myAccountPage.storeManagerMenu.click();
+
     }
 
     @Test(dataProvider = "couponsNegativeData")

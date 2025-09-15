@@ -6,19 +6,18 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import utilities.*;
 @Listeners(ExtentReportsListener.class)
-public class TC03_DuplicateCouponTest extends DataProviders {
+public class TC03_DuplicateCouponTest  {
 
     @BeforeClass
     public void setUp() {
-        Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
         HomePage homePage = new HomePage();
         MyAccountPage myAccountPage = new MyAccountPage();
 
         //Log in as a vendor
-        homePage.signInButton.click();
+        homePage.homeSignIn.click();
         homePage.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("vendorEmail"));
-        homePage.homeSignIn.sendKeys(ConfigReader.getProperty("vendorPassword"));
+        homePage.passwordTextBox.sendKeys(ConfigReader.getProperty("vendorPassword"));
         homePage.signInButton.click();
 
         ExtentReportsListener.extentTestPass("Store Manager sayfasına gidilir");
