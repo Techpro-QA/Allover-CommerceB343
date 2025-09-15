@@ -1,5 +1,6 @@
 package Tests.US_01;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import utilities.ConfigReader;
 import utilities.ExtentReportsListener;
@@ -31,7 +32,7 @@ public class TC_09 extends TestBase_US01 {
         alloverCommercePage.registerSingUpButton.click();
         ExtentReportsListener.extentTestInfo("Login olarak sayfaya girilmediği doğrulanır");
         // 8 Kayit isleminin gerceklesmedigi doğrulanir
-        softAssert.assertTrue(alloverCommercePage.homeSignOut.isDisplayed());
+        Assert.assertTrue(alloverCommercePage.singOutButton.isEmpty());
         ExtentReportsListener.extentTestInfo("US1 e göre 'Parola en az 8 karakter uzunluğunda olmalıdır. " +
                 "Daha güçlü hale getirmek için büyük ve küçük harfler, sayılar ve ! ? $ % ^ & kullanılmalıdır.'" +
                 "kuralına uygun olmayan tek karakterli parola (1) kabul adildi" +

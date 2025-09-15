@@ -1,5 +1,6 @@
 package Tests.US_01;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import utilities.ConfigReader;
 import utilities.ExtentReportsListener;
@@ -28,7 +29,7 @@ public class TC_10 extends TestBase_US01 {
         softAssert.assertTrue(warningMessage.contains("username"));
         //  b) Kayıt yapılarak girilen sayfaya girilemediği doğrulanır
         ExtentReportsListener.extentTestInfo("Uyarı mesajı çıkmasına rağmen login olarak sayfaya girilemediği doğrulanır");
-        softAssert.assertTrue(alloverCommercePage.homeSignOut.isDisplayed());
+        Assert.assertTrue(alloverCommercePage.singOutButton.isEmpty());
         softAssert.assertAll();
         ExtentReportsListener.extentTestPass("Daha önca kayıt yapılmış username ile sing up butonuna tıklandıktan sonra uyrı mesajı alındığı" +
                 " ve login olarak sayfaya girilmediği başarılı bir şekilde doğrulanmıştır.");
@@ -56,7 +57,7 @@ public class TC_10 extends TestBase_US01 {
         softAssert.assertTrue(warningMessage.contains("email"));
         //  b) Kayıt yapılarak girilen sayfaya girilemediği doğrulanır
         ExtentReportsListener.extentTestInfo("Uyarı mesajı çıkmasına rağmen login olarak sayfaya girilemediği doğrulanır");
-        softAssert.assertTrue(alloverCommercePage.homeSignOut.isDisplayed());
+        Assert.assertTrue(alloverCommercePage.singOutButton.isEmpty());
         softAssert.assertAll();
         ExtentReportsListener.extentTestPass("Daha önca kayıt yapılmış emaile ile sing up butonuna tıklandıktan sonra uyrı mesajı alındığı" +
                 " ve login olarak sayfaya girilmediği başarılı bir şekilde doğrulanmıştır.");

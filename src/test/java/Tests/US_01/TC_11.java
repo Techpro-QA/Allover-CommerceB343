@@ -1,5 +1,6 @@
 package Tests.US_01;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import utilities.ConfigReader;
 import utilities.ExtentReportsListener;
@@ -27,7 +28,7 @@ public class TC_11 extends TestBase_US01 {
         softAssert.assertFalse(alloverCommercePage.bugEmailErrorMessage.isEmpty());
         //  b) Kayıt yapılarak girilen sayfaya girilemediği doğrulanır
         ExtentReportsListener.extentTestInfo("Uyarı mesajı çıkmadı, login olarak sayfaya girilemediği doğrulanır");
-        softAssert.assertTrue(alloverCommercePage.homeSignOut.isDisplayed());
+        Assert.assertTrue(alloverCommercePage.singOutButton.isEmpty());
         ExtentReportsListener.extentTestFail("Email e noktadan sonra geçersiz '123456' rakamları girildi " +
                 "geçersiz email e ait uyarı mesajı alınmadı ve sayfaya girilememesi gerekirken login olarak girildi." +
                 "Test başarısız oldu");

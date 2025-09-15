@@ -37,7 +37,7 @@ public class TestBase_US05 {//her class ta tekrar eden kodlar için parent class
 
             Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
             //Sing in butonuna tıklanır
-            homePage.signInButton.click();
+            homePage.homeSignIn.click();
             //Açılan pencerede kayıtlı bir kullanıcı veya posta adresi ve password girilir
             homePage.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("userName"));
             homePage.passwordTextBox.sendKeys(ConfigReader.getProperty("password"));

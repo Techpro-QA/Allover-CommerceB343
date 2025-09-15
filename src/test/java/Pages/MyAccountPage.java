@@ -77,4 +77,6 @@ public class MyAccountPage {
     @FindBy(css = "p.submit-status")
     public WebElement errorMessage;
 
+
+
 }

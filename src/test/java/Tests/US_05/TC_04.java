@@ -82,6 +82,7 @@ public class TC_04 {
     @Test(description = "negatif scenario, tek karakterli  şifre değişikliği kabul edilmemeli" )
     public void passwordChangeWithSingleChar() {
         faker = new Faker();
+        accountDetailsPage = new AccountDetailsPage();
         homePage = new HomePage();
         softAssert = new SoftAssert();
         MyAccountPage myAccountPage = new MyAccountPage();
