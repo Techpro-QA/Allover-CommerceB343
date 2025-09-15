@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Batch 343">
+    <listeners><listener class-name="utilities.ExtentReportsListener"></listener></listeners>
+    <test verbose="2" preserve-order="true"
+          name="Register Test">
+        <classes>
+            <class name="Tests.US_01.TC_01">
+                <methods>
+                    <include name="positiveScenario"/>
+                </methods>
+            </class>
+            <class name="Tests.US_01.TC_02">
+                <methods>
+                    <include name="emptyUserName"/>
+                </methods>
+            </class>
+            <class name="Tests.US_01.TC_03">
+                <methods>
+                    <include name="emptyEmail"/>
+                </methods>
+            </class>
+            <class name="Tests.US_01.TC_04">
+                <methods>
+                    <include name="emptyPassword"/>
+                </methods>
+            </class>
+            <class name="Tests.US_01.TC_05">
+                <methods>
+                    <include name="checkBoxNotSelected"/>
+                </methods>
+            </class>
+            <class name="Tests.US_01.TC_07">
+                <methods>
+                    <include name="emailWithout_At"/>
+                </methods>
+            </class>
+            <class name="Tests.US_01.TC_08">
+                <methods>
+                    <include name="invalidEmail"/>
+                </methods>
+            </class>
+            <class name="Tests.US_01.TC_09">
+                <methods>
+                    <include name="missedCharecterPassword"/>
+                </methods>
+            </class>
+            <class name="Tests.US_01.TC_10">
+                <methods>
+                    <include name="sameUserName"/>
+                    <include name="sameEmail"/>
+                </methods>
+            </class>
+            <class name="Tests.US_01.TC_11">
+                <methods>
+                    <include name="afterPointInvalidEmail"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

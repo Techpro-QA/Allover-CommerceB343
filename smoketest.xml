@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Batch 343">
+    <listeners><listener class-name="utilities.ExtentReportsListener"></listener></listeners>
+    <test verbose="2" preserve-order="true"
+          name="Smoke Test(Satın alınabilirlik testi">
+        <classes>
+            <class name="Tests.US_06.Test_CustomerShoppingAbility">
+                <methods>
+                    <include name="searchForProduct"/>
+                    <include name="testSuccessfulShoppingFlow"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
