@@ -4,7 +4,6 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import freemarker.log.Logger;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -25,14 +24,7 @@ import java.util.Map;
 public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAnnotationTransformer {
     private static ExtentReports extentReports;
     private static ExtentHtmlReporter extentHtmlReporter;
-    private static ExtentTest extentTest;
-
-
-    public static void getExtentTest() {
-    }
-
-
-
+    public static ExtentTest extentTest;
     /**
      * onstart==> Tum testlerden once tek bir kez cagrilir
      * Böylece icine yazdigimiz kodlar sayesinde test başladığında raporlama baslatilir.
@@ -84,9 +76,6 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
                     "<span style='color:blue; font-weight:bold'> " + testName + " </span>",
                     "<span style='color:blue; font-weight:bold'> " + result.getName() + " </span>");
         }
-        extentTestInfo("Test senaryosu başladı.");
-        extentTestInfo("Driver başlatıldı ve sayfa açıldı.");
-
     }
 
     @Override
@@ -158,44 +147,6 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             throw new RuntimeException(e);
         }
     }
-    /** * Testin herhangi bir noktasında ekran görüntüsü almak ve rapora eklemek için kullanılır.
-     * Bu metot statiktir ve direkt olarak `ExtentReportListener.addScreenshotToReport(...)` şeklinde çağrılabilir.
-     *
-     * @param logMessage Ekran görüntüsü altına eklenecek mesaj veya açıklama.
-     */
-    public static void addScreenshotToReport(String logMessage) {
-        if (extentTest == null) {
-            return;
-        }
-
-        try {
-            WebDriver driver = Driver.getDriver();
-            if (driver == null) {
-                return;
-            }
-            TakesScreenshot ts = (TakesScreenshot) driver;
-            File src = ts.getScreenshotAs(OutputType.FILE);
-
-            String date = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss").format(LocalDateTime.now());
-            String destDir = "target/screenshots";
-            File destDirFile = new File(destDir);
-            if (!destDirFile.exists()) {
-                FileUtils.forceMkdir(destDirFile);
-            }
-            String destPath = destDir + "/image_" + date + ".png";
-            File dest = new File(destPath);
-            FileUtils.copyFile(src, dest);
-
-            // Raporun, ekran görüntüsü dosyasını bulabilmesi için görece yolu kullan
-            String relativePath = "../screenshots/image_" + date + ".png";
-            extentTest.log(Status.INFO, logMessage, MediaEntityBuilder.createScreenCaptureFromPath(relativePath).build());
-
-        } catch (IOException | RuntimeException e) {
-            if (extentTest != null) {
-                extentTest.log(Status.ERROR, "Ekran görüntüsü alınırken bir hata oluştu: " + e.getMessage());
-            }
-        }
-    }
     /**
      * onfinish==> Tum testlerden sonra tek bir kez cagrilir
      * Böylece tüm testler bittiğinde raporlama kapatılır.
@@ -239,6 +190,44 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
             extentTest.info(message);
         }
     }
+    /** * Testin herhangi bir noktasında ekran görüntüsü almak ve rapora eklemek için kullanılır.
+     * Bu metot statiktir ve direkt olarak `ExtentReportListener.addScreenshotToReport(...)` şeklinde çağrılabilir.
+     *
+     * @param logMessage Ekran görüntüsü altına eklenecek mesaj veya açıklama.
+     */
+    public static void addScreenshotToReport(String logMessage) {
+        if (extentTest == null) {
+            return;
+        }
+
+        try {
+            WebDriver driver = Driver.getDriver();
+            if (driver == null) {
+                return;
+            }
+            TakesScreenshot ts = (TakesScreenshot) driver;
+            File src = ts.getScreenshotAs(OutputType.FILE);
+
+            String date = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss").format(LocalDateTime.now());
+            String destDir = "target/screenshots";
+            File destDirFile = new File(destDir);
+            if (!destDirFile.exists()) {
+                FileUtils.forceMkdir(destDirFile);
+            }
+            String destPath = destDir + "/image_" + date + ".png";
+            File dest = new File(destPath);
+            FileUtils.copyFile(src, dest);
+
+            // Raporun, ekran görüntüsü dosyasını bulabilmesi için görece yolu kullan
+            String relativePath = "../screenshots/image_" + date + ".png";
+            extentTest.log(Status.INFO, logMessage, MediaEntityBuilder.createScreenCaptureFromPath(relativePath).build());
+
+        } catch (IOException | RuntimeException e) {
+            if (extentTest != null) {
+                extentTest.log(Status.ERROR, "Ekran görüntüsü alınırken bir hata oluştu: " + e.getMessage());
+            }
+        }
+    }
     /**
      * onTestSuccess==> sadece pass olan testlerden sonra bir kez cagrilir
      * Test başarılı olduğunda, başarılı mesajı eklenir.
@@ -271,4 +260,6 @@ public class ExtentReportsListener implements ITestListener, IRetryAnalyzer, IAn
         // Her test metoduna retry analyzer ekler. Bu sayede test başarısız olursa belirlenen sayıda yeniden çalıştırılır.
         annotation.setRetryAnalyzer(ExtentReportsListener.class);
     }
+
+
 }

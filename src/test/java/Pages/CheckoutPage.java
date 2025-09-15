@@ -7,8 +7,12 @@ import utilities.Driver;
 
 public class CheckoutPage {
     public CheckoutPage() {
-        PageFactory.initElements(Driver.getDriver(), this);
+
+        PageFactory.initElements(Driver.getDriver(),this);
     }
+
+    @FindBy(linkText = "Store Manager")
+    public WebElement checkout;
 
     @FindBy(xpath = "//a[contains(@class, 'checkout-button')]")
     public WebElement proceedToCheckoutButton;
@@ -66,4 +70,5 @@ public class CheckoutPage {
 
     @FindBy(id = "payment_method_cod")
     public WebElement payAtDoorOption;
+
 }

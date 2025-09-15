@@ -6,7 +6,6 @@ import org.openqa.selenium.interactions.Actions;
 
 public class ActionsUtils {
     private static Actions actions = new Actions(Driver.getDriver());
-
     /**
      * Belirtilen element üzerinde sağ tıklama (context click) işlemi yapar.
      *

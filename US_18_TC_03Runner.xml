@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Batch 343">
+    <listeners><listener class-name="utilities.ExtentReportsListener"></listener></listeners>
+    <test verbose="2" preserve-order="true"
+          name="Duplicate Coupon Test">
+        <classes>
+            <class name="Tests.US_18.TC03_DuplicateCouponTest">
+                <methods>
+                    <include name="duplicateCouponCreationTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

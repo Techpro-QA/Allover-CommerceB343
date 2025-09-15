@@ -1,18 +1,21 @@
 package Tests.US_11;
 
+import Pages.HomePage;
+import Pages.MyAccountPage;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import Pages.HomeVendorPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utilities.*;
 
 public class VendorAuthenticationTests {
-    private HomeVendorPage homeVendorPage;
+    private HomePage homePage;
+    private MyAccountPage myAccountPage;
     @BeforeMethod
     public void setup() {
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
-        homeVendorPage = new HomeVendorPage();
+        homePage = new HomePage();
+        myAccountPage = new MyAccountPage();
     }
 
     @AfterMethod
@@ -24,81 +27,81 @@ public class VendorAuthenticationTests {
     public void testVendorSuccessfulLogin() {
         ExtentReportsListener.extentTestInfo("Allover Commerce anasayfasına gidilir");
         ExtentReportsListener.extentTestInfo("Vendor olarak giriş yapılıyor...");
-        LoginVendorUtils.loginAndNavigateToMyAccount(homeVendorPage,ConfigReader.getProperty("vendorUsername"),ConfigReader.getProperty("vendorPassword"));
+        LoginVendorUtils.loginAndNavigateToMyAccount(ConfigReader.getProperty("vendorEmail"),ConfigReader.getProperty("vendorPassword"));
         WaitUtils.waitFor(3);
         ExtentReportsListener.extentTestInfo("My account a giris yapildigi dogrulanir");
-        WaitUtils.waitForVisibility(homeVendorPage.myAccountTitle,2);
+        WaitUtils.waitForVisibility(myAccountPage.myAccountTitle,2);
         ExtentReportsListener.addScreenshotToReport("My account sayfasi goruntusu");
-        BrowserUtils.verifyElementDisplayed(homeVendorPage.myAccountTitle);
+        BrowserUtils.verifyElementDisplayed(myAccountPage.myAccountTitle);
 
 
     }
     @Test(description = "TC003-Hatalı formatta email ile giriş yapılamamalı (Negative Scenario)")
     public void testLogin_Validation_InvalidEmailFormat() {
         ExtentReportsListener.extentTestInfo("Allover Commerce anasayfasına gidilir");
-        homeVendorPage.signInRegisterButton.click();
+        homePage.homeSignIn.click();
         ExtentReportsListener.extentTestInfo("Username alanina gecersiz formatta email ile  bilgiler girilir");
-        homeVendorPage.username.sendKeys(ConfigReader.getProperty("invalidFormatEmail"));
+        homePage.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("invalidFormatEmail"));
         ExtentReportsListener.extentTestInfo("Gecerli password girilir");
-        homeVendorPage.password.sendKeys(ConfigReader.getProperty("vendorPassword"));
-        homeVendorPage.signInButton.click();
+        homePage.passwordTextBox.sendKeys(ConfigReader.getProperty("vendorPassword"));
+        homePage.signInButton.click();
         WaitUtils.waitFor(2);
         ExtentReportsListener.extentTestInfo("Giris butonuna bastiktan sonra basarisiz giris mesajinin yuklenmesini bekliyoruz");
-        WaitUtils.waitForVisibility(homeVendorPage.errorMessage,3);
+        WaitUtils.waitForVisibility(myAccountPage.errorMessage,3);
         ExtentReportsListener.addScreenshotToReport("Iyilestirme onerisi: Burada email formatinin hatali oldugu belirtilerek hatanin detaylari yazilabilirdi");
         ExtentReportsListener.extentTestInfo("Hatali veri girisi mesajinin goruntulendigini dogruluyoruz");
         ExtentReportsListener.addScreenshotToReport("Wrong username/password yazisi goruntusu");
-        BrowserUtils.verifyExpectedAndActualTextMatch("Wrong username or password.", homeVendorPage.errorMessage);
+        BrowserUtils.verifyExpectedAndActualTextMatch("Wrong username or password.", myAccountPage.errorMessage);
 
     }
     @Test(description = "TC004-Hatalı email ile giriş yapılamamalı (Negative Scenario)")
     public void testLogin_Validation_InvalidEmail() {
         ExtentReportsListener.extentTestInfo("Allover Commerce anasayfasına gidilir");
-        homeVendorPage.signInRegisterButton.click();
+        homePage.homeSignIn.click();
         ExtentReportsListener.extentTestInfo("Username alanina gecersiz email ile  bilgiler girilir");
-        homeVendorPage.username.sendKeys(ConfigReader.getProperty("invalidEmail"));
+        homePage.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("invalidEmail"));
         ExtentReportsListener.extentTestInfo("Gecerli password girilir");
-        homeVendorPage.password.sendKeys(ConfigReader.getProperty("vendorPassword"));
-        homeVendorPage.signInButton.click();
+        homePage.passwordTextBox.sendKeys(ConfigReader.getProperty("vendorPassword"));
+        homePage.signInButton.click();
         WaitUtils.waitFor(3);
         ExtentReportsListener.extentTestInfo("Giris butonuna bastiktan sonra basarisiz giris mesajinin yuklenmesini bekliyoruz");
-        WaitUtils.waitForVisibility(homeVendorPage.errorMessage,3);
+        WaitUtils.waitForVisibility(myAccountPage.errorMessage,3);
         ExtentReportsListener.extentTestInfo("Hatali veri girisi mesajinin goruntulendigini dogruluyoruz");
         ExtentReportsListener.addScreenshotToReport("Wrong username mesaj goruntusu");
-        BrowserUtils.verifyElementDisplayed(homeVendorPage.errorMessage);
+        BrowserUtils.verifyElementDisplayed(myAccountPage.errorMessage);
 
     }
     @Test(description = "TC005-Gecersiz password ile giriş yapılamamalı (Negative Scenario)")
     public void testLogin_Validation_InvalidPassword() {
         ExtentReportsListener.extentTestInfo("Allover Commerce anasayfasına gidilir");
-        homeVendorPage.signInRegisterButton.click();
+        homePage.homeSignIn.click();
         ExtentReportsListener.extentTestInfo(" Giris yapabilmek icin Sign in butonuna tiklanir");
         ExtentReportsListener.extentTestInfo("Username alanina gecerli/kayitli vendor username  bilgiler girilir");
-        homeVendorPage.username.sendKeys(ConfigReader.getProperty("vendorUsername"));
+        homePage.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("vendorEmail"));
         ExtentReportsListener.extentTestInfo("Gecersiz password girilir");
-        homeVendorPage.password.sendKeys(ConfigReader.getProperty("invalidPassword"));
+        homePage.passwordTextBox.sendKeys(ConfigReader.getProperty("invalidPassword"));
         ExtentReportsListener.addScreenshotToReport("Iyilestirme onerisi:Burada girilen passwordu gorme secenegi olabilirdi");
-        homeVendorPage.signInButton.click();
+        homePage.signInButton.click();
         WaitUtils.waitFor(2);
         ExtentReportsListener.extentTestInfo("Giris butonuna bastiktan sonra basarisiz giris mesajinin yuklenmesini bekliyoruz");
-        WaitUtils.waitForText(homeVendorPage.errorMessage,"Wrong username or password.",3);//mesaji gorebilmek icin waitutilse method ekledim
+        WaitUtils.waitForText(myAccountPage.errorMessage,"Wrong username or password.",3);//mesaji gorebilmek icin waitutilse method ekledim
         ExtentReportsListener.addScreenshotToReport("Wrong username/password mesaji goruntusu");
         ExtentReportsListener.extentTestInfo("Hatali veri girisi mesajinin goruntulendigini, expected ve actual mesaji dogruluyoruz");
-        BrowserUtils.verifyElementDisplayed(homeVendorPage.errorMessage);
-        BrowserUtils.verifyExpectedAndActualTextMatch("Wrong username or password.", homeVendorPage.errorMessage);
+        BrowserUtils.verifyElementDisplayed(myAccountPage.errorMessage);
+        BrowserUtils.verifyExpectedAndActualTextMatch("Wrong username or password.", myAccountPage.errorMessage);
     }
     @Test(description = "TC006-Email/username alani bos birakilarak giriş yapılamamalı (Negative Scenario)")
     public void testLogin_Validation_EmptyEmail() {
         ExtentReportsListener.extentTestInfo("Allover Commerce anasayfasına gidilir");
-        homeVendorPage.signInRegisterButton.click();
+        homePage.homeSignIn.click();
         ExtentReportsListener.extentTestInfo("Sign in tiklanir");
         ExtentReportsListener.extentTestInfo("Username alani bos birakilir");
-        JSUtils.JSsetValueBy(homeVendorPage.username, "");
+        JSUtils.JSsetValueBy(homePage.usernameOrEmailAddressTextBox, "");
         ExtentReportsListener.extentTestInfo("Gecerli password girilir");
-        homeVendorPage.password.sendKeys(ConfigReader.getProperty("vendorPassword"));
-        homeVendorPage.signInButton.click();
+        homePage.passwordTextBox.sendKeys(ConfigReader.getProperty("vendorPassword"));
+        homePage.signInButton.click();
         ExtentReportsListener.extentTestInfo("Tarayicinin validation mesajini kontrol ediyoruz");
-        String validationMessage = JSUtils.JSgetValidationMessage(homeVendorPage.username);
+        String validationMessage = JSUtils.JSgetValidationMessage(homePage.usernameOrEmailAddressTextBox);
         ExtentReportsListener.extentTestInfo("Validation mesajı: " + validationMessage);
         Assert.assertEquals(validationMessage, "Lütfen bu alanı doldurun.");
 
@@ -106,14 +109,14 @@ public class VendorAuthenticationTests {
     @Test(description = "TC007-Password alani bos birakilarak giriş yapılamamalı (Negative Scenario)")
     public void testLogin_Validation_EmptyPassword() {
         ExtentReportsListener.extentTestInfo(" Giris yapabilmek icin Sign in butonuna tiklanir");
-        homeVendorPage.signInRegisterButton.click();
+        homePage.homeSignIn.click();
         ExtentReportsListener.extentTestInfo("Gecerli username girilir");
-        homeVendorPage.username.sendKeys(ConfigReader.getProperty("vendorPassword"));
+        homePage.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("vendorPassword"));
         ExtentReportsListener.extentTestInfo("Password alani bos birakilir");
-        JSUtils.JSsetValueBy(homeVendorPage.password, "");
-        homeVendorPage.signInButton.click();
+        JSUtils.JSsetValueBy(homePage.passwordTextBox, "");
+        homePage.signInButton.click();
         ExtentReportsListener.extentTestInfo("Tarayicinin validation mesajini kontrol ediyoruz");
-        String validationMessage = JSUtils.JSgetValidationMessage(homeVendorPage.password);
+        String validationMessage = JSUtils.JSgetValidationMessage(homePage.passwordTextBox);
         ExtentReportsListener.extentTestInfo("Validation mesajı: " + validationMessage);
         Assert.assertEquals(validationMessage, "Lütfen bu alanı doldurun.");
         Driver.quitDriver();

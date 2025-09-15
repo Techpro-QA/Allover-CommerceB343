@@ -168,7 +168,7 @@ public class ReusableMethods {
             TakesScreenshot ts = (TakesScreenshot) Driver.getDriver();
             String date = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss").format(LocalDateTime.now());
             Files.write(Paths.get("screenShots/image " + date + ".jpeg"), ts.getScreenshotAs(OutputType.BYTES));
-            //  extentTest.addScreenCaptureFromPath(System.getProperty("user.dir")+"/screenShots/image " + date + ".jpeg");
+            //extentTest.addScreenCaptureFromPath(System.getProperty("user.dir")+"/screenShots/image " + date + ".jpeg");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

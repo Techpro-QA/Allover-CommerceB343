@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Batch 343">
+    <listeners><listener class-name="utilities.ExtentReportsListener"></listener></listeners>
+    <test verbose="2" preserve-order="true"
+          name="TC01_PositiveTest">
+        <classes>
+            <class name="Tests.US_18.TC01_PositiveTest">
+                <methods>
+                    <include name="couponsPositiveTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

@@ -1,6 +1,6 @@
 package utilities;
 
-import Pages.HomeVendorPage;
+import Pages.HomePage;
 
 public class LoginVendorUtils {
 
@@ -11,17 +11,18 @@ public class LoginVendorUtils {
          * @param username Kullanıcı adı
          * @param password Şifre
          */
-        public static void loginAndNavigateToMyAccount(HomeVendorPage homeVendorPage,String username, String password) {
-            homeVendorPage.signInRegisterButton.click();
-            homeVendorPage.username.clear();
-            homeVendorPage.username.sendKeys(username);
-            homeVendorPage.password.clear();
-            homeVendorPage.password.sendKeys(password);
-            homeVendorPage.signInButton.click();
+        public static void loginAndNavigateToMyAccount(String username, String password) {
+            HomePage homePage = new HomePage();
+            homePage.homeSignIn.click();
+            homePage.usernameOrEmailAddressTextBox.clear();
+            homePage.usernameOrEmailAddressTextBox.sendKeys(username);
+            homePage.passwordTextBox.clear();
+            homePage.passwordTextBox.sendKeys(password);
+            homePage.signInButton.click();
             WaitUtils.waitFor(2);
-            JSUtils.JSscrollIntoView(homeVendorPage.textMyAccount);
-            WaitUtils.waitForVisibility(homeVendorPage.textMyAccount, 2);
-            BrowserUtils.verifyElementClickable(homeVendorPage.textMyAccount);
-            JSUtils.JSclickWithTimeout(homeVendorPage.textMyAccount);
+            JSUtils.JSscrollIntoView(homePage.textMyAccount);
+            WaitUtils.waitForVisibility(homePage.textMyAccount, 2);
+            BrowserUtils.verifyElementClickable(homePage.textMyAccount);
+            JSUtils.JSclickWithTimeout(homePage.textMyAccount);
         }
     }

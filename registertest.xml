@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <listeners><listener class-name="utilities.ExtentReportsListener"></listener></listeners>
+    <test verbose="2" preserve-order="true"
+          name="US_01">
+        <classes>
+            <class name="Tests.US_01.TC_01"></class>
+            <class name="Tests.US_01.TC_02"></class>
+            <class name="Tests.US_01.TC_03"></class>
+            <class name="Tests.US_01.TC_04"></class>
+            <class name="Tests.US_01.TC_05"></class>
+            <class name="Tests.US_01.TC_06"></class>
+            <class name="Tests.US_01.TC_07"></class>
+            <class name="Tests.US_01.TC_08"></class>
+            <class name="Tests.US_01.TC_09"></class>
+            <class name="Tests.US_01.TC_10"></class>
+            <class name="Tests.US_01.TC_11"></class>
+        </classes>
+    </test>
+</suite>

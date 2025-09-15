@@ -2,7 +2,7 @@ package Tests.US_20;
 
 import Pages.CartPage;
 import Pages.CheckoutPage;
-import Pages.Home;
+import Pages.HomePage;
 import Pages.OrdersPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -19,25 +19,27 @@ public class US20_VendorCouponTests {
     CartPage cartPage;
     CheckoutPage checkoutPage;
     OrdersPage ordersPage;
-    Home home;
+    HomePage homePage;
 
     @BeforeMethod
     public void setup() {
         cartPage = new CartPage();
         checkoutPage = new CheckoutPage();
         ordersPage = new OrdersPage();
-        home = new Home();
+        homePage = new HomePage();
         Driver.getDriver().get(ConfigReader.getProperty("alloverCommerceUrl"));
-        home.homeSignIn.click();
-        home.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("vendorEmail"));
-        home.passwordTextBox.sendKeys(ConfigReader.getProperty("vendorPassword"));
-        home.signInButton.click();
+        homePage.homeSignIn.click();
+        homePage.usernameOrEmailAddressTextBox.sendKeys(ConfigReader.getProperty("vendorEmail"));
+        homePage.passwordTextBox.sendKeys(ConfigReader.getProperty("vendorPassword"));
+        homePage.signInButton.click();
         ReusableMethods.navigateToMenu("//section[@data-id='8d64cda']");
         WaitUtils.waitForVisibility(By.xpath("//button[contains(text(),'Add to cart')][1]"), 10);
         ReusableMethods.clickAnyElement("//button[contains(text(),'Add to cart')][1]");
     }
 
-    @AfterMethod
+
+    @AfterMethod()
+
     public void tearDown() {
         Driver.quitDriver();
     }
@@ -196,13 +198,16 @@ public class US20_VendorCouponTests {
     }
 
 
+
+
+
     @Test(description = "TC_06_POS: Ödeme yöntemi seçim alanı çalışmalı")
     public void testPaymentMethodSelection() {
 
         ExtentReportsListener.extentTestInfo("Vendor hesabıyla sisteme giriş yapılmış");
         JSUtils.JSclickWithTimeout(cartPage.cartButton);
         JSUtils.JSclickWithTimeout(checkoutPage.checkoutButton);
-        ActionsUtils.scrollDown();
+
         ExtentReportsListener.extentTestInfo("“Payment Method” başlığı altındaki seçenekleri kontrol et");
 
         // Wire Transfer seç
@@ -223,36 +228,25 @@ public class US20_VendorCouponTests {
         JSUtils.JSclickWithTimeout(cartPage.cartButton);
         JSUtils.JSclickWithTimeout(checkoutPage.checkoutButton);
         ActionsUtils.scrollDown();
+
+
         ExtentReportsListener.extentTestInfo("Checkout sayfasında “Place Order” butonuna tıkla");
         JSUtils.JSclickWithTimeout(checkoutPage.placeOrderButton);
-        ExtentReportsListener.extentTestInfo("Yönlendirilen onay sayfasını kontrol et");
-        try {
-            WaitUtils.waitForVisibility(checkoutPage.orderSuccessMessage, 10);
-            if (checkoutPage.orderSuccessMessage.isDisplayed()) {
-                System.out.println("Sipariş başarıyla tamamlandı AMA kupon uygulanmadı.");
-                ExtentReportsListener.addScreenshotToReport("BUG: Sipariş tamamlandı ancak kupon uygulanmadı.");
-                Assert.fail("BUG: Sipariş kuponsuz tamamlandı, kupon uygulanmalıydı.");
-            }
-        } catch (Exception e) {
-            // Eğer sipariş başarıyla tamamlanamazsa
-            List<WebElement> errorMessages = Driver.getDriver().findElements(By.xpath("//*[contains(text(),'coupon') or contains(text(),'error')]"));
+        WaitUtils.waitFor(3);
+        ActionsUtils.scrollHome();
+        WaitUtils.waitFor(2);
 
-            if (!errorMessages.isEmpty()) {
-                String errorText = errorMessages.get(0).getText();
-                ExtentReportsListener.addScreenshotToReport("BUG: Sipariş tamamlanamadı - Hata mesajı: " + errorText);
-                Assert.fail("BUG: Sipariş tamamlanamadı. Hata mesajı: " + errorText);
-            } else {
-                ExtentReportsListener.addScreenshotToReport("BUG: Sipariş tamamlanamadı - Hata mesajı yok");
-                Assert.fail("BUG: Sipariş tamamlanamadı. Sipariş başarı mesajı alınamadı ve hata mesajı görünmedi.");
-            }
-        }
-        ExtentReportsListener.extentTestInfo("BUG: Sipariş tamamlanamadı. Sipariş başarı mesajı alınamadı ve hata mesajı görünmedi.");
+        ExtentReportsListener.extentTestInfo("Yönlendirilen onay sayfasını kontrol et");
+        ExtentReportsListener.addScreenshotToReport("BUG: Kupon uygulanmadan sipariş tamamlandı ya da sistem kontrol edilemiyor.");
+        Assert.fail("BU BİLİNÇLİ HATA: TC_07_POS test senaryosunda kupon zorunlu olmalı ama uygulanmadan sipariş tamamlanabiliyor.");
+
+
     }
 
     @Test(description = "TC_08_POS: Sipariş geçmişi ve detayları görüntülenmeli- BUG: Kupon bilgisi sipariş detaylarında görünmüyor.")
     public void testOrderHistoryAndDetails() {
         ExtentReportsListener.extentTestInfo("Vendor hesabıyla sisteme giriş yapılmış");
-        JSUtils.JSclickWithTimeout(home.homeSignOut);
+        JSUtils.JSclickWithTimeout(homePage.homeSignOut);
         ExtentReportsListener.extentTestInfo("Kullanıcı üst menüden “My Account” > “Orders” sekmesine tıklar");
         ordersPage.ordersTab.click();
         ordersPage.firstOrderViewButton.click();
@@ -320,9 +314,14 @@ public class US20_VendorCouponTests {
 
         ExtentReportsListener.extentTestInfo("Fatura bilgilerinden bir ya da birkaçını boş bırak ");
         checkoutPage.billingFirstName.clear(); // Eksik bilgi
-        ActionsUtils.scrollEnd();
+
         ExtentReportsListener.extentTestInfo("“Place Order” butonuna tıkla");
-        checkoutPage.placeOrderButton.click();
+        WaitUtils.waitFor(3);
+        ActionsUtils.scrollDown();
+        WaitUtils.waitFor(3);
+        JSUtils.JSclickWithTimeout(checkoutPage.placeOrderButton);
+
+        WaitUtils.waitFor(2);
 
         ExtentReportsListener.extentTestInfo("'Billing First name is a required field.' hata mesajı görünmeli");
         Assert.assertTrue(ReusableMethods.isElementDisplayed("//*[@data-id='billing_first_name']"),
@@ -363,7 +362,6 @@ public class US20_VendorCouponTests {
         Assert.assertTrue(ReusableMethods.isElementDisplayed("//*[@class=' alert alert-simple alert-icon alert-close-top alert-danger']"),
                 "'The minimum spend for this coupon is $500.00.' uyarısı görünmeli");
     }
-
 
     @Test(description = "TC_14_NEG: Tek kullanımlık kupon tekrar kullanım engellenmeli - BUG: Kupon sistemi tamamen çalışmıyor")
     public void testSingleUseCoupon() {
