@@ -16,6 +16,7 @@
             <class name="Tests.US_05.TC_10"></class>
             <class name="Tests.US_05.TC_11"></class>
             <class name="Tests.US_05.TC_12"></class>
+            <class name="Tests.US_05.TC_13"></class>
             <class name="Tests.US_05.TC_14"></class>
         </classes>
     </test>
